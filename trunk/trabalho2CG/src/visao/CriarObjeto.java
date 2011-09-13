@@ -10,6 +10,7 @@
  */
 package visao;
 
+import controle.ControlaTudo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -142,18 +143,104 @@ public class CriarObjeto extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
             }
-            Objeto o=new Objeto();
+            Objeto o = new Objeto();
             Face f1 = new Face();
             Face f2 = new Face();
-            for(int i=1;i<pontos.size();i++){
+
+            for (int i = 1; i < pontos.size(); i++) { //Cria uma face com o desenho
                 Aresta a = new Aresta();
-                a.setV1(pontos.get(i-1));
+                a.setV1(pontos.get(i - 1));
                 a.setV2(pontos.get(i));
                 
+                //face lateral
+                    Face f3= new Face();
+                    Aresta b = new Aresta();
+                    b.setV2(pontos.get(i - 1));
+                    b.setV1(pontos.get(i));
+                    f3.addAresta(b);
+                    
+                    b.setV1(pontos.get(i - 1));
+                    b.getV2().setZ(z);
+                    f3.addAresta(b);
+                    
+                    b.setV1(b.getV2());
+                    b.setV2(pontos.get(i));
+                    b.getV2().setZ(z);
+                    f3.addAresta(b);
+                    
+                    b.setV1(b.getV2());
+                    b.setV1(pontos.get(i));
+                    
+                    o.addFace(f3);
+                    
+                //
                 
+                if (!f1.addAresta(a)) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro!");
+                    break;
+                }
+            }
+            Aresta a = new Aresta();
+            a.setV1(pontos.get(pontos.size() - 1));
+            a.setV2(pontos.get(0));
+            if (!f1.addAresta(a)) {
+                JOptionPane.showMessageDialog(rootPane, "Erro!");
+            }
+            //face lateral
+                    Face f3= new Face();
+                    Aresta b = new Aresta();
+                    b.setV2(pontos.get(pontos.size() - 1));
+                    b.setV1(pontos.get(0));
+                    f3.addAresta(b);
+                    
+                    b.setV1(pontos.get(pontos.size() - 1));
+                    b.getV2().setZ(z);
+                    f3.addAresta(b);
+                    
+                    b.setV1(b.getV2());
+                    b.setV2(pontos.get(0));
+                    b.getV2().setZ(z);
+                    f3.addAresta(b);
+                    
+                    b.setV1(b.getV2());
+                    b.setV1(pontos.get(0));
+                    
+                    o.addFace(f3);
+                    
+                //
+
+            //cria a face de baixo do objeto
+            for (int i = pontos.size() - 1; i > 0; i--) {
+                a = new Aresta();
+                a.setV1(pontos.get(i));
+                a.setV2(pontos.get(i - 1));
+                a.getV1().setZ(z);
+                a.getV2().setZ(z);
+                if (!f2.addAresta(a)) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro!");
+                    break;
+                }
+            }
+            a = new Aresta();
+            a.setV1(pontos.get(0));
+            a.setV2(pontos.get(pontos.size() - 1));
+            a.getV1().setZ(z);
+            a.getV2().setZ(z);
+            if (!f2.addAresta(a)) {
+                JOptionPane.showMessageDialog(rootPane, "Erro!");
+            }
+            if(!o.addFace(f1)) {
+                JOptionPane.showMessageDialog(rootPane, "Erro!");
+            }
+            if(!o.addFace(f2)) {
+                JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
             
+            ControlaTudo.addObj(o);
             
+            
+            dispose();
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

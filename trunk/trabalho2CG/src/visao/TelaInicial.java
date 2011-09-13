@@ -94,7 +94,6 @@ public class TelaInicial extends javax.swing.JFrame {
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     CriarObjeto vai = new CriarObjeto();
     vai.setVisible(true);
-    this.setFocusable(false);
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
