@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package controle;
+package modelo;
 
+import java.util.List;
 
 /**
  *
- * @author Heitor
+ * @author TyTu
  */
-
-public class ControlaTudo {
-
+public class Cena {
+    private List<Objeto> objetos;
+    
 }
-
