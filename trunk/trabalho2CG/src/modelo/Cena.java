@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,5 +13,31 @@ import java.util.List;
  */
 public class Cena {
     private List<Objeto> objetos;
+    
+    public Cena() {
+        objetos = new ArrayList<Objeto>();
+    }
+    
+    public void addObj (Objeto obj){
+        this.objetos.add(obj);
+    }
+    
+    public List<Objeto> getListObj(){
+        return this.objetos;
+    }
+    
+    public boolean containsObj(Objeto obj){
+        return this.objetos.contains(obj);
+    }
+    
+    public int getIndexObj(Objeto obj){
+        for(int i = 0 ; i<this.objetos.size() ; i++){
+            if (this.objetos.get(i).equals(obj))
+                return i;
+        }
+        return -1;
+    }
+
+    
     
 }
