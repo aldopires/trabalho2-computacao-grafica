@@ -18,6 +18,10 @@ public class Objeto {
     public Objeto() {
         faces =  new ArrayList<Face>();
     }
+
+    public List<Face> getFaces() {
+        return faces;
+    }
     
     public boolean addFace(Face f){
         try{
@@ -72,10 +76,12 @@ public class Objeto {
     public int getSize(){
         return this.faces.size();
     }
-    
-    public List<Face> getFaces(){
-        return this.faces;
+
+    void setCentro(Vertice vertice) {
+        centro=vertice;
     }
+    
+   
 
     
     
