@@ -4,7 +4,7 @@
  */
 package trabalho2cg;
 
-import modelo.Coordenada;
+import modelo.Vertice;
 import visao.Tela;
 
 /**

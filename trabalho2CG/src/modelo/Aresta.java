@@ -4,13 +4,13 @@
  */
 package modelo;
 
-import java.util.List;
-
 /**
  *
  * @author TyTu
  */
-public class Objeto {
-    private List<Face> faces;
+public class Aresta {
+    
+    private Vertice v1= new Vertice();
+    private Vertice v2= new Vertice();
     
 }

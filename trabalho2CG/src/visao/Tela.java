@@ -143,7 +143,6 @@ private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GE
     ControlaTudo obj = new ControlaTudo();
     int grid = Integer.parseInt(jTextField1.getText());
     
-    obj.chamaDesenha(listaDePontos,grid, jrbX.isEnabled());
     
     
     
