@@ -171,6 +171,7 @@ public class CriarObjeto extends javax.swing.JFrame {
                     
                     b = new Aresta();
                     b.setV1(pontos.get(i - 1));
+                    b.getV1().setZ(z);
                     b.setV2(pontos.get(i));
                     b.getV2().setZ(z);
                     f3.addAresta(b);
