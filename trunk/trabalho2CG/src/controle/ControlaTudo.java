@@ -4,6 +4,9 @@
  */
 package controle;
 
+import modelo.Cena;
+import modelo.Objeto;
+
 
 /**
  *
@@ -11,6 +14,10 @@ package controle;
  */
 
 public class ControlaTudo {
+    private static Cena cena;
+    public void addObj(Objeto obj){
+        cena.addObj(obj);
+    }
 
 }
 
