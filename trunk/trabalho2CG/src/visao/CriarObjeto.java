@@ -122,6 +122,7 @@ public class CriarObjeto extends javax.swing.JFrame {
         if (!pontos.isEmpty()) {
             jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
         }
+        System.out.println("Criar Objeto - ADD Ponto");
         pontos.add(new Vertice(evt.getX(), evt.getY(), 0));
 
     }//GEN-LAST:event_jPanel1MouseClicked
@@ -137,6 +138,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             for (;;) {
                 try {
                     z = Integer.parseInt(JOptionPane.showInputDialog("Variação em Z"));
+                    System.out.println("Criar Objeto - Variação em Z= "+z);
                     break;
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, "Valor digitado incorreto!");
@@ -172,6 +174,7 @@ public class CriarObjeto extends javax.swing.JFrame {
                     b.setV1(pontos.get(i));
                     
                     o.addFace(f3);
+                    System.out.println("Criar Objeto - ADD Face");
                     
                 //
                 
@@ -206,6 +209,7 @@ public class CriarObjeto extends javax.swing.JFrame {
                     b.setV1(pontos.get(0));
                     
                     o.addFace(f3);
+                    System.out.println("Criar Objeto - ADD Face");
                     
                 //
 
@@ -232,14 +236,22 @@ public class CriarObjeto extends javax.swing.JFrame {
             if(!o.addFace(f1)) {
                 JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
+            System.out.println("Criar Objeto - ADD Face");
             if(!o.addFace(f2)) {
                 JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
+            System.out.println("Criar Objeto - ADD Face");
             
-            ControlaTudo.addObj(o);
+            try{
+                ControlaTudo.addObj(o);
+                JOptionPane.showMessageDialog(rootPane, "Objeto criado!");
+                dispose();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(rootPane, "Erro!");
+            }
             
             
-            dispose();
+            
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
