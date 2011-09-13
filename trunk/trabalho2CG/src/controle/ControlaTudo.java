@@ -44,7 +44,7 @@ public class ControlaTudo {
         MatrizTransformacaoGeometrica A = new MatrizTransformacaoGeometrica();
         Vertice aux;
         for(int i=0;i<cena.getListObj().size();i++){
-            A.rotacaoEixoX(cena.getListObj().get(i), 90);
+            A.rotacaoEixoZ(cena.getListObj().get(i), 45);
             
         }
     }
@@ -64,11 +64,12 @@ public class ControlaTudo {
             }
         }
         PainelTeste Painel = new PainelTeste(lista);
+        Painel.setSize(400, 300);
         JFrame janela = new JFrame();
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setLocation(300, 0);
         janela.add(Painel);
-        janela.setSize(400, 300);
+        janela.setSize(450, 350);
         janela.setVisible(true);
         
     }

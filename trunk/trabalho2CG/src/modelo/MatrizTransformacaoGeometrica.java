@@ -75,8 +75,8 @@ public class MatrizTransformacaoGeometrica {
         Vertice centro= new Vertice(obj.getCentro());
         // tranladar o centro do objeto para a origem
         
-        translacao(obj, centro);
-        obj.setCentro(new Vertice(0,0,0));
+        obj.setCentro(new Vertice(obj.getCentro().getX()*-1, obj.getCentro().getY()*-1,obj.getCentro().getZ()*-1));
+        translacao(obj, obj.getCentro());
         
         // aplicar rotaçao
         for(int i=0;i<obj.getFaces().size();i++){
@@ -99,6 +99,7 @@ public class MatrizTransformacaoGeometrica {
                 obj.getFaces().get(i).getArestas().get(n).setV2(aux);
             }
         }
+        translacao(obj,centro);
     }
     
     public void rotacaoEixoZ(Objeto obj, double angulo){
@@ -106,8 +107,8 @@ public class MatrizTransformacaoGeometrica {
         Vertice centro= new Vertice(obj.getCentro());
         // tranladar o centro do objeto para a origem
         
-        translacao(obj, centro);
-        obj.setCentro(new Vertice(0,0,0));
+        obj.setCentro(new Vertice(obj.getCentro().getX()*-1, obj.getCentro().getY()*-1,obj.getCentro().getZ()*-1));
+        translacao(obj, obj.getCentro());
         
         // aplicar rotaçao
         for(int i=0;i<obj.getFaces().size();i++){
@@ -130,6 +131,6 @@ public class MatrizTransformacaoGeometrica {
                 obj.getFaces().get(i).getArestas().get(n).setV2(aux);
             }
         }
-       
+       translacao(obj,centro);
     }
 }
