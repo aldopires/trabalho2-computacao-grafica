@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,15 @@ import java.util.List;
  */
 class Face {
     
-    private List<Aresta> arestas;
+    private List<Aresta> arestas= new ArrayList<Aresta>();
+    
+    public boolean addAresta(Aresta f){
+        try{
+            arestas.add(f);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     
 }
