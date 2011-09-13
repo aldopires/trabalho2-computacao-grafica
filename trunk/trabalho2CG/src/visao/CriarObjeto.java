@@ -156,25 +156,32 @@ public class CriarObjeto extends javax.swing.JFrame {
                 
                 //face lateral
                     Face f3= new Face();
-                    Aresta b = new Aresta();
-                    b.setV2(pontos.get(i - 1));
+                    Aresta b = new Aresta();                    
                     b.setV1(pontos.get(i));
+                    b.setV2(pontos.get(i - 1));
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
                     b.setV1(pontos.get(i - 1));
+                    b.setV2(pontos.get(i - 1));
                     b.getV2().setZ(z);
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
-                    b.setV1(b.getV2());
+                    b.setV1(pontos.get(i - 1));
                     b.setV2(pontos.get(i));
                     b.getV2().setZ(z);
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
-                    b.setV1(b.getV2());
                     b.setV1(pontos.get(i));
+                    b.setV2(pontos.get(i));
+                    b.getV1().setZ(z);
+                    f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     o.addFace(f3);
                     System.out.println("Criar Objeto - ADD Face");
@@ -186,33 +193,43 @@ public class CriarObjeto extends javax.swing.JFrame {
                     break;
                 }
             }
+            
             Aresta a = new Aresta();
             a.setV1(pontos.get(pontos.size() - 1));
             a.setV2(pontos.get(0));
             if (!f1.addAresta(a)) {
                 JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
+            System.out.println("Criar Objeto - ADD Aresta");
             //face lateral
                     Face f3= new Face();
                     Aresta b = new Aresta();
-                    b.setV2(pontos.get(pontos.size() - 1));
                     b.setV1(pontos.get(0));
+                    b.setV2(pontos.get(pontos.size() - 1));
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
                     b.setV1(pontos.get(pontos.size() - 1));
+                    b.setV2(pontos.get(pontos.size() - 1));
                     b.getV2().setZ(z);
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
-                    b.setV1(b.getV2());
+                    b.setV1(pontos.get(pontos.size() - 1));
+                    b.getV1().setZ(z);
                     b.setV2(pontos.get(0));
                     b.getV2().setZ(z);
                     f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     b = new Aresta();
-                    b.setV1(b.getV2());
                     b.setV1(pontos.get(0));
+                    b.getV1().setZ(z);
+                    b.setV1(pontos.get(0));
+                    f3.addAresta(b);
+                    System.out.println("Criar Objeto - ADD Aresta");
                     
                     o.addFace(f3);
                     System.out.println("Criar Objeto - ADD Face");
@@ -230,6 +247,7 @@ public class CriarObjeto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Erro!");
                     break;
                 }
+                System.out.println("Criar Objeto - ADD Aresta");
             }
             a = new Aresta();
             a.setV1(pontos.get(0));
@@ -239,6 +257,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             if (!f2.addAresta(a)) {
                 JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
+            System.out.println("Criar Objeto - ADD Aresta");
             if(!o.addFace(f1)) {
                 JOptionPane.showMessageDialog(rootPane, "Erro!");
             }
