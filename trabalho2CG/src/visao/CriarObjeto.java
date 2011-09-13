@@ -13,6 +13,8 @@ package visao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.Aresta;
+import modelo.Face;
 import modelo.Objeto;
 import modelo.Vertice;
 
@@ -73,6 +75,11 @@ public class CriarObjeto extends javax.swing.JFrame {
         });
 
         jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,11 +140,24 @@ public class CriarObjeto extends javax.swing.JFrame {
                 }
             }
             Objeto o=new Objeto();
-            
+            Face f1 = new Face();
+            Face f2 = new Face();
+            for(int i=1;i<pontos.size();i++){
+                Aresta a = new Aresta();
+                a.setV1(pontos.get(i-1));
+                a.setV2(pontos.get(i));
+                
+                
+            }
             
             
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
