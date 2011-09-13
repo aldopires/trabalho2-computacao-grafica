@@ -32,5 +32,8 @@ public class Face {
         return this.arestas;
     }
     
+    public int getSize(){
+        return this.arestas.size();
+    }
     
 }

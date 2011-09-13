@@ -37,6 +37,10 @@ public class Cena {
         }
         return -1;
     }
+    
+    public int getSize(){
+        return this.objetos.size();
+    }
 
     
     
