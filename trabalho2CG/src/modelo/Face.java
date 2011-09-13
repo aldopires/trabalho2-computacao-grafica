@@ -15,6 +15,10 @@ public class Face {
     
     private List<Aresta> arestas= new ArrayList<Aresta>();
     
+    public Face(){
+        arestas = new ArrayList<Aresta>();
+    }
+    
     public boolean addAresta(Aresta f){
         try{
             arestas.add(f);
@@ -23,5 +27,10 @@ public class Face {
             return false;
         }
     }
+    
+    public List<Aresta> getArestas(){
+        return this.arestas;
+    }
+    
     
 }

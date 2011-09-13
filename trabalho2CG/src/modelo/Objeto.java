@@ -12,9 +12,10 @@ import java.util.List;
  * @author TyTu
  */
 public class Objeto {
-    private List<Face> faces =  new ArrayList<Face>();
+    private List<Face> faces;
 
     public Objeto() {
+        faces =  new ArrayList<Face>();
     }
     
     public boolean addFace(Face f){
