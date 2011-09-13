@@ -10,7 +10,10 @@
  */
 package visao;
 
+import controle.ControlaTudo;
+import java.awt.Graphics;
 import javax.swing.JPanel;
+import modelo.Cena;
 
 /**
  *
@@ -145,4 +148,27 @@ private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        //redesenhaTudo();
+    }
+
+    public void redesenhaTudo() {
+        Cena aux = new Cena();
+        aux = ControlaTudo.getCena();
+//        for (int i = 0; i < aux.getSize(); i++) {
+//            for (int j = 0; j < aux.getListObj().get(i).getSize(); j++) {
+//                for (int k = 0; j < aux.getListObj().get(i).getFaces().get(j).getSize(); j++) {
+//                    g.drawLine((int) aux.getListObj().get(i).getFaces().get(j).getArestas().get(i).getV1().getX(),
+//                            (int) aux.getListObj().get(i).getFaces().get(j).getArestas().get(i).getV1().getY(),
+//                            (int) aux.getListObj().get(i).getFaces().get(j).getArestas().get(i - 1).getV2().getX(),
+//                            (int) aux.getListObj().get(i).getFaces().get(j).getArestas().get(i - 1).getV2().getY());
+//                }
+//            }
+//        }
+    }
+
 }

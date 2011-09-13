@@ -16,9 +16,14 @@ import modelo.Objeto;
 public class ControlaTudo {
     
     private static Cena cena= new Cena();
+   
     public static void addObj(Objeto obj){
         cena.addObj(obj);
     }
-
+    
+    public static Cena getCena(){
+        return cena;
+    }
+    
 }
 

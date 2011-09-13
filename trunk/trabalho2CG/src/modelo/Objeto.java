@@ -26,5 +26,13 @@ public class Objeto {
             return false;
         }
     }
+    public int getSize(){
+        return this.faces.size();
+    }
+    
+    public List<Face> getFaces(){
+        return this.faces;
+    }
+    
     
 }
