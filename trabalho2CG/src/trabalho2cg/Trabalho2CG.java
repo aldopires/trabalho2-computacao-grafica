@@ -4,8 +4,8 @@
  */
 package trabalho2cg;
 
-import modelo.Vertice;
-import visao.Tela;
+import visao.TelaInicial;
+
 
 /**
  *
@@ -19,7 +19,7 @@ public class Trabalho2CG {
     public static void main(String[] args) {
         //Coordenada tica = new Coordenada(2, 3, 4);
         //System.out.println(tica.toString());
-        Tela vai = new Tela();
+        TelaInicial vai = new TelaInicial();
         vai.setVisible(true);
         
     }
