@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,18 @@ import java.util.List;
  * @author TyTu
  */
 public class Objeto {
-    private List<Face> faces;
+    private List<Face> faces =  new ArrayList<Face>();
+
+    public Objeto() {
+    }
+    
+    public boolean addFace(Face f){
+        try{
+            faces.add(f);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     
 }
