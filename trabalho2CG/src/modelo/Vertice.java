@@ -19,6 +19,12 @@ public class Vertice {
 
     public Vertice() {
     }
+    
+    public Vertice(Vertice v) {
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+    }
 
     public float getX() {
         return x;
