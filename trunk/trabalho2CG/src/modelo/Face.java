@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author TyTu
  */
-class Face {
+public class Face {
     
     private List<Aresta> arestas= new ArrayList<Aresta>();
     
