@@ -17,7 +17,7 @@ public class PainelTeste extends JPanel {
     ArrayList<Vertice> lista;
     
     public PainelTeste(ArrayList<Vertice> l){
-        lista=l;
+        lista=l;  
     }
     
     public void paintComponent( Graphics g ){
