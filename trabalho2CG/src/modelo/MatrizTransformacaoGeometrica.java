@@ -105,6 +105,7 @@ public class MatrizTransformacaoGeometrica {
     public void rotacaoEixoZ(Objeto obj, double angulo){
         
         Vertice centro= new Vertice(obj.getCentro());
+        System.out.println("centro: "+centro.toString());
         // tranladar o centro do objeto para a origem
         
         obj.setCentro(new Vertice(obj.getCentro().getX()*-1, obj.getCentro().getY()*-1,obj.getCentro().getZ()*-1));
@@ -118,14 +119,14 @@ public class MatrizTransformacaoGeometrica {
                 aux=new Vertice();
                 // calculando para o primeiro vertice
                 ponto=obj.getFaces().get(i).getArestas().get(n).getV1();
-                aux.setX((float)((ponto.getX()* Math.cos(Math.toRadians(angulo)))+(ponto.getY() * -Math.sin(Math.toRadians(angulo)))));
+                aux.setX((float)((ponto.getX()* Math.cos(Math.toRadians(angulo)))+(ponto.getY() * (-1*Math.sin(Math.toRadians(angulo))))));
                 aux.setY((float)((ponto.getX()* Math.sin(Math.toRadians(angulo)))+(ponto.getY() * Math.cos(Math.toRadians(angulo)))));
                 aux.setZ(ponto.getZ());
                 obj.getFaces().get(i).getArestas().get(n).setV1(aux);
                 // calculando para o segundo vertice
                 aux=new Vertice();
                 ponto=obj.getFaces().get(i).getArestas().get(n).getV2();
-                aux.setX((float)((ponto.getX()* Math.cos(Math.toRadians(angulo)))+(ponto.getY() * -Math.sin(Math.toRadians(angulo)))));
+                aux.setX((float)((ponto.getX()* Math.cos(Math.toRadians(angulo)))+(ponto.getY() * (-1*Math.sin(Math.toRadians(angulo))))));
                 aux.setY((float)((ponto.getX()* Math.sin(Math.toRadians(angulo)))+(ponto.getY() * Math.cos(Math.toRadians(angulo)))));
                 aux.setZ(ponto.getZ());
                 obj.getFaces().get(i).getArestas().get(n).setV2(aux);

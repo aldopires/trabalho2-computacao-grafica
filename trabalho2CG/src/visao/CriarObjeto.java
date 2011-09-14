@@ -28,6 +28,7 @@ public class CriarObjeto extends javax.swing.JFrame {
     /** Creates new form CriarObjeto */
     public CriarObjeto() {
         initComponents();
+        jPanel1.setSize(400, 300);
     }
     private List<Vertice> pontos = new ArrayList<Vertice>();
 
@@ -71,6 +72,11 @@ public class CriarObjeto extends javax.swing.JFrame {
 
         jButton1.setText("Rotação");
         jButton1.setAutoscrolls(true);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Extrusão");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -271,6 +277,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             System.out.println("Criar Objeto - ADD Face");
             
             try{
+                o.calculaCentro();
                 ControlaTudo.addObj(o);
                 JOptionPane.showMessageDialog(rootPane, "Objeto criado!");
                 //dispose();
@@ -288,6 +295,11 @@ public class CriarObjeto extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+// TODO add your handling code here:
+    
+}//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

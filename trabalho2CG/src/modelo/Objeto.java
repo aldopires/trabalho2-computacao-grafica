@@ -17,6 +17,7 @@ public class Objeto {
 
     public Objeto() {
         faces =  new ArrayList<Face>();
+        centro= new Vertice(0, 0, 0);
     }
 
     public List<Face> getFaces() {
@@ -26,7 +27,6 @@ public class Objeto {
     public boolean addFace(Face f){
         try{
             faces.add(f);
-            atualizaCentro();
             return true;
         }catch(Exception e){
             return false;
@@ -39,7 +39,7 @@ public class Objeto {
     
     
     
-    public void atualizaCentro(){
+    public void calculaCentro(){
         float minx=9999,maxx=-9999,miny=9999,maxy=-9999,minz=9999,maxz=-9999;
         for(int i=0;i<faces.size();i++){
             for(int j=0;j<faces.get(i).getArestas().size();j++){
@@ -47,11 +47,11 @@ public class Objeto {
                     minx=faces.get(i).getArestas().get(j).getV1().getX();
                 if(minx>faces.get(i).getArestas().get(j).getV2().getX())
                     minx=faces.get(i).getArestas().get(j).getV2().getX();
-                if(miny>faces.get(i).getArestas().get(j).getV2().getY())
+                if(miny>faces.get(i).getArestas().get(j).getV1().getY())
                     miny=faces.get(i).getArestas().get(j).getV1().getY();
                 if(miny>faces.get(i).getArestas().get(j).getV2().getY())
                     miny=faces.get(i).getArestas().get(j).getV2().getY();
-                if(minz>faces.get(i).getArestas().get(j).getV2().getZ())
+                if(minz>faces.get(i).getArestas().get(j).getV1().getZ())
                     minz=faces.get(i).getArestas().get(j).getV1().getZ();
                 if(minz>faces.get(i).getArestas().get(j).getV2().getZ())
                     minz=faces.get(i).getArestas().get(j).getV2().getZ();
@@ -59,17 +59,17 @@ public class Objeto {
                     maxx=faces.get(i).getArestas().get(j).getV1().getX();
                 if(maxx<faces.get(i).getArestas().get(j).getV2().getX())
                     maxx=faces.get(i).getArestas().get(j).getV2().getX();
-                if(maxy<faces.get(i).getArestas().get(j).getV2().getY())
+                if(maxy<faces.get(i).getArestas().get(j).getV1().getY())
                     maxy=faces.get(i).getArestas().get(j).getV1().getY();
                 if(maxy<faces.get(i).getArestas().get(j).getV2().getY())
                     maxy=faces.get(i).getArestas().get(j).getV2().getY();
-                if(maxz<faces.get(i).getArestas().get(j).getV2().getZ())
+                if(maxz<faces.get(i).getArestas().get(j).getV1().getZ())
                     maxz=faces.get(i).getArestas().get(j).getV1().getZ();
                 if(maxz<faces.get(i).getArestas().get(j).getV2().getZ())
                     maxz=faces.get(i).getArestas().get(j).getV2().getZ();
             }
         }
-        Vertice v = new Vertice((maxx-minx)/2, (maxy-miny)/2, (maxz-minz)/2);
+        Vertice v = new Vertice((maxx+minx)/2, (maxy+miny)/2, (maxz+minz)/2);
         centro=v;
     }
 
