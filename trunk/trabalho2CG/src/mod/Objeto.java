@@ -171,7 +171,9 @@ public class Objeto {
 
     public boolean addface(Face e) {
         for (int i = 0; i < e.getArestas().size(); i++) {
-            pontos.add(e.getArestas().get(i).getV1());
+            
+                pontos.add(e.getArestas().get(i).getV1());
+                          
             arestas.add(e.getArestas().get(i));
         }
         return faces.add(e);
@@ -369,6 +371,7 @@ public class Objeto {
         translacao(tranaladarOrigem);
         calculaCentro();
     }
+    
 
     public Ponto rotacionarPontoEixoY(Ponto ponto, double angulo) {
         Ponto aux = new Ponto();
@@ -379,9 +382,21 @@ public class Objeto {
         return aux;
     }
 
+    @Override
+    public Objeto clone(){
+        Objeto aux = new Objeto();
+        int tam=this.faces.size();
+        for(int i=0;i<tam;i++){
+            aux.addface(this.getface(i).clone());
+        }
+        return aux;
+    }
+    
     public void revolucao(int grid) {
         double angulo = 360 / grid;
+        Objeto aux = this.clone();
         for (int i = 1; i < grid; i++) {
+            
         }
 
     }
