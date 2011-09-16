@@ -17,8 +17,6 @@ public class Face {
         arestas= new ArrayList<Aresta>();
     }
     
-    
-
     public ArrayList<Aresta> getArestas() {
         return arestas;
     }

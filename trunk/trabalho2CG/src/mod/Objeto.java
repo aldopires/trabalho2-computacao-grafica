@@ -404,4 +404,13 @@ public class Objeto {
         translacao(tranaladarOrigem);
         calculaCentro();
     }
+    
+    public Ponto rotacionarPontoEixoY(Ponto ponto, double angulo){
+        Ponto aux = new Ponto();
+        aux.setX((float)((ponto.getX()* Math.cos(Math.toRadians(angulo)))+(ponto.getZ() * Math.sin(Math.toRadians(angulo)))));
+        aux.setY(ponto.getY());
+        aux.setZ((float)((ponto.getX()* -Math.sin(Math.toRadians(angulo)))+(ponto.getZ() * Math.cos(Math.toRadians(angulo)))));
+        
+        return aux;
+    }
 }
