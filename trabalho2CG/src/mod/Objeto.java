@@ -381,6 +381,24 @@ public class Objeto {
         translacao(tranaladarOrigem);
         calculaCentro();
     }
+    
+        public void rotacionarEixoYs(double angulo) {
+        Ponto aux = new Ponto();
+        
+
+        for (int i = 0; i < pontos.size(); i++) {
+            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
+            aux.setY(pontos.get(i).getY());
+            aux.setZ((float)((pontos.get(i).getX()* -Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+            
+            pontos.get(i).setX(aux.getX());
+            pontos.get(i).setY(aux.getY());
+            pontos.get(i).setZ(aux.getZ());
+        }
+
+        
+        calculaCentro();
+    }
 
     public void rotacionarEixoZ(double angulo) {
         Ponto aux = new Ponto();
@@ -432,8 +450,10 @@ public class Objeto {
         double angulo = 360 / grid;
         Objeto aux1 = this.clone();
         Objeto aux2 = this;
+        Ponto c = centro.clone();
+        c.setX(this.maxx());
         for (int i = 1; i < grid; i++) {
-            aux1.rotacionarEixoY(angulo);
+            aux1.rotacionarEixoYs(angulo);
             for(int j=0;j<aux1.arestas.size();j++){
                 Face f= new Face();
                 Aresta a1=new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() );
@@ -457,7 +477,8 @@ public class Objeto {
                 f.add(this.arestas.get(j));
                 f.add(aux2.arestas.get(j));
                 this.addface(f);
-            }
+         }
+        this.translacao(c);
         System.out.println(this.faces.size());
         System.out.println(this.arestas.size());
     }
@@ -525,5 +546,14 @@ public class Objeto {
         }
         s = s + "\n\n\n\n";
         return s;
+    }
+
+    private float maxx() {
+       float x=-9999999;
+        for (int i = 0; i < pontos.size(); i++) {
+            if(x<pontos.get(i).getX())
+                x=pontos.get(i).getX();
+        }
+        return x;
     }
 }
