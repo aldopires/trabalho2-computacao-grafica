@@ -16,6 +16,7 @@ public class Objeto {
     private ArrayList<Ponto> pontos;
     private ArrayList<Aresta> arestas;
     private ArrayList<Face> faces;
+    private Ponto centro;
 
     public Objeto(ArrayList<Ponto> pontos, ArrayList<Aresta> arestas, ArrayList<Face> faces) {
         this.pontos = pontos;
@@ -28,6 +29,14 @@ public class Objeto {
         arestas = new ArrayList<Aresta>();
         faces = new ArrayList<Face>();
                
+    }
+
+    public Ponto getCentro() {
+        return centro;
+    }
+
+    public void setCentro(Ponto centro) {
+        this.centro = centro;
     }
     
     public void revolucao(float z){
@@ -230,7 +239,126 @@ public class Objeto {
 
     
     
+    public void escala(float escala){
+        for(int i=0;i<pontos.size();i++){
+            pontos.get(i).setX(pontos.get(i).getX() *escala);
+            pontos.get(i).setY(pontos.get(i).getY() *escala);
+            pontos.get(i).setZ(pontos.get(i).getZ() *escala);
+        }
+    }
     
+    public void translacao(Ponto translacao){
+        
+        for(int i=0;i<pontos.size();i++){
+            pontos.get(i).setX(pontos.get(i).getX() *translacao.getX());
+            pontos.get(i).setY(pontos.get(i).getY() *translacao.getY());
+            pontos.get(i).setZ(pontos.get(i).getZ() *translacao.getZ());
+        }
+    }
     
+    public void calculaCentro(){
+        float minx=9999,maxx=-9999,miny=9999,maxy=-9999,minz=9999,maxz=-9999;
+        for(int i=0;i<faces.size();i++){
+            for(int j=0;j<faces.get(i).getArestas().size();j++){
+                if(minx>faces.get(i).getArestas().get(j).getV1().getX())                    
+                    minx=faces.get(i).getArestas().get(j).getV1().getX();
+                if(minx>faces.get(i).getArestas().get(j).getV2().getX())
+                    minx=faces.get(i).getArestas().get(j).getV2().getX();
+                if(miny>faces.get(i).getArestas().get(j).getV1().getY())
+                    miny=faces.get(i).getArestas().get(j).getV1().getY();
+                if(miny>faces.get(i).getArestas().get(j).getV2().getY())
+                    miny=faces.get(i).getArestas().get(j).getV2().getY();
+                if(minz>faces.get(i).getArestas().get(j).getV1().getZ())
+                    minz=faces.get(i).getArestas().get(j).getV1().getZ();
+                if(minz>faces.get(i).getArestas().get(j).getV2().getZ())
+                    minz=faces.get(i).getArestas().get(j).getV2().getZ();
+                if(maxx<faces.get(i).getArestas().get(j).getV1().getX())                    
+                    maxx=faces.get(i).getArestas().get(j).getV1().getX();
+                if(maxx<faces.get(i).getArestas().get(j).getV2().getX())
+                    maxx=faces.get(i).getArestas().get(j).getV2().getX();
+                if(maxy<faces.get(i).getArestas().get(j).getV1().getY())
+                    maxy=faces.get(i).getArestas().get(j).getV1().getY();
+                if(maxy<faces.get(i).getArestas().get(j).getV2().getY())
+                    maxy=faces.get(i).getArestas().get(j).getV2().getY();
+                if(maxz<faces.get(i).getArestas().get(j).getV1().getZ())
+                    maxz=faces.get(i).getArestas().get(j).getV1().getZ();
+                if(maxz<faces.get(i).getArestas().get(j).getV2().getZ())
+                    maxz=faces.get(i).getArestas().get(j).getV2().getZ();
+            }
+        }
+        Ponto v = new Ponto ((maxx+minx)/2, (maxy+miny)/2, (maxz+minz)/2);
+        setCentro(v);
+    }
     
+    public void rotacionarEixoX(double angulo){
+        Ponto aux = new Ponto();
+        Ponto tranaladarOrigem = new Ponto(getCentro().getX()*-1, getCentro().getY()*-1,  getCentro().getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        
+        for(int i=0;i<pontos.size();i++){
+            aux.setX(pontos.get(i).getX());
+            aux.setY((float)((pontos.get(i).getY()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * -Math.sin(Math.toRadians(angulo)))));
+            aux.setZ((float)((pontos.get(i).getY()* Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+            
+            pontos.get(i).setX(aux.getX());
+            pontos.get(i).setY(aux.getY());
+            pontos.get(i).setZ(aux.getZ());
+        }
+        
+        tranaladarOrigem.setX(tranaladarOrigem.getX()*-1);
+        tranaladarOrigem.setY(tranaladarOrigem.getY()*-1);
+        tranaladarOrigem.setZ(tranaladarOrigem.getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        calculaCentro();
+    }
+    
+    public void rotacionarEixoY(double angulo){
+        Ponto aux = new Ponto();
+        Ponto tranaladarOrigem = new Ponto(getCentro().getX()*-1, getCentro().getY()*-1,  getCentro().getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        
+        for(int i=0;i<pontos.size();i++){
+            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
+            aux.setY(pontos.get(i).getY());
+            aux.setZ((float)((pontos.get(i).getX()* -Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+            
+            pontos.get(i).setX(aux.getX());
+            pontos.get(i).setY(aux.getY());
+            pontos.get(i).setZ(aux.getZ());
+        }
+        
+        tranaladarOrigem.setX(tranaladarOrigem.getX()*-1);
+        tranaladarOrigem.setY(tranaladarOrigem.getY()*-1);
+        tranaladarOrigem.setZ(tranaladarOrigem.getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        calculaCentro();
+    }
+    
+    public void rotacionarEixoZ(double angulo){
+        Ponto aux = new Ponto();
+        Ponto tranaladarOrigem = new Ponto(getCentro().getX()*-1, getCentro().getY()*-1,  getCentro().getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        
+        for(int i=0;i<pontos.size();i++){
+            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getY() * (-1*Math.sin(Math.toRadians(angulo))))));
+            aux.setY((float)((pontos.get(i).getX()* Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getY() * Math.cos(Math.toRadians(angulo)))));
+            aux.setZ(pontos.get(i).getZ());
+            
+            pontos.get(i).setX(aux.getX());
+            pontos.get(i).setY(aux.getY());
+            pontos.get(i).setZ(aux.getZ());
+        }
+        
+        tranaladarOrigem.setX(tranaladarOrigem.getX()*-1);
+        tranaladarOrigem.setY(tranaladarOrigem.getY()*-1);
+        tranaladarOrigem.setZ(tranaladarOrigem.getZ()*-1);
+        
+        translacao(tranaladarOrigem);
+        calculaCentro();
+    }
 }
