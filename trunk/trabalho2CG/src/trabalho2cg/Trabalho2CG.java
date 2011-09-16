@@ -67,8 +67,8 @@ public class Trabalho2CG {
         janela.setSize(500, 340);
         janela.setVisible(true);
         
-        
-        o.revolucao(10);
+        Thread.sleep(500);
+        o.revolucao(36);
         
         o.calculaCentro();
         
@@ -78,8 +78,8 @@ public class Trabalho2CG {
         ob=o.clone();
         ob.calculaCentro();
         ob.rotacionarEixoX(90);
-        ob.rotacionarEixoZ(90);
-        ob.escala((float) 0.5);
+        //ob.rotacionarEixoZ(90);
+        
         //ob.translacao(new Ponto(100,30,30));
         Thread.sleep(500);
         System.out.println(ob.exibirAresta());

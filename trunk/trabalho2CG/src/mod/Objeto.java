@@ -479,6 +479,7 @@ public class Objeto {
                 this.addface(f);
          }
         this.translacao(c);
+        this.escala((float) 0.5);
         System.out.println(this.faces.size());
         System.out.println(this.arestas.size());
     }
