@@ -80,7 +80,7 @@ public class Trabalho2CG {
         ob.rotacionarEixoX(90);
         ob.rotacionarEixoZ(90);
         ob.escala((float) 0.5);
-        ob.translacao(new Ponto(100,30,30));
+        //ob.translacao(new Ponto(100,30,30));
         Thread.sleep(500);
         System.out.println(ob.exibirAresta());
         System.out.println(ob.pontos());
