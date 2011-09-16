@@ -346,7 +346,7 @@ public class Objeto {
 
         tranaladarOrigem.setX(getCentro().getX());
         tranaladarOrigem.setY(getCentro().getY());
-        tranaladarOrigem.setZ(getCentro().getY());
+        tranaladarOrigem.setZ(getCentro().getZ());
 
         translacao(tranaladarOrigem);
         calculaCentro();
@@ -359,15 +359,18 @@ public class Objeto {
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
-            aux=this.rotacionarPontoEixoY(this.getponto(i), angulo);
-             
+            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
+            aux.setY(pontos.get(i).getY());
+            aux.setZ((float)((pontos.get(i).getX()* -Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
             
-            pontos.set(i,aux);
+            pontos.get(i).setX(aux.getX());
+            pontos.get(i).setY(aux.getY());
+            pontos.get(i).setZ(aux.getZ());
         }
 
-        tranaladarOrigem.setX(tranaladarOrigem.getX() * -1);
-        tranaladarOrigem.setY(tranaladarOrigem.getY() * -1);
-        tranaladarOrigem.setZ(tranaladarOrigem.getZ() * -1);
+        tranaladarOrigem.setX(getCentro().getX());
+        tranaladarOrigem.setY(getCentro().getY());
+        tranaladarOrigem.setZ(getCentro().getZ());
 
         translacao(tranaladarOrigem);
         calculaCentro();
