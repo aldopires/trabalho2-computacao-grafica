@@ -39,15 +39,45 @@ public class Objeto {
         this.centro = centro;
     }
     
-    public void revolucao(float z){
-        Objeto aux= new Objeto();
-        aux.setPontos( this.getPontos() );
-        aux.setArestas( this.getArestas() );
-        aux.setFaces ( this.getFaces() );
-        int tam = aux.sizeponto();
-        for (int i = 0; i<tam;i++){
+    public void extrusao(float z){
+        
+        
+            this.addface(faces.get(0).clone()); //clona as faces
+        
+        //for (int i=tam;i<this.faces.size();i++){//varre as faces clonadas
+            for(int j=0;j<this.faces.get(0).getArestas().size();j++){//varre as arestas clonadas
+                this.faces.get(0).getArestas().get(j).setZ(z); //set o z com o valor passado 
+                
+                
+                
+                //criar as novas arestas
+                Aresta a1 = new Aresta(this.faces.get(1).getArestas().get(j).getV1(), this.faces.get(0).getArestas().get(j).getV1());
+                Aresta a2 = new Aresta(this.faces.get(0).getArestas().get(j).getV2(), this.faces.get(1).getArestas().get(j).getV2() );
+               
+                
+                //criar nova face
+                Face f = new Face();
+                f.add(a1);
+                f.add(a2);
+                f.add(this.faces.get(0).getArestas().get(j));
+                f.add(this.faces.get(1).getArestas().get(j));
+                
+                faces.add(f);
+            }
             
+        //}
+        
+       
+        
+    }
+    
+    public String pontos(){
+        String s= new String();
+        for(int i=0;i<pontos.size();i++){
+            s=s+pontos.get(i).toString()+"\n";
         }
+        s=s+"\n\n\n\n";
+        return s;
         
     }
 
@@ -178,6 +208,10 @@ public class Objeto {
     }
 
     public boolean addface(Face e) {
+        for(int i=0;i<e.getArestas().size();i++){
+            pontos.add(e.getArestas().get(i).getV1());
+            arestas.add(e.getArestas().get(i));
+        }
         return faces.add(e);
     }
 
@@ -223,7 +257,8 @@ public class Objeto {
     public Object cloneponto() {
         return pontos.clone();
     }
-
+    
+  
     public void clearponto() {
         pontos.clear();
     }
@@ -236,6 +271,14 @@ public class Objeto {
     public boolean addponto(Ponto e) {
         return pontos.add(e);
     }
+
+    @Override
+    public String toString() {
+       
+        return super.toString();
+    }
+
+ 
 
     
     

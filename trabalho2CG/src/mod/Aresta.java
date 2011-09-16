@@ -8,7 +8,7 @@ package mod;
  *
  * @author TyTu
  */
-class Aresta {
+public class Aresta {
     private Ponto v1;
     private Ponto v2;
 
@@ -20,6 +20,11 @@ class Aresta {
     public Aresta() {
         v1 = new Ponto();
         v2 = new Ponto();
+    }
+    
+    @Override
+    public Aresta clone(){
+        return (new Aresta(v1.clone(), v2.clone()));
     }
     
     
@@ -38,6 +43,11 @@ class Aresta {
 
     public void setV2(Ponto v2) {
         this.v2 = v2;
+    }
+
+    void setZ(float z) {
+        v1.setZ(z);
+        v2.setZ(z);
     }
 
     

@@ -22,8 +22,18 @@ public class Ponto {
         this.y = 0;
         this.z = 0;
     }
+
+    @Override
+    public String toString() {
+        return "( "+x+" , "+ y+ " , "+z+" )";
+    }
     
     
+    
+    @Override
+    public Ponto clone(){
+        return (new Ponto(x, y, z));
+    }
 
     public float getX() {
         return x;
