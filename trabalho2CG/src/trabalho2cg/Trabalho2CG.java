@@ -23,11 +23,12 @@ import visao.TelaInicial;
  */
 public class Trabalho2CG {
     private static PainelTeste Painel;
+    private static PainelTeste Painel2;
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //Coordenada tica = new Coordenada(2, 3, 4);
         //System.out.println(tica.toString());
 
@@ -36,6 +37,7 @@ public class Trabalho2CG {
         //vai.setVisible(true);
         
         Objeto o = new Objeto();
+        Objeto ob = new Objeto();
         Ponto p1= new Ponto(100, 100, 0);
         Ponto p2= new Ponto(200, 100, 0);
         Ponto p3= new Ponto(200, 200, 0);
@@ -55,7 +57,9 @@ public class Trabalho2CG {
         System.out.println(o.pontos());
         
         o.extrusao(10);
-        System.out.println(o.pontos());
+        System.out.println(o.exibirAresta());
+        o.calculaCentro();
+        
 
         Painel = new PainelTeste(o);
         Painel.setSize(400, 300);
@@ -65,5 +69,21 @@ public class Trabalho2CG {
         janela.add(Painel);
         janela.setSize(500, 340);
         janela.setVisible(true);
+        
+        ob=o.clone();
+        ob.calculaCentro();
+        //ob.rotacionarEixoY(90);
+        ob.translacao(new Ponto(10,10,10));
+        Thread.sleep(500);
+        System.out.println(ob.exibirAresta());
+        System.out.println(ob.pontos());
+        Painel2 = new PainelTeste(ob);
+        Painel2.setSize(400, 300);
+        JFrame janela2 = new JFrame();
+        janela2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela2.setLocation(500, 0);
+        janela2.add(Painel2);
+        janela2.setSize(500, 340);
+        janela2.setVisible(true);
     }
 }

@@ -76,5 +76,10 @@ public class Aresta {
         v2.setZ(z);
     }
 
+    @Override
+    public String toString() {
+        return "Aresta{" + "v1=" + v1 + ", v2=" + v2 + '}';
+    }
+
     
 }

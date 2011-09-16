@@ -182,6 +182,10 @@ public class Objeto {
                 pontos.add(e.getArestas().get(i).getV1());
             else
                 e.getArestas().get(i).setV1(this.getponto(indexOfponto(e.getArestas().get(i).getV1())));
+            if(indexOfponto(e.getArestas().get(i).getV2())<0)
+                pontos.add(e.getArestas().get(i).getV2());
+            else
+                e.getArestas().get(i).setV2(this.getponto(indexOfponto(e.getArestas().get(i).getV2())));
             if(indexOfaresta(e.getArestas().get(i))<0)
                 arestas.add(e.getArestas().get(i));
             else{
@@ -267,9 +271,9 @@ public class Objeto {
     public void translacao(Ponto translacao) {
 
         for (int i = 0; i < pontos.size(); i++) {
-            pontos.get(i).setX(pontos.get(i).getX() * translacao.getX());
-            pontos.get(i).setY(pontos.get(i).getY() * translacao.getY());
-            pontos.get(i).setZ(pontos.get(i).getZ() * translacao.getZ());
+            pontos.get(i).setX(pontos.get(i).getX() + translacao.getX());
+            pontos.get(i).setY(pontos.get(i).getY() + translacao.getY());
+            pontos.get(i).setZ(pontos.get(i).getZ() + translacao.getZ());
         }
     }
 
@@ -335,9 +339,9 @@ public class Objeto {
             pontos.get(i).setZ(aux.getZ());
         }
 
-        tranaladarOrigem.setX(tranaladarOrigem.getX() * -1);
-        tranaladarOrigem.setY(tranaladarOrigem.getY() * -1);
-        tranaladarOrigem.setZ(tranaladarOrigem.getZ() * -1);
+        tranaladarOrigem.setX(getCentro().getX());
+        tranaladarOrigem.setY(getCentro().getY());
+        tranaladarOrigem.setZ(getCentro().getY());
 
         translacao(tranaladarOrigem);
         calculaCentro();
@@ -350,13 +354,10 @@ public class Objeto {
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
-            aux.setX((float) ((pontos.get(i).getX() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
-            aux.setY(pontos.get(i).getY());
-            aux.setZ((float) ((pontos.get(i).getX() * -Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
-
-            pontos.get(i).setX(aux.getX());
-            pontos.get(i).setY(aux.getY());
-            pontos.get(i).setZ(aux.getZ());
+            aux=this.rotacionarPontoEixoY(this.getponto(i), angulo);
+             
+            
+            pontos.set(i,aux);
         }
 
         tranaladarOrigem.setX(tranaladarOrigem.getX() * -1);
@@ -492,5 +493,14 @@ public class Objeto {
             pontos.add(a.getV1());
         }
 
+    }
+    
+    public String exibirAresta(){
+        String s = new String();
+        for (int i = 0; i < arestas.size(); i++) {
+            s = s + arestas.get(i).toString() + "\n";
+        }
+        s = s + "\n\n\n\n";
+        return s;
     }
 }
