@@ -48,6 +48,4 @@ public class Ponto {
     public void setZ(float z) {
         this.z = z;
     }
-    
-    
 }
