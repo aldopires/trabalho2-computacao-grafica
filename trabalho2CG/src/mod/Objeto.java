@@ -415,15 +415,29 @@ public class Objeto {
     
     public void revolucao(int grid) {
         double angulo = 360 / grid;
-        Objeto aux = this.clone();
+        Objeto aux1 = this.clone();
+        Objeto aux2 = this;
         for (int i = 1; i < grid; i++) {
-            aux.rotacionarEixoY(angulo);
-            for(int j=0;j<aux.arestas.size();j++){
+            aux1.rotacionarEixoY(angulo);
+            for(int j=0;j<aux1.arestas.size();j++){
                 Face f= new Face();
-                
+                f.add(new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() ));
+                f.add(new Aresta(aux2.arestas.get(j).getV2(),aux1.arestas.get(j).getV2() ));
+                f.add(aux1.arestas.get(j));
+                f.add(aux2.arestas.get(j));
+                this.addface(f);
             }
-            aux= aux.clone();
+            aux2=aux1;
+            aux1= aux1.clone();
         }
+        for(int j=0;j<aux2.arestas.size();j++){
+                Face f= new Face();
+                f.add(new Aresta(aux2.arestas.get(j).getV1(),this.arestas.get(j).getV1() ));
+                f.add(new Aresta(this.arestas.get(j).getV2(),aux2.arestas.get(j).getV2() ));
+                f.add(this.arestas.get(j));
+                f.add(aux2.arestas.get(j));
+                this.addface(f);
+            }
 
     }
 
