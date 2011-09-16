@@ -7,6 +7,7 @@ package visao;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import mod.Objeto;
 import modelo.Vertice;
 
 /**
@@ -14,21 +15,23 @@ import modelo.Vertice;
  * @author Andre
  */
 public class PainelTeste extends JPanel {
-    ArrayList<Vertice> lista;
+    Objeto obj;
     
-    public PainelTeste(ArrayList<Vertice> l){
-        lista=l;  
+    public PainelTeste(Objeto l){
+        obj=l;  
     }
     
     public void paintComponent( Graphics g ){
         super.paintComponent( g );
         
-        for(int i=1;i<lista.size();i++){
-            int xi = Math.round(lista.get(i-1).getX());
-            int yi = Math.round(lista.get(i-1).getY());
-            int xf = Math.round(lista.get(i).getX());
-            int yf = Math.round(lista.get(i).getY());
-            g.drawLine(xi, yi, xf, yf);
+        for(int i=1;i<obj.getFaces().size();i++){
+            for(int n=1;n<obj.getFaces().get(i).getArestas().size();n++){
+                int xi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getX());
+                int yi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getY());
+                int xf = Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getX());
+                int yf = Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getY());
+                g.drawLine(xi, yi, xf, yf);
+            }
         }
     }
 }
