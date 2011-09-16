@@ -355,7 +355,7 @@ public class Objeto {
     public void rotacionarEixoY(double angulo) {
         Ponto aux = new Ponto();
         Ponto tranaladarOrigem = new Ponto(getCentro().getX() * -1, getCentro().getY() * -1, getCentro().getZ() * -1);
-
+        System.out.println(centro);
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
@@ -403,7 +403,7 @@ public class Objeto {
         aux.setX((float) ((ponto.getX() * Math.cos(Math.toRadians(angulo))) + (ponto.getZ() * Math.sin(Math.toRadians(angulo)))));
         aux.setY(ponto.getY());
         aux.setZ((float) ((ponto.getX() * -Math.sin(Math.toRadians(angulo))) + (ponto.getZ() * Math.cos(Math.toRadians(angulo)))));
-
+        
         return aux;
     }
     

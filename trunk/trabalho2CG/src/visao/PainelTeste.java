@@ -24,8 +24,8 @@ public class PainelTeste extends JPanel {
     public void paintComponent( Graphics g ){
         super.paintComponent( g );
         
-        for(int i=1;i<obj.getFaces().size();i++){
-            for(int n=1;n<obj.getFaces().get(i).getArestas().size();n++){
+        for(int i=0;i<obj.getFaces().size();i++){
+            for(int n=0;n<obj.getFaces().get(i).getArestas().size();n++){
                 int xi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getX());
                 int yi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getY());
                 int xf = Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getX());
