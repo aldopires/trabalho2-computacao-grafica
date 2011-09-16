@@ -73,8 +73,9 @@ public class Trabalho2CG {
         
         ob=o.clone();
         ob.calculaCentro();
-        ob.rotacionarEixoX(90);
-        ob.rotacionarEixoZ(90);
+
+        ob.rotacionarEixoY(45);
+        ob.rotacionarEixoZ(30);
         //ob.translacao(new Ponto(10,10,10));
         Thread.sleep(500);
         System.out.println(ob.exibirAresta());
