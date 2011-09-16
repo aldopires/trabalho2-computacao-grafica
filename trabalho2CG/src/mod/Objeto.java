@@ -178,16 +178,21 @@ public class Objeto {
 
     public boolean addface(Face e) {
         for (int i = 0; i < e.getArestas().size(); i++) {
-            if(indexOfponto(e.getArestas().get(i).getV1())<0)
+            if(indexOfponto(e.getArestas().get(i).getV1())<0){
                 pontos.add(e.getArestas().get(i).getV1());
-            else
+            }
+            else{
                 e.getArestas().get(i).setV1(this.getponto(indexOfponto(e.getArestas().get(i).getV1())));
-            if(indexOfponto(e.getArestas().get(i).getV2())<0)
+            }
+            if(indexOfponto(e.getArestas().get(i).getV2())<0){
                 pontos.add(e.getArestas().get(i).getV2());
-            else
+            }
+            else{
                 e.getArestas().get(i).setV2(this.getponto(indexOfponto(e.getArestas().get(i).getV2())));
-            if(indexOfaresta(e.getArestas().get(i))<0)
-                arestas.add(e.getArestas().get(i));
+            }
+            if(indexOfaresta(e.getArestas().get(i))<0){
+                this.addaresta(e.getArestas().get(i));
+            }
             else{
                 e.getArestas().set(i, this.getaresta(indexOfaresta(e.getArestas().get(i))));
             }
@@ -444,20 +449,23 @@ public class Objeto {
 
     public void extrusao(float z) {
         if (!this.faces.isEmpty()) { // ve se exite alguma face
-            this.addface(faces.get(0).clone()); //clona a face
-            for (int j = 0; j < this.faces.get(0).getArestas().size(); j++) {//varre as arestas clonadas
-                this.faces.get(0).getArestas().get(j).setZ(z); //set o z com o valor passado 
+            Face fa= (faces.get(0).clone()); //clona a face
+            
+            
+            for (int j = 0; j < fa.getArestas().size(); j++) {//varre as arestas clonadas
+                fa.getArestas().get(j).setZ(z); //set o z com o valor passado 
                 //criar as novas arestas
-                Aresta a1 = new Aresta(this.faces.get(1).getArestas().get(j).getV1(), this.faces.get(0).getArestas().get(j).getV1());
-                Aresta a2 = new Aresta(this.faces.get(0).getArestas().get(j).getV2(), this.faces.get(1).getArestas().get(j).getV2());
+                Aresta a1 = new Aresta(fa.getArestas().get(j).getV1(), this.faces.get(0).getArestas().get(j).getV1());
+                Aresta a2 = new Aresta(this.faces.get(0).getArestas().get(j).getV2(), fa.getArestas().get(j).getV2());
                 //criar nova face
                 Face f = new Face();
                 f.add(a1);
                 f.add(a2);
                 f.add(this.faces.get(0).getArestas().get(j));
-                f.add(this.faces.get(1).getArestas().get(j));
-                faces.add(f);
+                f.add(fa.getArestas().get(j));
+                this.addface(f);
             }
+            this.addface(fa);
         } else { //nao tem faces
             if (!this.arestas.isEmpty()) {//tem arestas?
                 int tam = arestas.size();
