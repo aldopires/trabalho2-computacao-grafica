@@ -112,8 +112,11 @@ public class Objeto {
         return arestas.get(index);
     }
 
-    public boolean containsaresta(Object o) {
-        return arestas.contains(o);
+    public boolean containsaresta(Aresta o) {
+        if(indexOfaresta(o)>0)
+            return true;
+        else
+            return false;
     }
 
     public void cleararesta() {
@@ -124,8 +127,11 @@ public class Objeto {
         arestas.add(index, element);
     }
 
-    public boolean addaresta(Aresta e) {
-        return arestas.add(e);
+    public void addaresta(Aresta e) {
+        if(this.containsaresta(e))
+            e=arestas.get(indexOfaresta(e));
+        else
+            arestas.add(e);
     }
 
     public int sizeface() {
@@ -197,6 +203,7 @@ public class Objeto {
                 e.getArestas().set(i, this.getaresta(indexOfaresta(e.getArestas().get(i))));
             }
         }
+        this.calculaCentro();
         return faces.add(e);
     }
 
@@ -355,7 +362,6 @@ public class Objeto {
     public void rotacionarEixoY(double angulo) {
         Ponto aux = new Ponto();
         Ponto tranaladarOrigem = new Ponto(getCentro().getX() * -1, getCentro().getY() * -1, getCentro().getZ() * -1);
-        System.out.println(centro);
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
@@ -418,7 +424,7 @@ public class Objeto {
         int tam=this.faces.size();
         for(int i=0;i<tam;i++){
             aux.addface(this.getface(i).clone());
-        }
+        }        
         return aux;
     }
     
@@ -430,11 +436,16 @@ public class Objeto {
             aux1.rotacionarEixoY(angulo);
             for(int j=0;j<aux1.arestas.size();j++){
                 Face f= new Face();
-                f.add(new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() ));
-                f.add(new Aresta(aux2.arestas.get(j).getV2(),aux1.arestas.get(j).getV2() ));
+                Aresta a1=new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() );
+                f.add(a1);
+                Aresta a2 = new Aresta(aux2.arestas.get(j).getV2(),aux1.arestas.get(j).getV2() );
+                f.add(a2);
                 f.add(aux1.arestas.get(j));
                 f.add(aux2.arestas.get(j));
+                this.addaresta(a1);
+                this.addaresta(a2);                
                 this.addface(f);
+                
             }
             aux2=aux1;
             aux1= aux1.clone();
@@ -447,7 +458,8 @@ public class Objeto {
                 f.add(aux2.arestas.get(j));
                 this.addface(f);
             }
-
+        System.out.println(this.faces.size());
+        System.out.println(this.arestas.size());
     }
 
     public void extrusao(float z) {

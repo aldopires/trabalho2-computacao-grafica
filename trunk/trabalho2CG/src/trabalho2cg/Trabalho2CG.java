@@ -56,12 +56,8 @@ public class Trabalho2CG {
         o.addface(f);
         System.out.println(o.pontos());
         System.out.println(o.exibirAresta());
-        
-        o.extrusao(10);
-        
         o.calculaCentro();
         
-
         Painel = new PainelTeste(o);
         Painel.setSize(400, 300);
         JFrame janela = new JFrame();
@@ -71,12 +67,20 @@ public class Trabalho2CG {
         janela.setSize(500, 340);
         janela.setVisible(true);
         
+        
+        o.revolucao(10);
+        
+        o.calculaCentro();
+        
+
+        
+        
         ob=o.clone();
         ob.calculaCentro();
-
-        ob.rotacionarEixoY(45);
-        ob.rotacionarEixoZ(30);
-        //ob.translacao(new Ponto(10,10,10));
+        ob.rotacionarEixoX(90);
+        ob.rotacionarEixoZ(90);
+        ob.escala((float) 0.5);
+        ob.translacao(new Ponto(100,30,30));
         Thread.sleep(500);
         System.out.println(ob.exibirAresta());
         System.out.println(ob.pontos());

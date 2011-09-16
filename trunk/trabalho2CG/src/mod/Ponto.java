@@ -30,9 +30,9 @@ public class Ponto {
     }
 
     public boolean equals(Ponto obj) {
-        if (obj.x == x) {
-            if (obj.y == y) {
-                if (obj.z == z) {
+        if (obj.x == this.x) {
+            if (obj.y == this.y) {
+                if (obj.z == this.z) {
                     return true;
                 }
             }
