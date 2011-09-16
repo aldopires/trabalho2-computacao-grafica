@@ -9,6 +9,7 @@ package mod;
  * @author TyTu
  */
 public class Ponto {
+
     private float x, y, z;
 
     public Ponto(float x, float y, float z) {
@@ -25,13 +26,22 @@ public class Ponto {
 
     @Override
     public String toString() {
-        return "( "+x+" , "+ y+ " , "+z+" )";
+        return "( " + x + " , " + y + " , " + z + " )";
     }
-    
-    
-    
+
+    public boolean equals(Ponto obj) {
+        if (obj.x == x) {
+            if (obj.y == y) {
+                if (obj.z == z) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
-    public Ponto clone(){
+    public Ponto clone() {
         return (new Ponto(x, y, z));
     }
 

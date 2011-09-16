@@ -97,8 +97,15 @@ public class Objeto {
         return arestas.isEmpty();
     }
 
-    public int indexOfaresta(Object o) {
-        return arestas.indexOf(o);
+    public int indexOfaresta(Aresta o) {
+        if (o == null) {
+	    return -1;
+	} else {
+	    for (int i = 0; i < arestas.size(); i++)
+		if (o.equals(arestas.get(i)))
+		    return i;
+	}
+	return -1;
     }
 
     public Aresta getaresta(int index) {
@@ -171,10 +178,15 @@ public class Objeto {
 
     public boolean addface(Face e) {
         for (int i = 0; i < e.getArestas().size(); i++) {
-            
+            if(indexOfponto(e.getArestas().get(i).getV1())<0)
                 pontos.add(e.getArestas().get(i).getV1());
-                          
-            arestas.add(e.getArestas().get(i));
+            else
+                e.getArestas().get(i).setV1(this.getponto(indexOfponto(e.getArestas().get(i).getV1())));
+            if(indexOfaresta(e.getArestas().get(i))<0)
+                arestas.add(e.getArestas().get(i));
+            else{
+                e.getArestas().set(i, this.getaresta(indexOfaresta(e.getArestas().get(i))));
+            }
         }
         return faces.add(e);
     }
@@ -203,8 +215,15 @@ public class Objeto {
         return pontos.isEmpty();
     }
 
-    public int indexOfponto(Object o) {
-        return pontos.indexOf(o);
+    public int indexOfponto(Ponto o) {
+        if (o == null) {
+	    return -1;
+	} else {
+	    for (int i = 0; i < pontos.size(); i++)
+		if (o.equals(pontos.get(i)))
+		    return i;
+	}
+	return -1;
     }
 
     public Ponto getponto(int index) {
@@ -381,6 +400,8 @@ public class Objeto {
 
         return aux;
     }
+    
+   
 
     @Override
     public Objeto clone(){
@@ -396,7 +417,12 @@ public class Objeto {
         double angulo = 360 / grid;
         Objeto aux = this.clone();
         for (int i = 1; i < grid; i++) {
-            
+            aux.rotacionarEixoY(angulo);
+            for(int j=0;j<aux.arestas.size();j++){
+                Face f= new Face();
+                
+            }
+            aux= aux.clone();
         }
 
     }
