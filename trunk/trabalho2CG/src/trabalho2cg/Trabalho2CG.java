@@ -55,9 +55,10 @@ public class Trabalho2CG {
         
         o.addface(f);
         System.out.println(o.pontos());
+        System.out.println(o.exibirAresta());
         
         o.extrusao(10);
-        System.out.println(o.exibirAresta());
+        
         o.calculaCentro();
         
 
@@ -72,8 +73,8 @@ public class Trabalho2CG {
         
         ob=o.clone();
         ob.calculaCentro();
-        //ob.rotacionarEixoY(90);
-        ob.translacao(new Ponto(10,10,10));
+        ob.rotacionarEixoY(90);
+        //ob.translacao(new Ponto(10,10,10));
         Thread.sleep(500);
         System.out.println(ob.exibirAresta());
         System.out.println(ob.pontos());

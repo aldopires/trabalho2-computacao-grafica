@@ -9,6 +9,7 @@ package mod;
  * @author TyTu
  */
 public class Aresta {
+
     private Ponto v1;
     private Ponto v2;
 
@@ -21,28 +22,32 @@ public class Aresta {
         v1 = new Ponto();
         v2 = new Ponto();
     }
-    
+
     @Override
-    public Aresta clone(){
+    public Aresta clone() {
         return (new Aresta(v1.clone(), v2.clone()));
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Aresta obj) {
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Aresta other = (Aresta) obj;
-        if (this.v1 != other.v1 && (this.v1 == null || !this.v1.equals(other.v1))) {
-            return false;
+        if (obj.v1.equals(this.v1)) {
+            if (obj.v2.equals(this.v2)) {
+                return true;
+            }
         }
-        if (this.v2 != other.v2 && (this.v2 == null || !this.v2.equals(other.v2))) {
-            return false;
+
+        if (obj.v1.equals(this.v2)) {
+            if (obj.v2.equals(this.v1)) {
+                return true;
+            }
         }
-        return true;
+        return false;
+
     }
 
     @Override
@@ -52,8 +57,6 @@ public class Aresta {
         hash = 79 * hash + (this.v2 != null ? this.v2.hashCode() : 0);
         return hash;
     }
-    
-    
 
     public Ponto getV1() {
         return v1;
@@ -80,6 +83,4 @@ public class Aresta {
     public String toString() {
         return "Aresta{" + "v1=" + v1 + ", v2=" + v2 + '}';
     }
-
-    
 }
