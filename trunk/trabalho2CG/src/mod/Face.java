@@ -10,12 +10,27 @@ import java.util.ArrayList;
  *
  * @author TyTu
  */
-class Face {
+public class Face {
     private ArrayList<Aresta> arestas;
+
+    public Face() {
+        arestas= new ArrayList<Aresta>();
+    }
+    
+    
 
     public ArrayList<Aresta> getArestas() {
         return arestas;
     }
+    
+    @Override
+   public Face clone(){
+       Face aux = new Face();
+       for(int i=0;i<arestas.size();i++){
+           aux.add(this.arestas.get(i).clone());
+       }
+       return aux;
+   }      
 
     public void setArestas(ArrayList<Aresta> arestas) {
         this.arestas = arestas;
@@ -52,5 +67,9 @@ class Face {
     public boolean add(Aresta e) {
         return arestas.add(e);
     }
+
+
+    
+    
     
 }
