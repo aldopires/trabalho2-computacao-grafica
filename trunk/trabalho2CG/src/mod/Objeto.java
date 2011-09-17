@@ -290,7 +290,7 @@ public class Objeto {
     }
 
     public void calculaCentro() {
-        float minx = 9999, maxx = -9999, miny = 9999, maxy = -9999, minz = 9999, maxz = -9999;
+        float minx = Float.MAX_VALUE, maxx = Float.MIN_VALUE, miny = Float.MAX_VALUE, maxy = Float.MIN_VALUE, minz = Float.MAX_VALUE, maxz = Float.MIN_VALUE;
         for (int i = 0; i < faces.size(); i++) {
             for (int j = 0; j < faces.get(i).getArestas().size(); j++) {
                 if (minx > faces.get(i).getArestas().get(j).getV1().getX()) {
@@ -447,7 +447,7 @@ public class Objeto {
     }
     
     public void revolucao(int grid) {
-        double angulo = 360 / grid;
+        double angulo = 360 / (float)grid;
         Objeto aux1 = this.clone();
         Objeto aux2 = this;
         Ponto c = centro.clone();
@@ -480,8 +480,8 @@ public class Objeto {
          }
         this.translacao(c);
         this.escala((float) 0.5);
-        System.out.println(this.faces.size());
-        System.out.println(this.arestas.size());
+        //System.out.println(this.faces.size());
+        //System.out.println(this.arestas.size());
     }
 
     public void extrusao(float z) {
@@ -550,7 +550,7 @@ public class Objeto {
     }
 
     private float maxx() {
-       float x=-9999999;
+       float x=Float.MIN_VALUE;
         for (int i = 0; i < pontos.size(); i++) {
             if(x<pontos.get(i).getX())
                 x=pontos.get(i).getX();
