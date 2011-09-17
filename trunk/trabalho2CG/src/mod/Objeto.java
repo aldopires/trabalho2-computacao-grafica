@@ -99,13 +99,15 @@ public class Objeto {
 
     public int indexOfaresta(Aresta o) {
         if (o == null) {
-	    return -1;
-	} else {
-	    for (int i = 0; i < arestas.size(); i++)
-		if (o.equals(arestas.get(i)))
-		    return i;
-	}
-	return -1;
+            return -1;
+        } else {
+            for (int i = 0; i < arestas.size(); i++) {
+                if (o.equals(arestas.get(i))) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public Aresta getaresta(int index) {
@@ -113,10 +115,11 @@ public class Objeto {
     }
 
     public boolean containsaresta(Aresta o) {
-        if(indexOfaresta(o)>0)
+        if (indexOfaresta(o) > 0) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public void cleararesta() {
@@ -128,10 +131,9 @@ public class Objeto {
     }
 
     public void addaresta(Aresta e) {
-        if(this.containsaresta(e)){
-            e=arestas.get(indexOfaresta(e));            
-        }
-        else{
+        if (this.containsaresta(e)) {
+            e = arestas.get(indexOfaresta(e));
+        } else {
             arestas.add(e);
             addponto(e.getV1());
             addponto(e.getV2());
@@ -220,13 +222,15 @@ public class Objeto {
 
     public int indexOfponto(Ponto o) {
         if (o == null) {
-	    return -1;
-	} else {
-	    for (int i = 0; i < pontos.size(); i++)
-		if (o.equals(pontos.get(i)))
-		    return i;
-	}
-	return -1;
+            return -1;
+        } else {
+            for (int i = 0; i < pontos.size(); i++) {
+                if (o.equals(pontos.get(i))) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public Ponto getponto(int index) {
@@ -250,20 +254,18 @@ public class Objeto {
     }
 
     public void addponto(Ponto e) {
-        if(indexOfponto(e)>0){
-            e= pontos.get(indexOfponto(e));
-        }else{
+        if (indexOfponto(e) > 0) {
+            e = pontos.get(indexOfponto(e));
+        } else {
             pontos.add(e);
-            
+
             this.calculaCentro();
-            
+
         }
-            
+
     }
 
-    
-
-    public void escala(float escala) {
+    public void escala(double escala) {
         for (int i = 0; i < pontos.size(); i++) {
             pontos.get(i).setX(pontos.get(i).getX() * escala);
             pontos.get(i).setY(pontos.get(i).getY() * escala);
@@ -281,7 +283,7 @@ public class Objeto {
     }
 
     public void calculaCentro() {
-        float minx = Float.MAX_VALUE, maxx = Float.MIN_VALUE, miny = Float.MAX_VALUE, maxy = Float.MIN_VALUE, minz = Float.MAX_VALUE, maxz = Float.MIN_VALUE;
+        double minx = Double.MAX_VALUE, maxx = Double.MIN_VALUE, miny = Double.MAX_VALUE, maxy = Double.MIN_VALUE, minz = Double.MAX_VALUE, maxz = Double.MIN_VALUE;
         for (int i = 0; i < faces.size(); i++) {
             for (int j = 0; j < faces.get(i).getArestas().size(); j++) {
                 if (minx > faces.get(i).getArestas().get(j).getV1().getX()) {
@@ -334,8 +336,8 @@ public class Objeto {
 
         for (int i = 0; i < pontos.size(); i++) {
             aux.setX(pontos.get(i).getX());
-            aux.setY((float) ((pontos.get(i).getY() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getZ() * -Math.sin(Math.toRadians(angulo)))));
-            aux.setZ((float) ((pontos.get(i).getY() * Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+            aux.setY((double) ((pontos.get(i).getY() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getZ() * -Math.sin(Math.toRadians(angulo)))));
+            aux.setZ((double) ((pontos.get(i).getY() * Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
 
             pontos.get(i).setX(aux.getX());
             pontos.get(i).setY(aux.getY());
@@ -356,10 +358,10 @@ public class Objeto {
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
-            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
+            aux.setX((double) ((pontos.get(i).getX() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
             aux.setY(pontos.get(i).getY());
-            aux.setZ((float)((pontos.get(i).getX()* -Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
-            
+            aux.setZ((double) ((pontos.get(i).getX() * -Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+
             pontos.get(i).setX(aux.getX());
             pontos.get(i).setY(aux.getY());
             pontos.get(i).setZ(aux.getZ());
@@ -372,22 +374,20 @@ public class Objeto {
         translacao(tranaladarOrigem);
         calculaCentro();
     }
-    
-        public void rotacionarEixoYs(double angulo) {
+
+    public void rotacionarEixoYs(double angulo) {
         Ponto aux = new Ponto();
-        
 
-        for (int i = 0; i < pontos.size(); i++) {
-            aux.setX((float)((pontos.get(i).getX()* Math.cos(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
-            aux.setY(pontos.get(i).getY());
-            aux.setZ((float)((pontos.get(i).getX()* -Math.sin(Math.toRadians(angulo)))+(pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
-            
-            pontos.get(i).setX(aux.getX());
-            pontos.get(i).setY(aux.getY());
-            pontos.get(i).setZ(aux.getZ());
+
+        for (int i = 0; i < this.pontos.size(); i++) {
+            aux.setX((double) ((this.pontos.get(i).getX() * Math.cos(Math.toRadians(angulo))) + (this.pontos.get(i).getZ() * Math.sin(Math.toRadians(angulo)))));
+            aux.setY(this.pontos.get(i).getY());
+            aux.setZ((double) ((this.pontos.get(i).getX() * -Math.sin(Math.toRadians(angulo))) + (this.pontos.get(i).getZ() * Math.cos(Math.toRadians(angulo)))));
+
+            this.pontos.get(i).setX(aux.getX());
+            this.pontos.get(i).setY(aux.getY());
+            this.pontos.get(i).setZ(aux.getZ());
         }
-
-        
         calculaCentro();
     }
 
@@ -398,8 +398,8 @@ public class Objeto {
         translacao(tranaladarOrigem);
 
         for (int i = 0; i < pontos.size(); i++) {
-            aux.setX((float) ((pontos.get(i).getX() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getY() * (-1 * Math.sin(Math.toRadians(angulo))))));
-            aux.setY((float) ((pontos.get(i).getX() * Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getY() * Math.cos(Math.toRadians(angulo)))));
+            aux.setX((double) ((pontos.get(i).getX() * Math.cos(Math.toRadians(angulo))) + (pontos.get(i).getY() * (-1 * Math.sin(Math.toRadians(angulo))))));
+            aux.setY((double) ((pontos.get(i).getX() * Math.sin(Math.toRadians(angulo))) + (pontos.get(i).getY() * Math.cos(Math.toRadians(angulo)))));
             aux.setZ(pontos.get(i).getZ());
 
             pontos.get(i).setX(aux.getX());
@@ -414,85 +414,79 @@ public class Objeto {
         translacao(tranaladarOrigem);
         calculaCentro();
     }
-    
 
     public Ponto rotacionarPontoEixoY(Ponto ponto, double angulo) {
         Ponto aux = new Ponto();
-        aux.setX((float) ((ponto.getX() * Math.cos(Math.toRadians(angulo))) + (ponto.getZ() * Math.sin(Math.toRadians(angulo)))));
+        aux.setX((double) ((ponto.getX() * Math.cos(Math.toRadians(angulo))) + (ponto.getZ() * Math.sin(Math.toRadians(angulo)))));
         aux.setY(ponto.getY());
-        aux.setZ((float) ((ponto.getX() * -Math.sin(Math.toRadians(angulo))) + (ponto.getZ() * Math.cos(Math.toRadians(angulo)))));
-        
+        aux.setZ((double) ((ponto.getX() * -Math.sin(Math.toRadians(angulo))) + (ponto.getZ() * Math.cos(Math.toRadians(angulo)))));
+
         return aux;
     }
-    
-   
 
     @Override
-    public Objeto clone(){
+    public Objeto clone() {
         Objeto aux = new Objeto();
-        int tam=this.faces.size();
-        if(tam>0){
-            for(int i=0;i<tam;i++){
+        int tam = this.faces.size();
+        if (tam > 0) {
+            for (int i = 0; i < tam; i++) {
                 aux.addface(this.getface(i).clone());
             }
-        }else{
-            tam=this.arestas.size();
-            for(int i=0;i<tam;i++){
+        } else {
+            tam = this.arestas.size();
+            for (int i = 0; i < tam; i++) {
                 aux.addaresta(this.getaresta(i).clone());
             }
         }
         return aux;
     }
-    
-    public void revolucao(int grid) {        
-        double angulo = 360 / (float)grid;
+
+    public void revolucao(int grid) {
+        double angulo = 360 / (double) grid;
         Objeto aux1 = this.clone();
         Objeto aux2 = this;
-        calculaCentro();
-        Ponto c = centro.clone();
-        c.setX(this.maxx());
         for (int i = 1; i < grid; i++) {
-            System.out.println("antes \n"+aux1.getPontos().get(0).toString() +"\n");
             aux1.rotacionarEixoYs(angulo);
-            System.out.println("depois \n"+aux1.getPontos().get(0).toString() +"\n");
-            System.out.println("aux2 \n"+aux2.getPontos().get(0).toString() +"\n");
-            for(int j=0;j<aux1.arestas.size();j++){
-                Face f= new Face();
-                Aresta a1=new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() );
+            for (int j = 0; j < aux1.arestas.size(); j++) {
+                Face f = new Face();
+                Aresta a1 = new Aresta(aux1.arestas.get(j).getV1().clone(), aux2.arestas.get(j).getV1().clone());
                 f.add(a1);
-                Aresta a2 = new Aresta(aux2.arestas.get(j).getV2(),aux1.arestas.get(j).getV2() );
+                Aresta a2 = new Aresta(aux2.arestas.get(j).getV2().clone(), aux1.arestas.get(j).getV2().clone());
                 f.add(a2);
-                f.add(aux1.arestas.get(j));
-                f.add(aux2.arestas.get(j));
+                
+                
+                Aresta aresta = new Aresta( aux1.arestas.get(j).getV1().clone(),aux1.arestas.get(j).getV2().clone());
+                Aresta aresta2 = new Aresta( aux2.arestas.get(j).getV1().clone(),aux2.arestas.get(j).getV2().clone());
+                
+                
+                f.add(aresta);
+                f.add(aresta2);
                 //this.addaresta(a1);
                 //this.addaresta(a2); 
                 this.addface(f);
-                
+
             }
-            aux2=aux1;
-            aux1= aux1.clone();
+            aux2 = aux1.clone();
+            aux1 = aux1.clone();
         }
-        for(int j=0;j<aux2.arestas.size();j++){
-                Face f= new Face();
-                f.add(new Aresta(aux2.arestas.get(j).getV1(),this.arestas.get(j).getV1() ));
-                f.add(new Aresta(this.arestas.get(j).getV2(),aux2.arestas.get(j).getV2() ));
-                f.add(this.arestas.get(j));
-                f.add(aux2.arestas.get(j));
-                this.addface(f);
-         }
-        this.translacao(c);
-        this.escala((float) 0.5);
+        for (int j = 0; j < aux2.arestas.size(); j++) {
+            Face f = new Face();
+            f.add(new Aresta(aux2.arestas.get(j).getV1().clone(), this.arestas.get(j).getV1().clone()));
+            f.add(new Aresta(this.arestas.get(j).getV2().clone(), aux2.arestas.get(j).getV2().clone()));
+            f.add(this.arestas.get(j).clone());
+            f.add(aux2.arestas.get(j).clone());
+            this.addface(f);
+        }
         //System.out.println(this.faces.size());
         //System.out.println(this.arestas.size());
-        System.out.println( this.toString());
         calculaCentro();
     }
 
-    public void extrusao(float z) {
+    public void extrusao(double z) {
         if (!this.faces.isEmpty()) { // ve se exite alguma face
-            Face fa= (faces.get(0).clone()); //clona a face
-            
-            
+            Face fa = (faces.get(0).clone()); //clona a face
+
+
             for (int j = 0; j < fa.getArestas().size(); j++) {//varre as arestas clonadas
                 fa.getArestas().get(j).setZ(z); //set o z com o valor passado 
                 //criar as novas arestas
@@ -509,31 +503,31 @@ public class Objeto {
             this.addface(fa);
         } else { //nao tem faces
             if (!this.arestas.isEmpty()) {//tem arestas?
-                 for (int j =0; j < arestas.size(); j++) {//varre as arestas clonadas                 
+                int tam = arestas.size();
+                for (int j = 0; j < tam; j++) {//varre as arestas clonadas                 
                     //criar as novas arestas
-                    Aresta a1 = arestas.get(j).clone(); 
+                    Aresta a1 = arestas.get(j).clone();
                     a1.getV1().setZ(z);
                     a1.getV2().setZ(z);
                     //criar nova face
                     Face f = new Face();
                     f.add(a1);
                     f.add(this.getArestas().get(j));
-                    f.add(new Aresta(arestas.get(j).getV1(),a1.getV1()));
-                    f.add(new Aresta(arestas.get(j).getV2(),a1.getV2()));
-                    faces.add(f);
+                    f.add(new Aresta(arestas.get(j).getV1(), a1.getV1()));
+                    f.add(new Aresta(arestas.get(j).getV2(), a1.getV2()));
+                    addface(f);
                 }
-            } else{// nao tem arestas, só um ponto
+            } else {// nao tem arestas, só um ponto
                 Ponto p = this.pontos.get(0).clone();
                 p.setZ(z);
                 this.pontos.add(p);
                 this.arestas.add(new Aresta(this.pontos.get(0), p));
             }
         }
-        System.out.println( this.toString());
         calculaCentro();
     }
 
-    public void arestasetz(float z) { //clona as arestas e seta o z
+    public void arestasetz(double z) { //clona as arestas e seta o z
         int tam = arestas.size();
         for (int i = 0; i < tam; i++) {
             Aresta a = arestas.get(i).clone();
@@ -543,8 +537,8 @@ public class Objeto {
         }
 
     }
-    
-    public String exibirAresta(){
+
+    public String exibirAresta() {
         String s = new String();
         for (int i = 0; i < arestas.size(); i++) {
             s = s + arestas.get(i).toString() + "\n";
@@ -553,11 +547,12 @@ public class Objeto {
         return s;
     }
 
-    private float maxx() {
-       float x=Float.MIN_VALUE;
+    private double maxx() {
+        double x = Double.MIN_VALUE;
         for (int i = 0; i < pontos.size(); i++) {
-            if(x<pontos.get(i).getX())
-                x=pontos.get(i).getX();
+            if (x < pontos.get(i).getX()) {
+                x = pontos.get(i).getX();
+            }
         }
         return x;
     }
@@ -565,16 +560,16 @@ public class Objeto {
     public boolean isEmpty() {
         return pontos.isEmpty();
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         String s = "";
-        for (int i = 0 ; i<faces.size() ; i++){
-            s =s+ "Face "+i+"\n";
-            for(int j=0;j<faces.get(i).getArestas().size();j++){
-                s=s+faces.get(i).getArestas().get(j).toString();
+        for (int i = 0; i < faces.size(); i++) {
+            s = s + "Face " + i + "\n";
+            for (int j = 0; j < faces.get(i).getArestas().size(); j++) {
+                s = s + faces.get(i).getArestas().get(j).toString();
             }
-            s=s+"\n";
+            s = s + "\n";
         }
         return s;
     }
