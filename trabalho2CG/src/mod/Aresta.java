@@ -74,7 +74,7 @@ public class Aresta {
         this.v2 = v2;
     }
 
-    void setZ(float z) {
+    void setZ(double z) {
         v1.setZ(z);
         v2.setZ(z);
     }

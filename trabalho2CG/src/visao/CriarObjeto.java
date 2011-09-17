@@ -47,6 +47,7 @@ public class CriarObjeto extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerando o objeto");
@@ -94,6 +95,13 @@ public class CriarObjeto extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Fechar Ojeto");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,12 +110,13 @@ public class CriarObjeto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +128,9 @@ public class CriarObjeto extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                        .addGap(46, 46, 46)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addContainerGap())
         );
@@ -131,12 +142,12 @@ public class CriarObjeto extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!o.isEmpty()) {
             jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
-            o.addaresta(new Aresta(new Ponto((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), 0), new Ponto(evt.getX(), evt.getY(), 0)));
+            o.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto((double)evt.getX(), (double)evt.getY(), (double)0)));
         } else {
-            o.addponto(new Ponto(evt.getX(), evt.getY(), 0));
+            o.addponto(new Ponto((double) evt.getX(), (double) evt.getY(), 0));
         }
         System.out.println("Criar Objeto - ADD Ponto");
-        pontos.add(new Ponto(evt.getX(), evt.getY(), 0));
+        pontos.add(new Ponto((double)evt.getX(),(double) evt.getY(), 0));
 
 
     }//GEN-LAST:event_jPanel1MouseClicked
@@ -210,6 +221,24 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 }//GEN-LAST:event_jButton1ActionPerformed
 
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    // TODO add your handling code here:
+    
+    if (!o.isEmpty()) {
+            jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), (int) pontos.get(0).getX(), (int) pontos.get(0).getY());
+            o.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto( pontos.get(0).getX(),  pontos.get(0).getY(), (double)0)));
+            Face f=new Face();
+            for(int i=0;i<o.getArestas().size();i++)
+                f.add(o.getaresta(i));
+            o.addface(f);
+            
+        } else {
+           
+        }
+    
+    
+}//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -225,6 +254,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

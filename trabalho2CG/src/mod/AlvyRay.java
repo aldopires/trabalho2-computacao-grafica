@@ -9,24 +9,24 @@ public class AlvyRay {
     private Ponto viewUP; //viewUP = vetor View-Up Usado para definir a direção vertical no plano de projeção
     private Ponto D; //D = Ponto no qual as coordenadas Dx = Xmax - Xmin, Dy = Ymax - Ymin e Dz = (f) - (n)
     //Coordenadas extremas da Viewport para onde o mundo será mapeado
-    private float minX; // X minimo
-    private float minY; // Y minimo
-    private float maxX; // X maximo 
-    private float maxY; // Y maximo
+    private double minX; // X minimo
+    private double minY; // Y minimo
+    private double maxX; // X maximo 
+    private double maxY; // Y maximo
     // (cu, cv) = centro da window
     // su = 1/2 largura da window
     // sv = 1/2 altura da window
-    private float cu;
-    private float cv;
-    private float su; // su = 1/2 largura da window
-    private float sv; // sv = 1/2 altura da window
+    private double cu;
+    private double cv;
+    private double su; // su = 1/2 largura da window
+    private double sv; // sv = 1/2 altura da window
     //Distâncias entre o observador e os planos de recorte frontal e traseiro
-    private float near;//(near) = Zmin;
-    private float far; //(far) = Zmax
-    private float zmin; //zmin = (n)/(f)
-    private float distancia;// distancia = distância entre o observador e o plano de projeção
-    private float[][] mtp; //Matriz mtp Faz o mapeamento em perspectiva das coordenadas do objeto de SRU para SRT
-    private float[][] mto; //Matriz mto Faz o mapeamento ortográfico das coordenadas do objeto de SRU para SRT
+    private double near;//(near) = Zmin;
+    private double far; //(far) = Zmax
+    private double zmin; //zmin = (n)/(f)
+    private double distancia;// distancia = distância entre o observador e o plano de projeção
+    private double[][] mtp; //Matriz mtp Faz o mapeamento em perspectiva das coordenadas do objeto de SRU para SRT
+    private double[][] mto; //Matriz mto Faz o mapeamento ortográfico das coordenadas do objeto de SRU para SRT
 
     /**
      * <h3> Contrutor Default da Classe Alvy Ray</h3> <p>
@@ -50,8 +50,8 @@ public class AlvyRay {
      * @param far = Zmax
      * @param distancia  = distância entre o observador e o plano de projeção
      */
-    public AlvyRay(Ponto VRP, Ponto P, Ponto viewUP, float minX, float minY, float maxX, 
-            float maxY, float cu, float cv, float su, float sv, float near, float far, float distancia) {
+    public AlvyRay(Ponto VRP, Ponto P, Ponto viewUP, double minX, double minY, double maxX, 
+            double maxY, double cu, double cv, double su, double sv, double near, double far, double distancia) {
         this.VRP = VRP;
         this.P = P;
         this.viewUP = viewUP;
@@ -67,14 +67,14 @@ public class AlvyRay {
         this.far = far;
         this.distancia = distancia;
         this.zmin = near / far;
-        this.D = new Ponto((float)(maxX - minX), (float)(maxY - minY), (float)(far - near));
+        this.D = new Ponto((double)(maxX - minX), (double)(maxY - minY), (double)(far - near));
     }
 
     public double getFar() {
         return far;
     }
 
-    public void setNF(float near, float far) {
+    public void setNF(double near, double far) {
         this.near = near;
         this.far = far;
         this.zmin = -near / far;
@@ -88,7 +88,7 @@ public class AlvyRay {
         return distancia;
     }
 
-    public void setDistancia(float distancia) {
+    public void setDistancia(double distancia) {
         this.distancia = distancia;
     }
 
@@ -96,7 +96,7 @@ public class AlvyRay {
         return maxX;
     }
 
-    public void setMaxX(float maxX) {
+    public void setMaxX(double maxX) {
         this.maxX = maxX;
     }
 
@@ -104,7 +104,7 @@ public class AlvyRay {
         return maxY;
     }
 
-    public void setMaxY(float maxY) {
+    public void setMaxY(double maxY) {
         this.maxY = maxY;
     }
 
@@ -112,7 +112,7 @@ public class AlvyRay {
         return minX;
     }
 
-    public void setMinX(float minX) {
+    public void setMinX(double minX) {
         this.minX = minX;
     }
 
@@ -120,7 +120,7 @@ public class AlvyRay {
         return minY;
     }
 
-    public void setMinY(float minY) {
+    public void setMinY(double minY) {
         this.minY = minY;
     }
 
@@ -138,7 +138,7 @@ public class AlvyRay {
         return cu;
     }
 
-    public void setCu(float cu) {
+    public void setCu(double cu) {
         this.cu = cu;
     }
 
@@ -146,7 +146,7 @@ public class AlvyRay {
         return cv;
     }
 
-    public void setCv(float cv) {
+    public void setCv(double cv) {
         this.cv = cv;
     }
 
@@ -154,7 +154,7 @@ public class AlvyRay {
         return su;
     }
 
-    public void setSu(float su) {
+    public void setSu(double su) {
         this.su = su;
     }
 
@@ -162,15 +162,15 @@ public class AlvyRay {
         return sv;
     }
 
-    public void setSv(float sv) {
+    public void setSv(double sv) {
         this.sv = sv;
     }
 
-    public float[][] getMtp() {
+    public double[][] getMtp() {
         return mtp;
     }
 
-    public float[][] getMto() {
+    public double[][] getMto() {
         return mto;
     }
 
@@ -225,7 +225,7 @@ public class AlvyRay {
             f = objo.getFaces().get(n);
             for(int j=0;j<objo.getFaces().get(n).getArestas().size();j++) {
                 
-                float[][] pt = new float[4][f.size()];//f.getLen()
+                double[][] pt = new double[4][f.size()];//f.getLen()
                 are =f.getArestas().get(j);  // f.getArestas();
                 //Aqui eu adiciono o ponto inicial da primeira aresta, que precisa entrar como primeiro ponto da matriz
                 pt[0][0] = are.getV1().getX(); //are.getIni().getX();
@@ -290,9 +290,9 @@ public class AlvyRay {
         return saida;
     }
 
-    private float[][] mtpXpontos(float[][] pontos, int size) {
-        float[][] res = new float[4][size];
-        float soma = 0;
+    private double[][] mtpXpontos(double[][] pontos, int size) {
+        double[][] res = new double[4][size];
+        double soma = 0;
         for (int linha = 0; linha < 4; linha++) {
             for (int coluna = 0; coluna < size; coluna++) {
                 for (int k = 0; k < 4; k++) {
@@ -306,10 +306,10 @@ public class AlvyRay {
     }
 
     public void geraMtp() {
-        float[][] v = mundoTela();
-        float[][] c = recorte();
-        float[][] p = perspectiva();
-        float[][] s = dispositivo();
+        double[][] v = mundoTela();
+        double[][] c = recorte();
+        double[][] p = perspectiva();
+        double[][] s = dispositivo();
 //        printMat(v, 4, 4); //OK
 //        printMat(c, 4, 4); //OK
 //        printMat(p, 4, 4); //OK
@@ -342,7 +342,7 @@ public class AlvyRay {
             f = objo.getFaces().get(n);
             //while (f != null) {
             for(int j=0;j<f.size();j++) {    
-                float[][] pt = new float[4][f.size()]; //float[4][f.getLen()];
+                double[][] pt = new double[4][f.size()]; //double[4][f.getLen()];
                 are = f.getArestas().get(j);//f.getArestas();
                 //Aqui eu adiciono o ponto inicial da primeira aresta, que precisa entrar como primeiro ponto da matriz
                 pt[0][0] = are.getV1().getX();//are.getIni().getX();
@@ -402,9 +402,9 @@ public class AlvyRay {
 
     }
 
-    private float[][] mtoXpontos(float[][] pontos, int zise) {
-        float[][] res = new float[4][zise];
-        float soma = 0;
+    private double[][] mtoXpontos(double[][] pontos, int zise) {
+        double[][] res = new double[4][zise];
+        double soma = 0;
         for (int linha = 0; linha < 4; linha++) {
             for (int coluna = 0; coluna < zise; coluna++) {
                 for (int k = 0; k < 4; k++) {
@@ -418,9 +418,9 @@ public class AlvyRay {
     }
 
     public void geraMto() {
-        float[][] v = mundoTela();
-        float[][] o = ortogonal();
-        float[][] s = dispositivo();
+        double[][] v = mundoTela();
+        double[][] o = ortogonal();
+        double[][] s = dispositivo();
         mto = mulMatriz(o, v);
         mto = mulMatriz(s, mto);
     }
@@ -441,14 +441,14 @@ public class AlvyRay {
         return res;
     }
 
-    private float[][] mundoTela() {
+    private double[][] mundoTela() {
 
         //vetor N = p - VRP
-        float NX = this.getP().getX() - this.getVRP().getX();
-        float NY = this.getP().getY() - this.getVRP().getY();
-        float NZ = this.getP().getZ() - this.getVRP().getZ();
+        double NX = this.getP().getX() - this.getVRP().getX();
+        double NY = this.getP().getY() - this.getVRP().getY();
+        double NZ = this.getP().getZ() - this.getVRP().getZ();
 
-        float normalN = (float)Math.sqrt(Math.pow(NX, 2) + Math.pow(NY, 2) + Math.pow(NZ, 2));
+        double normalN = (double)Math.sqrt(Math.pow(NX, 2) + Math.pow(NY, 2) + Math.pow(NZ, 2));
 
         /* 
         matriz R
@@ -457,7 +457,7 @@ public class AlvyRay {
         |nx ny nz 0|	vetor N/|N|		
         |0  0  0  1| 
          */
-        float[][] R = new float[4][4];
+        double[][] R = new double[4][4];
         R[3][0] = 0;
         R[3][1] = 0;
         R[3][2] = 0;
@@ -474,11 +474,11 @@ public class AlvyRay {
         }
         R[2][3] = 0;
 
-        float VX = this.getViewUP().getX() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][0];
-        float VY = this.getViewUP().getY() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][1];
-        float VZ = this.getViewUP().getZ() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][2];
+        double VX = this.getViewUP().getX() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][0];
+        double VY = this.getViewUP().getY() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][1];
+        double VZ = this.getViewUP().getZ() - (this.getViewUP().getX() * R[2][0] + this.getViewUP().getY() * R[2][1] + this.getViewUP().getZ() * R[2][2]) * R[2][2];
         //|V|
-        float normalV = (float)Math.sqrt(Math.pow(VX, 2) + Math.pow(VY, 2) + Math.pow(VZ, 2));
+        double normalV = (double)Math.sqrt(Math.pow(VX, 2) + Math.pow(VY, 2) + Math.pow(VZ, 2));
 
         if (normalV != 0) {
             R[1][0] = VX / normalV;
@@ -502,7 +502,7 @@ public class AlvyRay {
         |0  0  1  -VRPZ|
         |0  0  0  1    | 
          */
-        float[][] T = new float[4][4];
+        double[][] T = new double[4][4];
         T[0][0] = 1;
         T[0][1] = 0;
         T[0][2] = 0;
@@ -520,14 +520,14 @@ public class AlvyRay {
         T[3][2] = 0;
         T[3][3] = 1;
 
-        float[][] V = new float[4][4];
+        double[][] V = new double[4][4];
         V = mulMatriz(R, T);
 
         return V;
     }
 
-    public float[][] recorte() {
-        float[][] MD = new float[4][4];
+    public double[][] recorte() {
+        double[][] MD = new double[4][4];
         MD[0][0] = 1;
         MD[0][1] = 0;
         MD[0][2] = -cu / distancia;
@@ -545,7 +545,7 @@ public class AlvyRay {
         MD[3][2] = 0;
         MD[3][3] = 1;
 
-        float[][] E = new float[4][4];
+        double[][] E = new double[4][4];
         E[0][0] = distancia / (su * far);
         E[0][1] = 0;
         E[0][2] = 0;
@@ -563,13 +563,13 @@ public class AlvyRay {
         E[3][2] = 0;
         E[3][3] = 1;
 
-        float[][] C = mulMatriz(E, MD);
+        double[][] C = mulMatriz(E, MD);
         return C;
     }
 
-    public float[][] perspectiva() {
+    public double[][] perspectiva() {
 
-        float[][] F = new float[4][4];
+        double[][] F = new double[4][4];
         F[0][0] = 1;
         F[0][1] = 0;
         F[0][2] = 0;
@@ -587,7 +587,7 @@ public class AlvyRay {
         F[3][2] = 0;
         F[3][3] = 1;
 
-        float[][] G = new float[4][4];
+        double[][] G = new double[4][4];
         G[0][0] = 1;
         G[0][1] = 0;
         G[0][2] = 0;
@@ -605,7 +605,7 @@ public class AlvyRay {
         G[3][2] = 0;
         G[3][3] = 1;
 
-        float[][] H = new float[4][4];
+        double[][] H = new double[4][4];
         H[0][0] = 1;
         H[0][1] = 0;
         H[0][2] = 0;
@@ -623,10 +623,10 @@ public class AlvyRay {
         H[3][2] = (1 - zmin) / zmin;
         H[3][3] = 1;
 
-        float[][] I = mulMatriz(G, F);
+        double[][] I = mulMatriz(G, F);
         I = mulMatriz(H, I); //I
 
-        float[][] J = new float[4][4];
+        double[][] J = new double[4][4];
         J[0][0] = 1 / zmin * I[0][0];
         J[0][1] = 1 / zmin * I[0][1];
         J[0][2] = 1 / zmin * I[0][2];
@@ -644,7 +644,7 @@ public class AlvyRay {
         J[3][2] = I[3][2];
         J[3][3] = I[3][3];
 
-        float[][] mP = new float[4][4];
+        double[][] mP = new double[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 mP[i][j] = J[i][j] * zmin;	//J
@@ -653,9 +653,9 @@ public class AlvyRay {
         return mP;
     }
 
-    public float[][] ortogonal() {
+    public double[][] ortogonal() {
 
-        float[][] Fo = new float[4][4];
+        double[][] Fo = new double[4][4];
         Fo[0][0] = 1;
         Fo[0][1] = 0;
         Fo[0][2] = 0;
@@ -673,7 +673,7 @@ public class AlvyRay {
         Fo[3][2] = 0;
         Fo[3][3] = 1;
 
-        float[][] Go = new float[4][4];
+        double[][] Go = new double[4][4];
         Go[0][0] = 1 / su;
         Go[0][1] = 0;
         Go[0][2] = 0;
@@ -691,20 +691,20 @@ public class AlvyRay {
         Go[3][2] = 0;
         Go[3][3] = 1;
 
-        float[][] O = mulMatriz(Go, Fo);
+        double[][] O = mulMatriz(Go, Fo);
         return O;
     }
 
-    public float[][] dispositivo() {
-        float[][] K = new float[4][4];
-        K[0][0] = (float)0.5;
+    public double[][] dispositivo() {
+        double[][] K = new double[4][4];
+        K[0][0] = (double)0.5;
         K[0][1] = 0;
         K[0][2] = 0;
-        K[0][3] = (float)0.5;
+        K[0][3] = (double)0.5;
         K[1][0] = 0;
-        K[1][1] = (float)0.5;
+        K[1][1] = (double)0.5;
         K[1][2] = 0;
-        K[1][3] = (float)0.5;
+        K[1][3] = (double)0.5;
         K[2][0] = 0;
         K[2][1] = 0;
         K[2][2] = 1;
@@ -714,7 +714,7 @@ public class AlvyRay {
         K[3][2] = 0;
         K[3][3] = 1;
 
-        float[][] L = new float[4][4];
+        double[][] L = new double[4][4];
         L[0][0] = D.getX();
         L[0][1] = 0;
         L[0][2] = 0;
@@ -732,33 +732,33 @@ public class AlvyRay {
         L[3][2] = 0;
         L[3][3] = 1;
 
-        float[][] M = new float[4][4];
+        double[][] M = new double[4][4];
         M[0][0] = 1;
         M[0][1] = 0;
         M[0][2] = 0;
-        M[0][3] = (float)0.5;
+        M[0][3] = (double)0.5;
         M[1][0] = 0;
         M[1][1] = 1;
         M[1][2] = 0;
-        M[1][3] = (float)0.5;
+        M[1][3] = (double)0.5;
         M[2][0] = 0;
         M[2][1] = 0;
         M[2][2] = 1;
-        M[2][3] = (float)0.5;
+        M[2][3] = (double)0.5;
         M[3][0] = 0;
         M[3][1] = 0;
         M[3][2] = 0;
         M[3][3] = 1;
 
-        float[][] S = mulMatriz(L, K);
+        double[][] S = mulMatriz(L, K);
         S = mulMatriz(M, S);
         return S;
     }
 //@Este Método multiplica duas matrizes de tamanho 4x4
 
-    private static float[][] mulMatriz(float[][] m1, float[][] m2) {
-        float[][] res = new float[4][4];
-        float soma = 0;
+    private static double[][] mulMatriz(double[][] m1, double[][] m2) {
+        double[][] res = new double[4][4];
+        double soma = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {

@@ -47,6 +47,10 @@ public class Cena {
         return objetos.get(i);
     }
 
+    public void limpa() {
+        objetos.clear();
+    }
+
     
     
 }

@@ -13,7 +13,7 @@ import visao.TelaInicial;
  *
  * @author TyTu
  */
-public class Controle {
+public  class Controle {
 
     public static void addObjeto(Objeto o) {
         cena.addObj(o);
@@ -24,6 +24,11 @@ public class Controle {
     public static Cena getCena() {
         return cena;
     }
+
+    public static void Limpa() {
+        cena.limpa();
+    }
+
 
    
 

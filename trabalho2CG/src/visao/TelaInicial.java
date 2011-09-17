@@ -11,6 +11,8 @@
 package visao;
 
 import controle.Controle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mod.Aresta;
 import mod.Cena;
 import mod.Objeto;
@@ -74,6 +76,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jcbOcultacaoFaces = new javax.swing.JCheckBox();
+        jButton24 = new javax.swing.JButton();
         jptodos = new javax.swing.JPanel();
         jpTodosXY = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -243,6 +246,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jcbOcultacaoFaces.setText("Ocultação de Faces");
 
+        jButton24.setText("Limpa");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -251,7 +261,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton24))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -315,7 +328,9 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcbOcultacaoFaces)
                 .addGap(8, 8, 8)
@@ -581,6 +596,11 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     abre.setVisible(true);
 }//GEN-LAST:event_jButton5ActionPerformed
 
+private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+    Controle.Limpa();
+    repaint();
+}//GEN-LAST:event_jButton24ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -633,6 +653,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -682,27 +703,38 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 desenhaObj(cena.getObj(i));
             }
         }
-       
+
     }
 
     private void desenhaObj(Objeto obj) {
-         for(int i = 0 ; i < obj.sizearestas(); i++){
-             desenhaAresta(obj.getaresta(i));
-         }
+        for (int i = 0; i < obj.sizearestas(); i++) {
+            desenhaAresta(obj.getaresta(i));            
+        }
     }
-    
-    private void desenhaAresta(Aresta are){
-        jpTodosXY.getGraphics().drawLine((int)are.getV1().getX(), 
-                                            (int)are.getV1().getY(),
-                                            (int)are.getV2().getX(),
-                                            (int)are.getV2().getY());
-        jpTodosYZ.getGraphics().drawLine((int)are.getV1().getY(), 
-                                            (int)are.getV1().getZ(),
-                                            (int)are.getV2().getY(),
-                                            (int)are.getV2().getZ());
-        jpTodosXZ.getGraphics().drawLine((int)are.getV1().getX(), 
-                                            (int)are.getV1().getZ(),
-                                            (int)are.getV2().getX(),
-                                            (int)are.getV2().getZ());
+
+    private void desenhaAresta(Aresta are) {
+        /*
+        System.out.println("XY **************");
+        System.out.println((int)are.getV1().getX()+" "+  (int)are.getV1().getY()+" "+ (int)are.getV2().getX()+" "+             (int)are.getV2().getY());
+        System.out.println("YZ **************");
+        System.out.println((int)are.getV1().getY()+" "+ (int)are.getV1().getZ()+" "+(int)are.getV2().getY()+" "+(int)are.getV2().getZ());
+        System.out.println("XZ **************");
+        System.out.println((int)are.getV1().getX()+" "+ (int)are.getV1().getZ()+" "+(int)are.getV2().getX()+" "+(int)are.getV2().getZ());
+         */
+        jpTodosXY.getGraphics().drawLine((int) are.getV1().getX(),
+                (int) are.getV1().getY(),
+                (int) are.getV2().getX(),
+                (int) are.getV2().getY());
+
+
+        jpTodosYZ.getGraphics().drawLine((int) are.getV1().getY(),
+                (int) are.getV1().getZ(),
+                (int) are.getV2().getY(),
+                (int) are.getV2().getZ());
+
+        jpTodosXZ.getGraphics().drawLine((int) are.getV1().getX(),
+                (int) are.getV1().getZ(),
+                (int) are.getV2().getX(),
+                (int) are.getV2().getZ());
     }
 }
