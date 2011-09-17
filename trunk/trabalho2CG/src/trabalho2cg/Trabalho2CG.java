@@ -68,7 +68,7 @@ public class Trabalho2CG {
         janela.setVisible(true);
         
         Thread.sleep(500);
-        o.revolucao(36);
+        o.revolucao(38);
         
         o.calculaCentro();
         
