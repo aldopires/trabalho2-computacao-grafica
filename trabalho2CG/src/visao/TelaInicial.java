@@ -11,10 +11,15 @@
 package visao;
 
 import controle.Controle;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import mod.Aresta;
 import mod.Cena;
 import mod.Objeto;
+import mod.Ponto;
+import mod.ZBuffer;
+import mod.ZBufferPixel;
 
 /**
  *
@@ -721,11 +726,69 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JPanel jptodos;
     // End of variables declaration//GEN-END:variables
 
+    private void desenhaCenaXY(Cena cena) {
+        ZBuffer buff = new ZBuffer(jpTodosXY.getWidth(), jpTodosXY.getHeight());
+        double minZ = cena.minZ();
+        double maxZ = cena.maxZ();
+
+        System.out.println("Calculando");
+        for (int x = 0; x < jpTodosXY.getWidth(); x++) { //varre o x com o tamanho da tela
+            for (int y = 0; y < jpTodosXY.getHeight(); y++) { //varre o y com o tamanho da tela
+                for (int z = (int) maxZ+1; z > minZ-1; z--) { //varre o z indo do maxZ até o minZ
+                    Ponto teste = new Ponto(x, y, z);
+                    //System.out.println(teste.toString());
+                    for (int i = 0; i < cena.getSize(); i++) {// varre a cena
+                        if (cena.getObj(i).pertenceObjeto(teste)) { // se o ponto de teste pertence a cena então pinta ele
+                            buff.setMatriz(new ZBufferPixel(cena.getObj(i).getCor(teste)), x, y);
+                            break;
+                            //System.out.println(teste.toString()+cena.getObj(i).getCor(teste));
+                        }
+                    }
+                    if (buff.getMatriz(x, y)!=null) { //se o pixel ja foi setado num precisa mais
+                        break;
+                    }
+                }
+            }
+        }
+        //pinta a tela com os valores do buffer
+        System.out.println("Desenhando");
+        Graphics g = jpTodosXY.getGraphics();
+        g.setColor(Color.CYAN);
+        for (int x = 0; x < jpTodosXY.getWidth(); x++) { //varre o x com o tamanho da tela
+            for (int y = 0; y < jpTodosXY.getHeight(); y++) { //varre o y com o tamanho da tela
+
+                if (buff.getMatriz(x, y) != null) {
+                    g.setColor(buff.getMatriz(x, y).getCor());
+                } else {
+                    g.setColor(cena.getFundo());
+                }
+                g.drawLine(x, y, x, y);
+            }
+        }
+
+    }
+
+    private void desenhaCenaXZ(Cena cena) {
+        ZBuffer buff = new ZBuffer(jpTodosXZ.getWidth(), jpTodosXZ.getHeight());
+    }
+
+    private void desenhaCenaYZ(Cena cena) {
+        ZBuffer buff = new ZBuffer(jpTodosYZ.getWidth(), jpTodosYZ.getHeight());
+    }
+
     private void redesenha() {
+        Cena cena;
+        cena = Controle.getCena();
         if (jcbOcultacaoFaces.isSelected()) {
+
+            desenhaCenaXY(cena);
+            desenhaCenaYZ(cena);
+            desenhaCenaXZ(cena);
+
+
+
         } else {
-            Cena cena;
-            cena = Controle.getCena();
+
 
             for (int i = 0; i < cena.getSize(); i++) {
                 desenhaObj(cena.getObj(i));
@@ -738,15 +801,15 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         System.out.println(lista.size());
         for (int i = 0; i < lista.size(); i++) {
             for (int j = 0; j < lista.get(i).getArestas().size(); j++) {
-     
+
                 //não entra aqui
-                System.out.println("aoo "+i +" " + lista.get(i).getArestas().size());
+                System.out.println("aoo " + i + " " + lista.get(i).getArestas().size());
 
                 jpTodosPerspectiva.getGraphics().
                         drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
-                                    (int) lista.get(i).getArestas().get(j).getV1().getY(),
-                                    (int) lista.get(i).getArestas().get(j).getV2().getX(),
-                                    (int) lista.get(i).getArestas().get(j).getV2().getY());
+                        (int) lista.get(i).getArestas().get(j).getV1().getY(),
+                        (int) lista.get(i).getArestas().get(j).getV2().getX(),
+                        (int) lista.get(i).getArestas().get(j).getV2().getY());
 
                 System.out.println((int) lista.get(i).getArestas().get(j).getV1().getX() + " "
                         + (int) lista.get(i).getArestas().get(j).getV1().getY() + " "

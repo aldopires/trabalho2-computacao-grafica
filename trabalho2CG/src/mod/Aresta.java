@@ -18,7 +18,44 @@ public class Aresta {
         this.v2 = v2;
     }
     
+    public boolean pertenceAresta(Ponto p){
+        if(pertenceReta(p)){
+            if(p.getX()<v1.getX()){
+                if(p.getX()>v2.getX()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                if(p.getX()<v2.getX()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
     
+    private boolean pertenceReta(Ponto p){
+        if(p.equals(v1)||p.equals(v2)){
+            return true;
+        }
+        else{
+            double e=this.determinante(p);
+            if(e<(double)0.1 && e>(double)-0.1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    
+    private double determinante(Ponto p){
+        return (v1.getX()*v2.getY()*p.getZ())+(v1.getY()*v2.getZ()*p.getX())+(v1.getZ()*v2.getX()*p.getZ())
+                -(p.getZ()*v2.getX()*v1.getY())-(p.getX()*v2.getY()*v1.getZ())-(p.getY()*v2.getZ()*v1.getX());
+    }
 
     public Aresta() {
         v1 = new Ponto();
