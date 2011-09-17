@@ -97,7 +97,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Fechar Ojeto");
+        jButton4.setText("Fechar Objeto");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
