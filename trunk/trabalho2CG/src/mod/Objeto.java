@@ -128,10 +128,14 @@ public class Objeto {
     }
 
     public void addaresta(Aresta e) {
-        if(this.containsaresta(e))
-            e=arestas.get(indexOfaresta(e));
-        else
+        if(this.containsaresta(e)){
+            e=arestas.get(indexOfaresta(e));            
+        }
+        else{
             arestas.add(e);
+            addponto(e.getV1());
+            addponto(e.getV2());
+        }
     }
 
     public int sizeface() {
@@ -262,8 +266,16 @@ public class Objeto {
         pontos.add(index, element);
     }
 
-    public boolean addponto(Ponto e) {
-        return pontos.add(e);
+    public void addponto(Ponto e) {
+        if(indexOfponto(e)>0){
+            e= pontos.get(indexOfponto(e));
+        }else{
+            pontos.add(e);
+            
+            this.calculaCentro();
+            
+        }
+            
     }
 
     @Override
@@ -515,8 +527,8 @@ public class Objeto {
                     Face f = new Face();
                     f.add(a1);
                     f.add(a2);
-                    f.add(this.faces.get(0).getArestas().get(j));
-                    f.add(this.faces.get(1).getArestas().get(j));
+                    f.add(this.getArestas().get(j));
+                    f.add(this.getArestas().get(j));
                     faces.add(f);
                 }
             } else{// nao tem arestas, só um ponto
@@ -556,5 +568,9 @@ public class Objeto {
                 x=pontos.get(i).getX();
         }
         return x;
+    }
+
+    public boolean isEmpty() {
+        return pontos.isEmpty();
     }
 }
