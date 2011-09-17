@@ -26,10 +26,10 @@ public class PainelTeste extends JPanel {
         
         for(int i=0;i<obj.getFaces().size();i++){
             for(int n=0;n<obj.getFaces().get(i).getArestas().size();n++){
-                int xi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getX());
-                int yi = Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getY());
-                int xf = Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getX());
-                int yf = Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getY());
+                int xi = (int) Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getX());
+                int yi = (int) Math.round(obj.getFaces().get(i).getArestas().get(n).getV1().getY());
+                int xf = (int) Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getX());
+                int yf = (int) Math.round(obj.getFaces().get(i).getArestas().get(n).getV2().getY());
                 g.drawLine(xi, yi, xf, yf);
             }
         }

@@ -733,24 +733,32 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
 
         ArrayList<Objeto> lista = new ArrayList<Objeto>();
-        
-        lista=Controle.CenaPerspectiva();
+
+        lista = Controle.CenaPerspectiva();
         System.out.println(lista.size());
-        for(int i=0;i<lista.size();i++){
+        for (int i = 0; i < lista.size(); i++) {
             for (int j = 0; j < lista.get(i).getArestas().size(); j++) {
-                
-                jpTodosPerspectiva.getGraphics().drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
-                (int) lista.get(i).getArestas().get(j).getV1().getY(),
-                (int) lista.get(i).getArestas().get(j).getV2().getX(),
-                (int) lista.get(i).getArestas().get(j).getV2().getY()); 
-                System.out.println(lista.toString());       
+     
+                //não entra aqui
+                System.out.println("aoo "+i +" " + lista.get(i).getArestas().size());
+
+                jpTodosPerspectiva.getGraphics().
+                        drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
+                                    (int) lista.get(i).getArestas().get(j).getV1().getY(),
+                                    (int) lista.get(i).getArestas().get(j).getV2().getX(),
+                                    (int) lista.get(i).getArestas().get(j).getV2().getY());
+
+                System.out.println((int) lista.get(i).getArestas().get(j).getV1().getX() + " "
+                        + (int) lista.get(i).getArestas().get(j).getV1().getY() + " "
+                        + (int) lista.get(i).getArestas().get(j).getV2().getX() + " "
+                        + (int) lista.get(i).getArestas().get(j).getV2().getY());
             }
         }
     }
 
     private void desenhaObj(Objeto obj) {
         for (int i = 0; i < obj.sizearestas(); i++) {
-            desenhaAresta(obj.getaresta(i));            
+            desenhaAresta(obj.getaresta(i));
         }
     }
 
