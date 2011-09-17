@@ -232,7 +232,7 @@ public class AlvyRay {
             for(int j=0;j<objo.getFaces().get(n).getArestas().size();j++) {
                 
                 double[][] pt = new double[4][f.size()];//f.getLen()
-                are =f.getArestas().get(j);  // f.getArestas();
+                are = f.getArestas().get(j);  // f.getArestas();
                 //Aqui eu adiciono o ponto inicial da primeira aresta, que precisa entrar como primeiro ponto da matriz
                 pt[0][0] = are.getV1().getX(); //are.getIni().getX();
                 pt[1][0] = are.getV1().getY(); //are.getIni().getY();

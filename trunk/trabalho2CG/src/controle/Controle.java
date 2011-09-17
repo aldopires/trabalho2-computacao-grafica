@@ -73,7 +73,7 @@ public  class Controle {
         AlvyRay objPerspectiva = new AlvyRay( VRP, P, viewUP, minX,  minY, maxX, maxY, cu, cv,su,sv,near,far,distancia);
         objPerspectiva.geraMtp();
         objPerspectiva.geraMto();
-        
+        System.out.println("ahhhhhhhhhh"+cena.getListObj().size() );
         for(int i=0;i<cena.getListObj().size();i++){
             lista.add(objPerspectiva.transformMtp(cena.getListObj().get(i)));
         }
