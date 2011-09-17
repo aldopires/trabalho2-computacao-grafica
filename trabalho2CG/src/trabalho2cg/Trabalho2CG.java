@@ -5,6 +5,7 @@
 package trabalho2cg;
 
 
+import controle.Controle;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import mod.Objeto;
@@ -29,13 +30,21 @@ public class Trabalho2CG {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
+        
+        new Controle();
+        
+        
+        
+        
+        
+        
         //Coordenada tica = new Coordenada(2, 3, 4);
         //System.out.println(tica.toString());
 
 
         //TelaInicial vai = new TelaInicial();
         //vai.setVisible(true);
-        
+        /*
         Objeto o = new Objeto();
         Objeto ob = new Objeto();
         Ponto p1= new Ponto(100, 100, 0);
@@ -92,5 +101,7 @@ public class Trabalho2CG {
         janela2.add(Painel2);
         janela2.setSize(500, 340);
         janela2.setVisible(true);
+         * 
+         */
     }
 }

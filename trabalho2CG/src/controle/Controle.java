@@ -6,6 +6,7 @@ package controle;
 
 import mod.Cena;
 import mod.Objeto;
+import visao.TelaInicial;
 
 
 /**
@@ -18,9 +19,18 @@ public class Controle {
         cena.addObj(o);
     }
     private static Cena cena;
+    private static TelaInicial t;
+
+    public static Cena getCena() {
+        return cena;
+    }
+
+   
 
     public Controle() {
         cena = new Cena();
+        t= new TelaInicial();
+        t.setVisible(true);
     }
     
     

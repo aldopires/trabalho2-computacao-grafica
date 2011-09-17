@@ -188,24 +188,7 @@ public class Objeto {
 
     public boolean addface(Face e) {
         for (int i = 0; i < e.getArestas().size(); i++) {
-            if(indexOfponto(e.getArestas().get(i).getV1())<0){
-                pontos.add(e.getArestas().get(i).getV1());
-            }
-            else{
-                e.getArestas().get(i).setV1(this.getponto(indexOfponto(e.getArestas().get(i).getV1())));
-            }
-            if(indexOfponto(e.getArestas().get(i).getV2())<0){
-                pontos.add(e.getArestas().get(i).getV2());
-            }
-            else{
-                e.getArestas().get(i).setV2(this.getponto(indexOfponto(e.getArestas().get(i).getV2())));
-            }
-            if(indexOfaresta(e.getArestas().get(i))<0){
-                this.addaresta(e.getArestas().get(i));
-            }
-            else{
-                e.getArestas().set(i, this.getaresta(indexOfaresta(e.getArestas().get(i))));
-            }
+            addaresta(e.getArestas().get(i));
         }
         this.calculaCentro();
         return faces.add(e);
@@ -278,11 +261,7 @@ public class Objeto {
             
     }
 
-    @Override
-    public String toString() {
-
-        return pontos();
-    }
+    
 
     public void escala(float escala) {
         for (int i = 0; i < pontos.size(); i++) {
@@ -458,13 +437,15 @@ public class Objeto {
         return aux;
     }
     
-    public void revolucao(int grid) {
+    public void revolucao(int grid) {        
         double angulo = 360 / (float)grid;
         Objeto aux1 = this.clone();
         Objeto aux2 = this;
+        calculaCentro();
         Ponto c = centro.clone();
         c.setX(this.maxx());
         for (int i = 1; i < grid; i++) {
+            System.out.println("fdp"+i);
             aux1.rotacionarEixoYs(angulo);
             for(int j=0;j<aux1.arestas.size();j++){
                 Face f= new Face();
@@ -474,8 +455,8 @@ public class Objeto {
                 f.add(a2);
                 f.add(aux1.arestas.get(j));
                 f.add(aux2.arestas.get(j));
-                this.addaresta(a1);
-                this.addaresta(a2);                
+                //this.addaresta(a1);
+                //this.addaresta(a2);                
                 this.addface(f);
                 
             }
@@ -494,6 +475,11 @@ public class Objeto {
         this.escala((float) 0.5);
         //System.out.println(this.faces.size());
         //System.out.println(this.arestas.size());
+        System.out.println("caralho");
+        System.out.println(this.faces.size());
+        System.out.println(this.arestas.size());
+        System.out.println( this.toString());
+        calculaCentro();
     }
 
     public void extrusao(float z) {
@@ -517,18 +503,17 @@ public class Objeto {
             this.addface(fa);
         } else { //nao tem faces
             if (!this.arestas.isEmpty()) {//tem arestas?
-                int tam = arestas.size();
-                this.arestasetz(z);
-                for (int j = tam; j < tam * 2; j++) {//varre as arestas clonadas                 
+                 for (int j =0; j < arestas.size(); j++) {//varre as arestas clonadas                 
                     //criar as novas arestas
-                    Aresta a1 = new Aresta(this.arestas.get(j).getV1(), this.arestas.get(j - tam).getV1());
-                    Aresta a2 = new Aresta(this.arestas.get(j - tam).getV2(), this.arestas.get(j).getV2());
+                    Aresta a1 = arestas.get(j).clone(); 
+                    a1.getV1().setZ(z);
+                    a1.getV2().setZ(z);
                     //criar nova face
                     Face f = new Face();
                     f.add(a1);
-                    f.add(a2);
                     f.add(this.getArestas().get(j));
-                    f.add(this.getArestas().get(j));
+                    f.add(new Aresta(arestas.get(j).getV1(),a1.getV1()));
+                    f.add(new Aresta(arestas.get(j).getV2(),a1.getV2()));
                     faces.add(f);
                 }
             } else{// nao tem arestas, só um ponto
@@ -538,6 +523,7 @@ public class Objeto {
                 this.arestas.add(new Aresta(this.pontos.get(0), p));
             }
         }
+        System.out.println( this.toString());
         calculaCentro();
     }
 
@@ -572,5 +558,18 @@ public class Objeto {
 
     public boolean isEmpty() {
         return pontos.isEmpty();
+    }
+    
+    @Override
+    public String toString(){
+        String s = "";
+        for (int i = 0 ; i<faces.size() ; i++){
+            s =s+ "Face "+i+"\n";
+            for(int j=0;j<faces.get(i).getArestas().size();j++){
+                s=s+faces.get(i).getArestas().get(j).toString();
+            }
+            s=s+"\n";
+        }
+        return s;
     }
 }

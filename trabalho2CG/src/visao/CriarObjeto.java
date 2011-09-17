@@ -20,7 +20,6 @@ import mod.Face;
 import mod.Objeto;
 import mod.Ponto;
 
-
 /**
  *
  * @author TyTu
@@ -33,7 +32,7 @@ public class CriarObjeto extends javax.swing.JFrame {
         jPanel1.setSize(400, 300);
     }
     private Objeto o = new Objeto();
-    private ArrayList<Ponto> pontos=new ArrayList<Ponto>(); 
+    private ArrayList<Ponto> pontos = new ArrayList<Ponto>();
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -133,12 +132,12 @@ public class CriarObjeto extends javax.swing.JFrame {
         if (!o.isEmpty()) {
             jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
             o.addaresta(new Aresta(new Ponto((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), 0), new Ponto(evt.getX(), evt.getY(), 0)));
-        }else{
+        } else {
             o.addponto(new Ponto(evt.getX(), evt.getY(), 0));
         }
         System.out.println("Criar Objeto - ADD Ponto");
         pontos.add(new Ponto(evt.getX(), evt.getY(), 0));
-        
+
 
     }//GEN-LAST:event_jPanel1MouseClicked
 
@@ -148,24 +147,27 @@ public class CriarObjeto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
         } else {
 
-
-            int z;
+            String s;
+            int z = 360;
             for (;;) {
                 try {
-                    z = Integer.parseInt(JOptionPane.showInputDialog(rootPane,"Variação em Z"));
-                    System.out.println("Criar Objeto - Variação em Z= "+z);
+                    s = JOptionPane.showInputDialog(rootPane, "Variação em Z ");
+                    if (s != null) {
+                        z = Integer.parseInt(s);
+                    }
                     break;
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, "Valor digitado incorreto!");
                     e.printStackTrace();
                 }
             }
-            
-            o.extrusao(z);
-            
-            Controle.addObjeto(o);
-            dispose();
-            
+
+            if (s != null) {
+                o.extrusao(z);
+                Controle.addObjeto(o);
+                dispose();
+            }
+
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -178,29 +180,34 @@ public class CriarObjeto extends javax.swing.JFrame {
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
     if (pontos.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
-        } else {
+        JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
+    } else {
 
-
-            int z;
-            for (;;) {
-                try {
-                    z = Integer.parseInt(JOptionPane.showInputDialog(rootPane,"Grid: "));
-                    break;
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "Valor digitado incorreto!");
-                    e.printStackTrace();
+        String s;
+        int z = 360;
+        for (;;) {
+            try {
+                s = JOptionPane.showInputDialog(rootPane, "Grid: ");
+                if (s != null) {
+                    z = Integer.parseInt(s);
                 }
+                break;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Valor digitado incorreto!");
+                e.printStackTrace();
             }
-            
+        }
+        if (s != null) {
             o.revolucao(z);
-            
+            o.exibirAresta();
             Controle.addObjeto(o);
             dispose();
-            
-
         }
-    
+
+
+
+    }
+
 }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
