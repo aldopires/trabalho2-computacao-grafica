@@ -11,13 +11,15 @@
 package visao;
 
 import controle.ControlaTudo;
+import controle.Controle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.Aresta;
-import modelo.Face;
-import modelo.Objeto;
-import modelo.Vertice;
+import mod.Aresta;
+import mod.Face;
+import mod.Objeto;
+import mod.Ponto;
+
 
 /**
  *
@@ -30,7 +32,8 @@ public class CriarObjeto extends javax.swing.JFrame {
         initComponents();
         jPanel1.setSize(400, 300);
     }
-    private List<Vertice> pontos = new ArrayList<Vertice>();
+    private Objeto o = new Objeto();
+    private ArrayList<Ponto> pontos=new ArrayList<Ponto>(); 
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -127,11 +130,15 @@ public class CriarObjeto extends javax.swing.JFrame {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
-        if (!pontos.isEmpty()) {
+        if (!o.isEmpty()) {
             jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
+            o.addaresta(new Aresta(new Ponto((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), 0), new Ponto(evt.getX(), evt.getY(), 0)));
+        }else{
+            o.addponto(new Ponto(evt.getX(), evt.getY(), 0));
         }
         System.out.println("Criar Objeto - ADD Ponto");
-        pontos.add(new Vertice(evt.getX(), evt.getY(), 0));
+        pontos.add(new Ponto(evt.getX(), evt.getY(), 0));
+        
 
     }//GEN-LAST:event_jPanel1MouseClicked
 
@@ -153,139 +160,11 @@ public class CriarObjeto extends javax.swing.JFrame {
                     e.printStackTrace();
                 }
             }
-            Objeto o = new Objeto();
-            Face f1 = new Face();
-            Face f2 = new Face();
-
-            for (int i = 1; i < pontos.size(); i++) { //Cria uma face com o desenho
-                Aresta a = new Aresta();
-                a.setV1(new Vertice(pontos.get(i - 1)));
-                a.setV2(new Vertice(pontos.get(i)));
-                
-                //face lateral
-                    Face f3= new Face();
-                    Aresta b = new Aresta();                    
-                    b.setV1(new Vertice(pontos.get(i)));
-                    b.setV2(new Vertice(pontos.get(i - 1)));
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(i - 1)));
-                    b.setV2(new Vertice(pontos.get(i - 1)));
-                    b.getV2().setZ(z);
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(i - 1)));
-                    b.getV1().setZ(z);
-                    b.setV2(new Vertice(pontos.get(i)));
-                    b.getV2().setZ(z);
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(i)));
-                    b.setV2(new Vertice(pontos.get(i)));
-                    b.getV1().setZ(z);
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    o.addFace(f3);
-                    System.out.println("Criar Objeto - ADD Face");
-                    
-                //
-                
-                if (!f1.addAresta(a)) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro!");
-                    break;
-                }
-            }
             
-            Aresta a = new Aresta();
-            a.setV1(new Vertice(pontos.get(pontos.size() - 1)));
-            a.setV2(new Vertice(pontos.get(0)));
-            if (!f1.addAresta(a)) {
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-            }
-            System.out.println("Criar Objeto - ADD Aresta");
-            //face lateral
-                    Face f3= new Face();
-                    Aresta b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(0)));
-                    b.setV2(new Vertice(pontos.get(pontos.size() - 1)));
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(pontos.size() - 1)));
-                    b.setV2(new Vertice(pontos.get(pontos.size() - 1)));
-                    b.getV2().setZ(z);
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(pontos.size() - 1)));
-                    b.getV1().setZ(z);
-                    b.setV2(new Vertice(pontos.get(0)));
-                    b.getV2().setZ(z);
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    b = new Aresta();
-                    b.setV1(new Vertice(pontos.get(0)));
-                    b.getV1().setZ(z);
-                    b.setV2(new Vertice(pontos.get(0)));
-                    f3.addAresta(b);
-                    System.out.println("Criar Objeto - ADD Aresta");
-                    
-                    o.addFace(f3);
-                    System.out.println("Criar Objeto - ADD Face");
-                    
-                //
-
-            //cria a face de baixo do objeto
-            for (int i = pontos.size() - 1; i > 0; i--) {
-                a = new Aresta();
-                a.setV1(new Vertice(pontos.get(i)));
-                a.setV2(new Vertice(pontos.get(i - 1)));
-                a.getV1().setZ(z);
-                a.getV2().setZ(z);
-                if (!f2.addAresta(a)) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro!");
-                    break;
-                }
-                System.out.println("Criar Objeto - ADD Aresta");
-            }
-            a = new Aresta();
-            a.setV1(new Vertice(pontos.get(0)));
-            a.setV2(new Vertice(pontos.get(pontos.size() - 1)));
-            a.getV1().setZ(z);
-            a.getV2().setZ(z);
-            if (!f2.addAresta(a)) {
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-            }
-            System.out.println("Criar Objeto - ADD Aresta");
-            if(!o.addFace(f1)) {
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-            }
-            System.out.println("Criar Objeto - ADD Face");
-            if(!o.addFace(f2)) {
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-            }
-            System.out.println("Criar Objeto - ADD Face");
+            o.extrusao(z);
             
-            try{
-                o.calculaCentro();
-                ControlaTudo.addObj(o);
-                JOptionPane.showMessageDialog(rootPane, "Objeto criado!");
-                //dispose();
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(rootPane, "Erro!");
-            }
-            
-            
+            Controle.addObjeto(o);
+            dispose();
             
 
         }
@@ -298,6 +177,29 @@ public class CriarObjeto extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+    if (pontos.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
+        } else {
+
+
+            int z;
+            for (;;) {
+                try {
+                    z = Integer.parseInt(JOptionPane.showInputDialog(rootPane,"Grid: "));
+                    break;
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Valor digitado incorreto!");
+                    e.printStackTrace();
+                }
+            }
+            
+            o.revolucao(z);
+            
+            Controle.addObjeto(o);
+            dispose();
+            
+
+        }
     
 }//GEN-LAST:event_jButton1ActionPerformed
 
