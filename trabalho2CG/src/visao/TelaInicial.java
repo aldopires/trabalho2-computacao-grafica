@@ -11,6 +11,7 @@
 package visao;
 
 import controle.Controle;
+import java.util.ArrayList;
 import mod.Aresta;
 import mod.Cena;
 import mod.Objeto;
@@ -731,6 +732,20 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             }
         }
 
+        ArrayList<Objeto> lista = new ArrayList<Objeto>();
+        
+        lista=Controle.CenaPerspectiva();
+        System.out.println(lista.size());
+        for(int i=0;i<lista.size();i++){
+            for (int j = 0; j < lista.get(i).getArestas().size(); j++) {
+                
+                jpTodosPerspectiva.getGraphics().drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
+                (int) lista.get(i).getArestas().get(j).getV1().getY(),
+                (int) lista.get(i).getArestas().get(j).getV2().getX(),
+                (int) lista.get(i).getArestas().get(j).getV2().getY()); 
+                System.out.println(lista.toString());       
+            }
+        }
     }
 
     private void desenhaObj(Objeto obj) {

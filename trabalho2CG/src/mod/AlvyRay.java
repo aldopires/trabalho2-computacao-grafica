@@ -27,7 +27,12 @@ public class AlvyRay {
     private double distancia;// distancia = distância entre o observador e o plano de projeção
     private double[][] mtp; //Matriz mtp Faz o mapeamento em perspectiva das coordenadas do objeto de SRU para SRT
     private double[][] mto; //Matriz mto Faz o mapeamento ortográfico das coordenadas do objeto de SRU para SRT
-
+    
+    
+    public AlvyRay(){
+        // não fiz nada
+    }
+    
     /**
      * <h3> Contrutor Default da Classe Alvy Ray</h3> <p>
      * 
@@ -52,6 +57,7 @@ public class AlvyRay {
      */
     public AlvyRay(Ponto VRP, Ponto P, Ponto viewUP, double minX, double minY, double maxX, 
             double maxY, double cu, double cv, double su, double sv, double near, double far, double distancia) {
+        
         this.VRP = VRP;
         this.P = P;
         this.viewUP = viewUP;

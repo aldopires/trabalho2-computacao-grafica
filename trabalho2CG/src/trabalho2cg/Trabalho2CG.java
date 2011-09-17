@@ -8,6 +8,7 @@ package trabalho2cg;
 import controle.Controle;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import mod.AlvyRay;
 import mod.Objeto;
 import mod.Ponto;
 import mod.Aresta;
@@ -77,13 +78,29 @@ public class Trabalho2CG {
         janela.setVisible(true);
         
         Thread.sleep(500);
-        o.revolucao(38);
+        o.revolucao(36);
         
         o.calculaCentro();
         
 
+        Ponto VRP = new  Ponto(100, 0, 0);
+        Ponto P = new Ponto(0, 0, 0);
+        Ponto viewUP = new Ponto(0, 1, 0);
+        float minX=0; 
+        float minY=0;
+        float maxX=400;
+        float maxY=300;
+        float cu=0;
+        float cv=0;
+        float su = 200;
+        float sv = 150;
+        float near = -1000;
+        float far= 1000;
+        float distancia=100;
+        AlvyRay aRay=new AlvyRay(VRP, P, viewUP, minX, minY, maxX,maxY,cu,cv,su,sv,near,far,distancia);
         
-        
+        aRay.geraMtp();
+        aRay.geraMtp();
         ob=o.clone();
         ob.calculaCentro();
         ob.rotacionarEixoX(90);
