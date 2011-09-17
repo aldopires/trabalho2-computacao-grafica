@@ -63,28 +63,9 @@ public class Face {
     }
 
     public void add(Aresta e) {
-        boolean b=true;
-        for (int i = 0; i <arestas.size(); i++) {
-            if(arestas.get(i).equals(e)){
-                e=arestas.get(i);
-                b=false;
-            }
-            if(e.getV1().equals(arestas.get(i).getV1())){
-                e.setV1(arestas.get(i).getV1());
-            }
-            if(e.getV2().equals(arestas.get(i).getV2())){
-                e.setV2(arestas.get(i).getV2());
-            }
-            if(e.getV1().equals(arestas.get(i).getV2())){
-                e.setV1(arestas.get(i).getV2());
-            }
-            if(e.getV2().equals(arestas.get(i).getV1())){
-                e.setV2(arestas.get(i).getV1());
-            }
-        }
-        if(b){
+        
             arestas.add(e);
-        }
+        
        
     }
 
