@@ -17,6 +17,8 @@ public class Aresta {
         this.v1 = v1;
         this.v2 = v2;
     }
+    
+    
 
     public Aresta() {
         v1 = new Ponto();
