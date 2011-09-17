@@ -229,7 +229,9 @@ public class AlvyRay {
         //Copiei então a lista de objetos para o objo, criei as variaveis Face f e Aresta are para suporte nos calculos. 
         for(int n=0;n<objo.getFaces().size();n++) {
             f = objo.getFaces().get(n);
+            System.out.println("oi");
             for(int j=0;j<objo.getFaces().get(n).getArestas().size();j++) {
+                System.out.println("caralho");
                 
                 double[][] pt = new double[4][f.size()];//f.getLen()
                 are = f.getArestas().get(j);  // f.getArestas();
@@ -266,22 +268,31 @@ public class AlvyRay {
                 A1 = new Aresta(P1, P2);
                 aux.add(A1);//aux.addAresta(A1);
                 A2 = A1;
+                auxsaida.addponto(P1);
+                auxsaida.addponto(P2);
+                auxsaida.addaresta(A1);
+                auxsaida.addface(aux);
                 //for (int i = 2; i < f.getLen(); i++) {
                 for (int i = 2; i < f.size(); i++) {
                     P2 = new Ponto(pt[0][i], pt[1][i], pt[2][i]);
                     A1 = new Aresta(A2.getV2(), P2);
                     aux.add(A1);//aux.addAresta(A1);
                     A2 = A1;
+                    
+                    auxsaida.addponto(P2);
+                    auxsaida.addaresta(A1);
                 }
                 //Adiciona a última face
                 A1 = new Aresta(A2.getV2(), P1);
                 aux.add(A1);//aux.addAresta(A1);
+                auxsaida.addaresta(A1);
                 //Teoricamente aqui a Face ja pronta, com o boolean pronto verdadeiro, transformada, pronta para ser adicionada ao novo objeto
                 auxsaida.addface(aux);//auxsaida.addFace(aux);
                 f = objo.getFaces().get(j);//f.getProximo();
             }
             if (saida.getFaces() == null) {
                 saida = auxsaida;
+                System.out.println("aki");
             } 
             /*else {
                 aux2saida = saida;
