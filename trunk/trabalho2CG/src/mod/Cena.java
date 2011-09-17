@@ -43,6 +43,10 @@ public class Cena {
         return this.objetos.size();
     }
 
+    public mod.Objeto getObj(int i) {
+        return objetos.get(i);
+    }
+
     
     
 }
