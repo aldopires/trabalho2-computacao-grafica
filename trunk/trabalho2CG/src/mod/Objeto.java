@@ -431,9 +431,16 @@ public class Objeto {
     public Objeto clone(){
         Objeto aux = new Objeto();
         int tam=this.faces.size();
-        for(int i=0;i<tam;i++){
-            aux.addface(this.getface(i).clone());
-        }        
+        if(tam>0){
+            for(int i=0;i<tam;i++){
+                aux.addface(this.getface(i).clone());
+            }
+        }else{
+            tam=this.arestas.size();
+            for(int i=0;i<tam;i++){
+                aux.addaresta(this.getaresta(i).clone());
+            }
+        }
         return aux;
     }
     
@@ -445,8 +452,10 @@ public class Objeto {
         Ponto c = centro.clone();
         c.setX(this.maxx());
         for (int i = 1; i < grid; i++) {
-            System.out.println("fdp"+i);
+            System.out.println("antes \n"+aux1.getPontos().get(0).toString() +"\n");
             aux1.rotacionarEixoYs(angulo);
+            System.out.println("depois \n"+aux1.getPontos().get(0).toString() +"\n");
+            System.out.println("aux2 \n"+aux2.getPontos().get(0).toString() +"\n");
             for(int j=0;j<aux1.arestas.size();j++){
                 Face f= new Face();
                 Aresta a1=new Aresta(aux1.arestas.get(j).getV1(),aux2.arestas.get(j).getV1() );
@@ -456,7 +465,7 @@ public class Objeto {
                 f.add(aux1.arestas.get(j));
                 f.add(aux2.arestas.get(j));
                 //this.addaresta(a1);
-                //this.addaresta(a2);                
+                //this.addaresta(a2); 
                 this.addface(f);
                 
             }
@@ -475,9 +484,6 @@ public class Objeto {
         this.escala((float) 0.5);
         //System.out.println(this.faces.size());
         //System.out.println(this.arestas.size());
-        System.out.println("caralho");
-        System.out.println(this.faces.size());
-        System.out.println(this.arestas.size());
         System.out.println( this.toString());
         calculaCentro();
     }
