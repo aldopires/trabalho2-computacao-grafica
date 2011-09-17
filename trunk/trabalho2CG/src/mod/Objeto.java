@@ -4,6 +4,7 @@
  */
 package mod;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -16,11 +17,21 @@ public class Objeto {
     private ArrayList<Aresta> arestas;
     private ArrayList<Face> faces;
     private Ponto centro;
+    private Color cor;
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+    
+    public Color getCor() {
+        return cor;
+    } 
 
     public Objeto(ArrayList<Ponto> pontos, ArrayList<Aresta> arestas, ArrayList<Face> faces) {
         this.pontos = pontos;
         this.arestas = arestas;
         this.faces = faces;
+        this.cor= Color.WHITE;
         calculaCentro();
     }
 
@@ -28,6 +39,7 @@ public class Objeto {
         pontos = new ArrayList<Ponto>();
         arestas = new ArrayList<Aresta>();
         faces = new ArrayList<Face>();
+        this.cor= Color.WHITE;
 
     }
 
@@ -572,5 +584,49 @@ public class Objeto {
             s = s + "\n";
         }
         return s;
+    }
+    
+    
+    public boolean pertenceObjeto(Ponto p){
+        boolean res=false;
+        for(int i=0;i<faces.size();i++){
+            if(faces.get(i).pertenceFace(p))
+                res=true;
+        }
+        return res;
+    }
+
+    public double minZ() {
+        double res= Double.MAX_VALUE;
+        for(int i=0;i<pontos.size();i++){
+            if(res>pontos.get(i).getZ()){
+                res=pontos.get(i).getZ();
+            }
+        }
+        return res;
+    }
+    
+    public double maxZ() {
+        double res= Double.MIN_VALUE;
+        for(int i=0;i<pontos.size();i++){
+            if(res<pontos.get(i).getZ()){
+                res=pontos.get(i).getZ();
+            }
+        }
+        return res;
+    }
+
+    public Color getCor(Ponto p) {
+        boolean res=false;
+        for(int i=0;i<arestas.size();i++){
+            if(arestas.get(i).pertenceAresta(p))
+                res=true;
+        }
+        if(res){
+            return Color.BLACK;
+        }
+        else{
+            return cor;
+        }
     }
 }

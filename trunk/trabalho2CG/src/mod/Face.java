@@ -28,13 +28,50 @@ public class Face {
         d= -(a*p2.getX())-(b*p2.getY())-(c*p2.getZ());        
     }
     
-    public boolean pertencePlano(Ponto p){
+    private boolean pertencePlano(Ponto p){
         double resp;
         resp= a*p.getX() + b*p.getY() + c*p.getZ() + d ;
-        if(resp==0)
+        if(resp>(double)-0.1 && resp<(double)0.1)
             return true;
         else
             return false;
+    }
+    
+    public boolean pertenceFace(Ponto p){
+        if(pertencePlano(p)){
+            double maxX= Double.MIN_VALUE;
+            double maxY= Double.MIN_VALUE;
+            for(int i=0;i<arestas.size();i++){
+                if(arestas.get(i).pertenceAresta(p)){
+                    return true;
+                }
+                if(arestas.get(i).getV1().getX()>maxX){
+                    maxX=arestas.get(i).getV1().getX();
+                }
+            }
+            Ponto teste= p.clone();
+            int a=0;
+            for(teste.getX();teste.getX()<maxX+1;teste.setX(teste.getX()+1)){
+                teste.setZ((-a*teste.getX()-b*teste.getY()-d)/c);
+                for(int i=0;i<arestas.size();i++){
+                    if(arestas.get(i).pertenceAresta(p)){
+                        if(a==0){
+                            a=1;
+                        }else{
+                            a=0;
+                        }
+                    }
+                }
+            }
+            if(a==0){
+                return false;
+            }else{
+                return true;
+            }           
+                    
+        }else{
+            return false;
+        }
     }
 
     public Face() {
