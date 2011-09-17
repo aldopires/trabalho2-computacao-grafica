@@ -278,11 +278,14 @@ public class Objeto {
     }
 
     public void escala(double escala) {
+        Ponto aux = new Ponto(this.centro.getX()*-1, this.centro.getY()*-1, this.centro.getZ()*-1);
+        translacao(aux);
         for (int i = 0; i < pontos.size(); i++) {
             pontos.get(i).setX(pontos.get(i).getX() * escala);
             pontos.get(i).setY(pontos.get(i).getY() * escala);
             pontos.get(i).setZ(pontos.get(i).getZ() * escala);
         }
+        translacao(centro);
     }
 
     public void translacao(Ponto translacao) {
