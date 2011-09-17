@@ -73,6 +73,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jButton1.setBackground(new java.awt.Color(153, 204, 255));
         jButton1.setText("Rotação");
         jButton1.setAutoscrolls(true);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +82,7 @@ public class CriarObjeto extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(153, 255, 153));
         jButton2.setText("Extrusão");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
