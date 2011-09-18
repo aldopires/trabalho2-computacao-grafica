@@ -67,21 +67,21 @@ public class Aresta {
         return (new Aresta(v1.clone(), v2.clone()));
     }
 
-    public boolean equals(Aresta obj) {
+    public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        if (obj.v1.equals(this.v1)) {
-            if (obj.v2.equals(this.v2)) {
+        if (((Aresta)obj).v1.equals(this.v1)) {
+            if (((Aresta)obj).v2.equals(this.v2)) {
                 return true;
             }
         }
 
-        if (obj.v1.equals(this.v2)) {
-            if (obj.v2.equals(this.v1)) {
+        if (((Aresta)obj).v1.equals(this.v2)) {
+            if (((Aresta)obj).v2.equals(this.v1)) {
                 return true;
             }
         }

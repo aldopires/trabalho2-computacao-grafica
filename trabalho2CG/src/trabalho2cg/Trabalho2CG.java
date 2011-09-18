@@ -6,17 +6,7 @@ package trabalho2cg;
 
 
 import controle.Controle;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import mod.AlvyRay;
-import mod.Objeto;
-import mod.Ponto;
-import mod.Aresta;
-import mod.Face;
-import modelo.MatrizTransformacaoGeometrica;
-import modelo.Vertice;
 import visao.PainelTeste;
-import visao.TelaInicial;
 
 
 /**

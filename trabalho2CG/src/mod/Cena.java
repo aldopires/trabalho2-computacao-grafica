@@ -5,7 +5,6 @@
 package mod;
 
 import java.awt.Color;
-import modelo.*;
 import java.util.ArrayList;
 import java.util.List;
 

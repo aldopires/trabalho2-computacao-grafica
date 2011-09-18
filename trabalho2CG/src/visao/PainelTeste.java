@@ -5,10 +5,8 @@
 package visao;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 import mod.Objeto;
-import modelo.Vertice;
 
 /**
  *

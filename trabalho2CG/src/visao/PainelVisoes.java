@@ -13,7 +13,7 @@ package visao;
 import controle.ControlaTudo;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import modelo.Cena;
+import mod.Cena;
 
 /**
  *

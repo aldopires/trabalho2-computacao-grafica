@@ -18,9 +18,9 @@ import visao.TelaInicial;
  */
 public  class Controle {
 
-    public static void addObjeto(Objeto o) {
-        cena.addObj(o);
-    }
+//    public static void addObjeto(Objeto o) {
+//        cena.addObj(o);
+//    }
     private static Cena cena;
     private static TelaInicial t;
 

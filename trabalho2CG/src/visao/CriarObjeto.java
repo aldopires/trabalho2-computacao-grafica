@@ -31,7 +31,7 @@ public class CriarObjeto extends javax.swing.JFrame {
         initComponents();
         jPanel1.setSize(400, 300);
     }
-    private Objeto o = new Objeto();
+    private Objeto objeto = new Objeto();
     private ArrayList<Ponto> pontos = new ArrayList<Ponto>();
 
     /** This method is called from within the constructor to
@@ -44,10 +44,10 @@ public class CriarObjeto extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonRotacao = new javax.swing.JButton();
+        jButtonExtrusao = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonFecharObjeto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerando o objeto");
@@ -73,34 +73,34 @@ public class CriarObjeto extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        jButton1.setBackground(new java.awt.Color(153, 204, 255));
-        jButton1.setText("Rotação");
-        jButton1.setAutoscrolls(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRotacao.setBackground(new java.awt.Color(153, 204, 255));
+        jButtonRotacao.setText("Rotação");
+        jButtonRotacao.setAutoscrolls(true);
+        jButtonRotacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRotacaoActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 153));
-        jButton2.setText("Extrusão");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonExtrusao.setBackground(new java.awt.Color(153, 255, 153));
+        jButtonExtrusao.setText("Extrusão");
+        jButtonExtrusao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonExtrusaoActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Fechar Objeto");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFecharObjeto.setText("Fechar Objeto");
+        jButtonFecharObjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonFecharObjetoActionPerformed(evt);
             }
         });
 
@@ -114,10 +114,10 @@ public class CriarObjeto extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                        .addComponent(jButtonExtrusao, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonRotacao, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFecharObjeto))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,13 +127,13 @@ public class CriarObjeto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jButtonRotacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonExtrusao)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonFecharObjeto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(jButtonCancelar)))
                 .addContainerGap())
         );
 
@@ -141,20 +141,23 @@ public class CriarObjeto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // TODO add your handling code here:
-        if (!o.isEmpty()) {
-            jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
-            o.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto((double)evt.getX(), (double)evt.getY(), (double)0)));
-        } else {
-            o.addponto(new Ponto((double) evt.getX(), (double) evt.getY(), 0));
-        }
         System.out.println("Criar Objeto - ADD Ponto");
-        pontos.add(new Ponto((double)evt.getX(),(double) evt.getY(), 0));
-
-
+        Ponto pontoAtual = new Ponto((double)evt.getX(),(double) evt.getY(), 0);
+        //
+        if (!objeto.isEmpty()) {
+            jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), evt.getX(), evt.getY());
+//            objeto.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto((double)evt.getX(), (double)evt.getY(), (double)0)));
+            Ponto pontoUltimo = pontos.get(pontos.size() - 1);
+            Aresta novaAresta = new Aresta(pontoUltimo, pontoAtual);
+            //
+//            objeto.getArestas().add(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto((double)evt.getX(), (double)evt.getY(), (double)0)));
+            objeto.getArestas().add(novaAresta);
+        }
+        pontos.add(pontoAtual);
+        objeto.getPontos().add(pontoAtual);
     }//GEN-LAST:event_jPanel1MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonExtrusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExtrusaoActionPerformed
         // TODO add your handling code here:
         if (pontos.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
@@ -176,21 +179,21 @@ public class CriarObjeto extends javax.swing.JFrame {
             }
 
             if (s != null) {
-                o.extrusao(z);
-                Controle.addObjeto(o);
+                objeto.extrusao(z);
+                Controle.getCena().addObj(objeto);
                 dispose();
             }
 
 
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonExtrusaoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void jButtonRotacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRotacaoActionPerformed
 // TODO add your handling code here:
     if (pontos.isEmpty()) {
         JOptionPane.showMessageDialog(rootPane, "Não tem pontos!");
@@ -211,9 +214,9 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         }
         if (s != null) {
-            o.revolucao(z);
-            o.exibirAresta();
-            Controle.addObjeto(o);
+            objeto.revolucao(z);
+            objeto.exibirAresta();
+            Controle.getCena().addObj(objeto);
             dispose();
         }
 
@@ -221,25 +224,35 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     }
 
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_jButtonRotacaoActionPerformed
 
-private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+private void jButtonFecharObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharObjetoActionPerformed
     // TODO add your handling code here:
     
-    if (!o.isEmpty()) {
+    if (!objeto.isEmpty()) {
             jPanel1.getGraphics().drawLine((int) pontos.get(pontos.size() - 1).getX(), (int) pontos.get(pontos.size() - 1).getY(), (int) pontos.get(0).getX(), (int) pontos.get(0).getY());
-            o.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto( pontos.get(0).getX(),  pontos.get(0).getY(), (double)0)));
+//            objeto.addaresta(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto( pontos.get(0).getX(),  pontos.get(0).getY(), (double)0)));
+//            objeto.getArestas().add(new Aresta(new Ponto((double) pontos.get(pontos.size() - 1).getX(), (double) pontos.get(pontos.size() - 1).getY(), 0), new Ponto( pontos.get(0).getX(),  pontos.get(0).getY(), (double)0)));
+            Ponto primeiroPonto = objeto.getPontos().get(0);
+            Ponto ultimoPonto = objeto.getPontos().get(objeto.getPontos().size()-1);
+            //
+            Aresta arestaFecha = new Aresta(ultimoPonto, primeiroPonto);
+            objeto.getArestas().add(arestaFecha);
+            //
             Face f=new Face();
-            for(int i=0;i<o.getArestas().size();i++)
-                f.add(o.getaresta(i));
-            o.addface(f);
+            for(int i=0;i<objeto.getArestas().size();i++){
+//                f.getArestas().add(objeto.getaresta(i));
+                f.getArestas().add(objeto.getArestas().get(i));
+//            objeto.addface(f);
+            }
+            objeto.getFaces().add(f);
             
         } else {
            
         }
     
     
-}//GEN-LAST:event_jButton4ActionPerformed
+}//GEN-LAST:event_jButtonFecharObjetoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,10 +266,10 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonExtrusao;
+    private javax.swing.JButton jButtonFecharObjeto;
+    private javax.swing.JButton jButtonRotacao;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import mod.Aresta;
 import mod.Cena;
+import mod.Face;
 import mod.Objeto;
 import mod.Ponto;
 import mod.ZBuffer;
@@ -734,7 +735,7 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         System.out.println("Calculando");
         for (int x = 0; x < jpTodosXY.getWidth(); x++) { //varre o x com o tamanho da tela
             for (int y = 0; y < jpTodosXY.getHeight(); y++) { //varre o y com o tamanho da tela
-                for (int z = (int) maxZ+1; z > minZ-1; z--) { //varre o z indo do maxZ até o minZ
+                for (int z = (int) maxZ + 1; z > minZ - 1; z--) { //varre o z indo do maxZ até o minZ
                     Ponto teste = new Ponto(x, y, z);
                     //System.out.println(teste.toString());
                     for (int i = 0; i < cena.getSize(); i++) {// varre a cena
@@ -744,7 +745,7 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             //System.out.println(teste.toString()+cena.getObj(i).getCor(teste));
                         }
                     }
-                    if (buff.getMatriz(x, y)!=null) { //se o pixel ja foi setado num precisa mais
+                    if (buff.getMatriz(x, y) != null) { //se o pixel ja foi setado num precisa mais
                         break;
                     }
                 }
@@ -780,52 +781,56 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Cena cena;
         cena = Controle.getCena();
         if (jcbOcultacaoFaces.isSelected()) {
-
             desenhaCenaXY(cena);
             desenhaCenaYZ(cena);
             desenhaCenaXZ(cena);
-
-
-
         } else {
-
-
             for (int i = 0; i < cena.getSize(); i++) {
                 desenhaObj(cena.getObj(i));
             }
         }
 
-        ArrayList<Objeto> lista = new ArrayList<Objeto>();
-
-        lista = Controle.CenaPerspectiva();
-        System.out.println(lista.size());
-        for (int i = 0; i < lista.size(); i++) {
-            for (int j = 0; j < lista.get(i).getArestas().size(); j++) {
-
-                //não entra aqui
-                System.out.println("aoo " + i + " " + lista.get(i).getArestas().size());
-
-                jpTodosPerspectiva.getGraphics().
-                        drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
-                        (int) lista.get(i).getArestas().get(j).getV1().getY(),
-                        (int) lista.get(i).getArestas().get(j).getV2().getX(),
-                        (int) lista.get(i).getArestas().get(j).getV2().getY());
-
-                System.out.println((int) lista.get(i).getArestas().get(j).getV1().getX() + " "
-                        + (int) lista.get(i).getArestas().get(j).getV1().getY() + " "
-                        + (int) lista.get(i).getArestas().get(j).getV2().getX() + " "
-                        + (int) lista.get(i).getArestas().get(j).getV2().getY());
-            }
-        }
+//        ArrayList<Objeto> lista = new ArrayList<Objeto>();
+//
+//        lista = Controle.CenaPerspectiva();
+//        System.out.println(lista.size());
+//        for (int i = 0; i < lista.size(); i++) {
+//            for (int j = 0; j < lista.get(i).getArestas().size(); j++) {
+//
+//                //não entra aqui
+//                System.out.println("aoo " + i + " " + lista.get(i).getArestas().size());
+//
+//                jpTodosPerspectiva.getGraphics().
+//                        drawLine((int) lista.get(i).getArestas().get(j).getV1().getX(),
+//                        (int) lista.get(i).getArestas().get(j).getV1().getY(),
+//                        (int) lista.get(i).getArestas().get(j).getV2().getX(),
+//                        (int) lista.get(i).getArestas().get(j).getV2().getY());
+//
+//                System.out.println((int) lista.get(i).getArestas().get(j).getV1().getX() + " "
+//                        + (int) lista.get(i).getArestas().get(j).getV1().getY() + " "
+//                        + (int) lista.get(i).getArestas().get(j).getV2().getX() + " "
+//                        + (int) lista.get(i).getArestas().get(j).getV2().getY());
+//            }
+//        }
     }
 
     private void desenhaObj(Objeto obj) {
-        for (int i = 0; i < obj.sizearestas(); i++) {
-            desenhaAresta(obj.getaresta(i));
+//        for (Face face : obj.getFaces()) {
+//            for (Aresta aresta : face.getArestas()) {
+//                desenhaAresta(aresta);
+//            }
+//        }
+        for(Aresta aresta : obj.getArestas()){
+            desenhaAresta(aresta);
         }
+//        for (int i = 0; i < obj.getArestas().size(); i++) {
+////            desenhaAresta(obj.getaresta(i));
+//            desenhaAresta(obj.getArestas().get(i));
+//        }
     }
 
-    private void desenhaAresta(Aresta are) {
+    private void desenhaAresta(Aresta aresta) {
+        
         /*
         System.out.println("XY **************");
         System.out.println((int)are.getV1().getX()+" "+  (int)are.getV1().getY()+" "+ (int)are.getV2().getX()+" "+             (int)are.getV2().getY());
@@ -834,20 +839,23 @@ private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         System.out.println("XZ **************");
         System.out.println((int)are.getV1().getX()+" "+ (int)are.getV1().getZ()+" "+(int)are.getV2().getX()+" "+(int)are.getV2().getZ());
          */
-        jpTodosXY.getGraphics().drawLine((int) are.getV1().getX(),
-                (int) are.getV1().getY(),
-                (int) are.getV2().getX(),
-                (int) are.getV2().getY());
+        jpTodosXY.getGraphics().drawLine(
+                (int) aresta.getV1().getX(),
+                (int) aresta.getV1().getY(),
+                (int) aresta.getV2().getX(),
+                (int) aresta.getV2().getY());
 
 
-        jpTodosYZ.getGraphics().drawLine((int) are.getV1().getY(),
-                (int) are.getV1().getZ(),
-                (int) are.getV2().getY(),
-                (int) are.getV2().getZ());
+        jpTodosYZ.getGraphics().drawLine(
+                (int) aresta.getV1().getY(),
+                (int) aresta.getV1().getZ(),
+                (int) aresta.getV2().getY(),
+                (int) aresta.getV2().getZ());
 
-        jpTodosXZ.getGraphics().drawLine((int) are.getV1().getX(),
-                (int) are.getV1().getZ(),
-                (int) are.getV2().getX(),
-                (int) are.getV2().getZ());
+        jpTodosXZ.getGraphics().drawLine(
+                (int) aresta.getV1().getX(),
+                (int) aresta.getV1().getZ(),
+                (int) aresta.getV2().getX(),
+                (int) aresta.getV2().getZ());
     }
 }
