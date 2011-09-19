@@ -229,32 +229,29 @@ public class CriarPerfil2d extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        // TODO add your handling code here:
-       /*
-        if(jRadioButtonMover.isSelected()){
-        controlador.Controle.getPerfil2d().translacao((double)p.x-getX(), (double)p.y-evt.getY() );
-        desenha();
-        }*/
+        // TODO add your handling code here:     
         Point p1 = evt.getPoint();
         double dx = (double) p1.x - p.x;
         double dy = (double) p1.y - p.y;
-        if (jRadioButtonMover.isSelected()) {
-            controlador.Controle.getPerfil2d().translacao(dx, dy);
-            p = p1;
-            desenha();
-        } else if (jRadioButtonEscala.isSelected()) {
-            controlador.Controle.getPerfil2d().escala((dx/100)+1 , (dy/100)+1 );
-            p = p1;
-            desenha();
-        } else if (jRadioButtonRotacionar.isSelected()) {
-            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
-                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+            if (jRadioButtonMover.isSelected()) {
+                controlador.Controle.getPerfil2d().translacao(dx, dy);
+                p = p1;
+                desenha();
+            } else if (jRadioButtonEscala.isSelected()) {
+                controlador.Controle.getPerfil2d().escala((dx / 100) + 1, (dy / 100) + 1);
+                p = p1;
+                desenha();
+            } else if (jRadioButtonRotacionar.isSelected()) {
+                double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                        / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
 
-            controlador.Controle.getPerfil2d().rotaciona(angulo);
+                controlador.Controle.getPerfil2d().rotaciona(angulo);
 
-            p = p1;
-            desenha();
-        }
+                p = p1;
+                desenha();
+            }
+        //}
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
