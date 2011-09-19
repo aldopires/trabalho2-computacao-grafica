@@ -60,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jRadioButtonComOcultacao = new javax.swing.JRadioButton();
         jRadioButtonSemOcultacao = new javax.swing.JRadioButton();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
         jComboBoxObjetos = new javax.swing.JComboBox();
         jTabbedPaneCena = new javax.swing.JTabbedPane();
         jPanelTodos = new javax.swing.JPanel();
@@ -174,6 +175,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jRadioButtonSemOcultacao);
+        jToolBar1.add(jSeparator11);
 
         jComboBoxObjetos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxObjetos.addActionListener(new java.awt.event.ActionListener() {
@@ -182,6 +184,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jComboBoxObjetos);
+        jComboBoxObjetos.removeAllItems();
+
+        jTabbedPaneCena.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPaneCenaMouseClicked(evt);
+            }
+        });
+
+        jPanelTodos.setLayout(new java.awt.GridLayout(2, 2, 2, 2));
 
         jPanelTodosXY.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosXY.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -201,12 +212,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosXY.setLayout(jPanelTodosXYLayout);
         jPanelTodosXYLayout.setHorizontalGroup(
             jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         jPanelTodosXYLayout.setVerticalGroup(
             jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
+
+        jPanelTodos.add(jPanelTodosXY);
 
         jPanelTodosYZ.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosYZ.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -226,12 +239,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosYZ.setLayout(jPanelTodosYZLayout);
         jPanelTodosYZLayout.setHorizontalGroup(
             jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         jPanelTodosYZLayout.setVerticalGroup(
             jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
+
+        jPanelTodos.add(jPanelTodosYZ);
 
         jPanelTodosXZ.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosXZ.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -251,12 +266,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosXZ.setLayout(jPanelTodosXZLayout);
         jPanelTodosXZLayout.setHorizontalGroup(
             jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         jPanelTodosXZLayout.setVerticalGroup(
             jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
+
+        jPanelTodos.add(jPanelTodosXZ);
 
         jPanelPerpectiva.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPerpectiva.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -271,48 +288,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelPerpectiva.setLayout(jPanelPerpectivaLayout);
         jPanelPerpectivaLayout.setHorizontalGroup(
             jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         jPanelPerpectivaLayout.setVerticalGroup(
             jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanelTodosLayout = new javax.swing.GroupLayout(jPanelTodos);
-        jPanelTodos.setLayout(jPanelTodosLayout);
-        jPanelTodosLayout.setHorizontalGroup(
-            jPanelTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTodosLayout.createSequentialGroup()
-                .addComponent(jPanelTodosYZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelPerpectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelTodosLayout.createSequentialGroup()
-                .addComponent(jPanelTodosXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelTodosXZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanelTodosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanelPerpectiva, jPanelTodosXY, jPanelTodosXZ, jPanelTodosYZ});
-
-        jPanelTodosLayout.setVerticalGroup(
-            jPanelTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTodosLayout.createSequentialGroup()
-                .addComponent(jPanelTodosXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelTodosYZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanelTodosLayout.createSequentialGroup()
-                .addComponent(jPanelTodosXZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelPerpectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanelTodosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanelPerpectiva, jPanelTodosXY, jPanelTodosXZ, jPanelTodosYZ});
+        jPanelTodos.add(jPanelPerpectiva);
 
         jTabbedPaneCena.addTab("Todos", jPanelTodos);
 
         jPanelXY.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelXYMousePressed(evt);
+            }
+        });
+        jPanelXY.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelXYMouseDragged(evt);
             }
         });
 
@@ -334,6 +328,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jPanelXZMousePressed(evt);
             }
         });
+        jPanelXZ.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelXZMouseDragged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelXZLayout = new javax.swing.GroupLayout(jPanelXZ);
         jPanelXZ.setLayout(jPanelXZLayout);
@@ -351,6 +350,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelYZ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelYZMousePressed(evt);
+            }
+        });
+        jPanelYZ.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelYZMouseDragged(evt);
             }
         });
 
@@ -527,34 +531,65 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 private void jPanelTodosXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXZMouseDragged
 // TODO add your handling code here:
-    
+
     Point p1 = evt.getPoint();
-        double dx = (double) p1.x - p.x;
-        double dy = (double) p1.y - p.y;
-        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
-        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
-        if (jRadioButtonMover.isSelected()) {
-            obj3d.translacao(dx, 0, dy);
+    double dx = (double) p1.x - p.x;
+    double dy = (double) p1.y - p.y;
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+    if (jRadioButtonMover.isSelected()) {
+        obj3d.translacao(dx, 0, dy);
 
 
-        } else if (jRadioButtonEscala.isSelected()) {
-            obj3d.escala((dx / 100) + 1, 1, (dy / 100) + 1);
+    } else if (jRadioButtonEscala.isSelected()) {
+        obj3d.escala((dx / 100) + 1, 1, (dy / 100) + 1);
 
 
-        } else if (jRadioButtonRotacionar.isSelected()) {
-            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
-                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
-            obj3d.rotacaoEixoY(angulo);
+    } else if (jRadioButtonRotacionar.isSelected()) {
+        double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        obj3d.rotacaoEixoY(angulo);
 
 
-        }
-        p = p1;
-        Controle.geraTela();
-    
-    
+    }
+    p = p1;
+    Controle.geraTela();
+
+
 }//GEN-LAST:event_jPanelTodosXZMouseDragged
 
 private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosYZMouseDragged
+// TODO add your handling code here:
+    Point p1 = evt.getPoint();
+    double dx = (double) p1.x - p.x;
+    double dy = (double) p1.y - p.y;
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+    if (jRadioButtonMover.isSelected()) {
+        obj3d.translacao(0, dx, dy);
+
+
+    } else if (jRadioButtonEscala.isSelected()) {
+        obj3d.escala(1, (dx / 100) + 1, (dy / 100) + 1);
+
+
+    } else if (jRadioButtonRotacionar.isSelected()) {
+        double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        obj3d.rotacaoEixoX(angulo);
+
+
+    }
+    p = p1;
+    Controle.geraTela();
+}//GEN-LAST:event_jPanelTodosYZMouseDragged
+
+private void jTabbedPaneCenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneCenaMouseClicked
+// TODO add your handling code here:
+    desenha();
+}//GEN-LAST:event_jTabbedPaneCenaMouseClicked
+
+private void jPanelXYMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXYMouseDragged
 // TODO add your handling code here:
     Point p1 = evt.getPoint();
         double dx = (double) p1.x - p.x;
@@ -562,23 +597,76 @@ private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
         Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
         //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
         if (jRadioButtonMover.isSelected()) {
-            obj3d.translacao(0, dx, dy);
+            obj3d.translacao(dx, dy, 0);
 
 
         } else if (jRadioButtonEscala.isSelected()) {
-            obj3d.escala(1, (dx / 100) + 1, (dy / 100) + 1);
+            obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 1);
 
 
         } else if (jRadioButtonRotacionar.isSelected()) {
             double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
                     / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
-            obj3d.rotacaoEixoX(angulo);
+            obj3d.rotacaoEixoZ(angulo);
 
 
         }
         p = p1;
         Controle.geraTela();
-}//GEN-LAST:event_jPanelTodosYZMouseDragged
+        //}
+}//GEN-LAST:event_jPanelXYMouseDragged
+
+private void jPanelXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXZMouseDragged
+// TODO add your handling code here:
+    Point p1 = evt.getPoint();
+    double dx = (double) p1.x - p.x;
+    double dy = (double) p1.y - p.y;
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+    if (jRadioButtonMover.isSelected()) {
+        obj3d.translacao(dx, 0, dy);
+
+
+    } else if (jRadioButtonEscala.isSelected()) {
+        obj3d.escala((dx / 100) + 1, 1, (dy / 100) + 1);
+
+
+    } else if (jRadioButtonRotacionar.isSelected()) {
+        double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        obj3d.rotacaoEixoY(angulo);
+
+
+    }
+    p = p1;
+    Controle.geraTela();
+}//GEN-LAST:event_jPanelXZMouseDragged
+
+private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelYZMouseDragged
+// TODO add your handling code here:
+    Point p1 = evt.getPoint();
+    double dx = (double) p1.x - p.x;
+    double dy = (double) p1.y - p.y;
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+    if (jRadioButtonMover.isSelected()) {
+        obj3d.translacao(0, dx, dy);
+
+
+    } else if (jRadioButtonEscala.isSelected()) {
+        obj3d.escala(1, (dx / 100) + 1, (dy / 100) + 1);
+
+
+    } else if (jRadioButtonRotacionar.isSelected()) {
+        double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        obj3d.rotacaoEixoX(angulo);
+
+
+    }
+    p = p1;
+    Controle.geraTela();
+}//GEN-LAST:event_jPanelYZMouseDragged
 
     /**
      * @param args the command line arguments
@@ -616,6 +704,7 @@ private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
     private javax.swing.JRadioButton jRadioButtonSemOcultacao;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator11;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -654,13 +743,24 @@ private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
     private void desenha() {
         try {
 
-            desenhaXY();
-            desenhaXZ();
-            desenhaYZ();
+            int a = jTabbedPaneCena.getSelectedIndex();
 
-            desenhaTodosXY();
-            desenhaTodosXZ();
-            desenhaTodosYZ();
+            if (a == 1) {
+                desenhaXY();
+            }
+            if (a == 2) {
+                desenhaXZ();
+            }
+            if (a == 3) {
+                desenhaYZ();
+            }
+
+            if (a == 0) {
+                desenhaTodosXY();
+                desenhaTodosXZ();
+                desenhaTodosYZ();
+            }
+
 
         } catch (Exception e) {
         }
