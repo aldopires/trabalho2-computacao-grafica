@@ -14,8 +14,8 @@ public class Aresta3d {
     private Ponto3d p2;
 
     public Aresta3d(Ponto3d p1, Ponto3d p2) {
-        this.p1 = p1;
-        this.p2 = p2;
+        this.p1 = (Ponto3d) p1.clone();
+        this.p2 = (Ponto3d) p2.clone();
     }    
     
 

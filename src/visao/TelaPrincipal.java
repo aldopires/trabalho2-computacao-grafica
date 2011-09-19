@@ -83,6 +83,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButtonMover);
         jRadioButtonMover.setSelected(true);
         jRadioButtonMover.setText("Mover");
+        jRadioButtonMover.setEnabled(false);
         jRadioButtonMover.setFocusable(false);
         jRadioButtonMover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonMover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -96,6 +97,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonEscala);
         jRadioButtonEscala.setText("Escala");
+        jRadioButtonEscala.setEnabled(false);
         jRadioButtonEscala.setFocusable(false);
         jRadioButtonEscala.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonEscala.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -109,6 +111,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButtonRotacionar);
         jRadioButtonRotacionar.setText("Rotacionar");
+        jRadioButtonRotacionar.setEnabled(false);
         jRadioButtonRotacionar.setFocusable(false);
         jRadioButtonRotacionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonRotacionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -147,6 +150,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup2.add(jRadioButtonComOcultacao);
         jRadioButtonComOcultacao.setText("Com Ocultação");
+        jRadioButtonComOcultacao.setEnabled(false);
         jRadioButtonComOcultacao.setFocusable(false);
         jRadioButtonComOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonComOcultacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -160,6 +164,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         buttonGroup2.add(jRadioButtonSemOcultacao);
         jRadioButtonSemOcultacao.setSelected(true);
         jRadioButtonSemOcultacao.setText("Sem Ocultação");
+        jRadioButtonSemOcultacao.setEnabled(false);
         jRadioButtonSemOcultacao.setFocusable(false);
         jRadioButtonSemOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonSemOcultacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -211,6 +216,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jPanelTodosYZMousePressed(evt);
             }
         });
+        jPanelTodosYZ.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTodosYZMouseDragged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelTodosYZLayout = new javax.swing.GroupLayout(jPanelTodosYZ);
         jPanelTodosYZ.setLayout(jPanelTodosYZLayout);
@@ -229,6 +239,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosXZ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelTodosXZMousePressed(evt);
+            }
+        });
+        jPanelTodosXZ.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTodosXZMouseDragged(evt);
             }
         });
 
@@ -410,9 +425,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         // TODO add your handling code here:
         controlador.Controle.LimpaCena();
+        jRadioButtonComOcultacao.setEnabled(false);
         jRadioButtonEscala.setEnabled(false);
         jRadioButtonMover.setEnabled(false);
         jRadioButtonRotacionar.setEnabled(false);
+        jRadioButtonSemOcultacao.setEnabled(false);
+        desenha();
 
 }//GEN-LAST:event_jButtonLimparActionPerformed
 
@@ -490,7 +508,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
         } else if (jRadioButtonEscala.isSelected()) {
-            obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 0);
+            obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 1);
 
 
         } else if (jRadioButtonRotacionar.isSelected()) {
@@ -506,6 +524,61 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jPanelTodosXYMouseDragged
+
+private void jPanelTodosXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXZMouseDragged
+// TODO add your handling code here:
+    
+    Point p1 = evt.getPoint();
+        double dx = (double) p1.x - p.x;
+        double dy = (double) p1.y - p.y;
+        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+        if (jRadioButtonMover.isSelected()) {
+            obj3d.translacao(dx, 0, dy);
+
+
+        } else if (jRadioButtonEscala.isSelected()) {
+            obj3d.escala((dx / 100) + 1, 1, (dy / 100) + 1);
+
+
+        } else if (jRadioButtonRotacionar.isSelected()) {
+            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+            obj3d.rotacaoEixoY(angulo);
+
+
+        }
+        p = p1;
+        Controle.geraTela();
+    
+    
+}//GEN-LAST:event_jPanelTodosXZMouseDragged
+
+private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosYZMouseDragged
+// TODO add your handling code here:
+    Point p1 = evt.getPoint();
+        double dx = (double) p1.x - p.x;
+        double dy = (double) p1.y - p.y;
+        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+        if (jRadioButtonMover.isSelected()) {
+            obj3d.translacao(0, dx, dy);
+
+
+        } else if (jRadioButtonEscala.isSelected()) {
+            obj3d.escala(1, (dx / 100) + 1, (dy / 100) + 1);
+
+
+        } else if (jRadioButtonRotacionar.isSelected()) {
+            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+            obj3d.rotacaoEixoX(angulo);
+
+
+        }
+        p = p1;
+        Controle.geraTela();
+}//GEN-LAST:event_jPanelTodosYZMouseDragged
 
     /**
      * @param args the command line arguments
@@ -570,6 +643,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         for (Objeto3d o : Controle.getCena()) {
             jComboBoxObjetos.addItem(o);
         }
+        jRadioButtonComOcultacao.setEnabled(true);
+        jRadioButtonEscala.setEnabled(true);
+        jRadioButtonMover.setEnabled(true);
+        jRadioButtonRotacionar.setEnabled(true);
+        jRadioButtonSemOcultacao.setEnabled(true);
         desenha();
     }
 

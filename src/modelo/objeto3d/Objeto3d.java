@@ -7,6 +7,7 @@ package modelo.objeto3d;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -40,6 +41,7 @@ public class Objeto3d {
             addPontoFace(face.getP2());
             addPontoFace(face.getP3());
             calculaCentro();
+            arrumaReferenciaDosPontos();
             return true;
         }
         return false;
@@ -52,6 +54,8 @@ public class Objeto3d {
             for (Ponto3d pontoLista : pontos) {
                 if (pontoNovo.equals(pontoLista)) {
                     pontoNovo = pontoLista;
+                    if(pontoNovo!=pontoLista)
+                        System.out.println("Add um ponto numa face q não ta lista de ponto");
                     break;
                 }
             }
@@ -228,5 +232,18 @@ public class Objeto3d {
             pontoLista.setZ(aux.getZ());
         }
         
+    }
+    
+    public void arrumaReferenciaDosPontos(){
+        for(Face3d f:faces){
+            for(Ponto3d p:pontos){
+                if(f.getP1()!=p&&p.equals(f.getP1()))
+                    f.setP1(p);
+                if(f.getP2()!=p&&p.equals(f.getP2()))
+                    f.setP2(p);
+                if(f.getP3()!=p&&p.equals(f.getP3()))
+                    f.setP3(p);
+            }            
+        }
     }
 }

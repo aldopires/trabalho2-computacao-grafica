@@ -37,15 +37,15 @@ public class Controle {
         HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
         if (tela.isOcultacao()) {
             for (Objeto3d o : cena.getCena()) {
-                xy.add(new Converte3dPara2d().XYsemEliminacao(o));
-                xz.add(new Converte3dPara2d().XZsemEliminacao(o));
-                yz.add(new Converte3dPara2d().YZsemEliminacao(o));
+                xy.add(Converte3dPara2d.XYsemEliminacao(o));
+                xz.add(Converte3dPara2d.XZsemEliminacao(o));
+                yz.add(Converte3dPara2d.YZsemEliminacao(o));
             }
         }else{
             for (Objeto3d o : cena.getCena()) {
-                xy.add(new Converte3dPara2d().XYcommEliminacao(o, new Ponto3d(500, 500, 500)));
-                xz.add(new Converte3dPara2d().XZcomEliminacao(o,new Ponto3d(500, 500, 500)));
-                yz.add(new Converte3dPara2d().YZcomEliminacao(o,new Ponto3d(500, 500, 500)));
+                xy.add(Converte3dPara2d.XYcommEliminacao(o, new Ponto3d(10, 10, 500)));
+                xz.add(Converte3dPara2d.XZcomEliminacao(o,new Ponto3d(10, 500, 10)));
+                yz.add(Converte3dPara2d.YZcomEliminacao(o,new Ponto3d(500, 10, 10)));
             }
         }
 
