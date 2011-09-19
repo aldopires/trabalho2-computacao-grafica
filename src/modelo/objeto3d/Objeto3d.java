@@ -66,6 +66,7 @@ public class Objeto3d {
         for (Ponto3d pontoLista : pontos) {
             pontoLista.escala(x, y, z);
         }
+        calculaCentro();
     }
 
     public void translacao(double x, double y, double z) {
@@ -96,7 +97,7 @@ public class Objeto3d {
                 maxz = p.getZ();
             }
         }
-        centro = new Ponto3d(maxx - minx, maxy - miny, maxz - minz);
+        centro = new Ponto3d((maxx + minx)/2, (maxy + miny)/2, (maxz + minz)/2);
     }
 
     public void rotacaoEixoX(double angulo) {
@@ -120,6 +121,7 @@ public class Objeto3d {
         transladarOrigem.setZ(getCentro().getZ());
 
         translacao(transladarOrigem.getX(), transladarOrigem.getY(), transladarOrigem.getZ());
+        calculaCentro();
     }
 
     public void rotacaoEixoY(double angulo) {
@@ -143,6 +145,7 @@ public class Objeto3d {
         transladarOrigem.setZ(getCentro().getZ());
 
         translacao(transladarOrigem.getX(), transladarOrigem.getY(), transladarOrigem.getZ());
+        calculaCentro();
     }
 
     public void rotacaoEixoZ(double angulo) {
@@ -166,6 +169,7 @@ public class Objeto3d {
         transladarOrigem.setZ(getCentro().getZ());
 
         translacao(transladarOrigem.getX(), transladarOrigem.getY(), transladarOrigem.getZ());
+        calculaCentro();
     }
 
     public HashSet<Aresta3d> getArestas() {
