@@ -107,6 +107,18 @@ public class Face3d {
     protected Object clone() throws CloneNotSupportedException {
         return new Face3d( (Ponto3d) p1.clone(), (Ponto3d) p2.clone(), (Ponto3d) p3.clone());
     }
+
+    void setP1(Ponto3d p) {
+        p1=p;
+    }
+
+    void setP2(Ponto3d p) {
+        p2=p;
+    }
+
+    void setP3(Ponto3d p) {
+        p3=p;
+    }
     
     
 }
