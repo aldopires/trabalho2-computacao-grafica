@@ -37,7 +37,11 @@ public class  Controle {
 
     public static Objeto2d getPerfil2d() {
         return perfil2d;
-    } 
+    }
+
+    public static void LimpaPerfil2d(){
+        perfil2d=new Objeto2d();
+    }
         
     public static void CriarPerfil2d(){
         CriarPerfil2d = new visao.CriarPerfil2d();
@@ -45,7 +49,7 @@ public class  Controle {
         perfil2d=new Objeto2d();
     }
     
-    public static void extrusao(double z) throws CloneNotSupportedException{
+    public static void extrusao(double z){
         
         //cena.addObjeto(new Converte2dPara3d().extrusao(perfil2d, z));   
         Objeto3d obj= new Converte2dPara3d().extrusao(perfil2d, z);

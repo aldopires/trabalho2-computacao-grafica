@@ -17,7 +17,7 @@ import modelo.objeto3d.Ponto3d;
  */
 public class Converte2dPara3d {
     
-    public Objeto3d extrusao(Objeto2d obj2d, double z) throws CloneNotSupportedException {
+    public Objeto3d extrusao(Objeto2d obj2d, double z) {
         Objeto3d obj= new Objeto3d();
             
         for(Face2d f:obj2d.getFaces()){

@@ -13,12 +13,9 @@ package visao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.objeto2d.Aresta2d;
 import modelo.objeto2d.Objeto2d;
-import modelo.objeto2d.Ponto2d;
 
 /**
  *
@@ -57,6 +54,7 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         jButtonExtrusao = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jSeparator10 = new javax.swing.JToolBar.Separator();
+        jButtonLimpar = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JToolBar.Separator();
         jButtonCancelar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
@@ -84,6 +82,11 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         jRadioButtonMover.setFocusable(false);
         jRadioButtonMover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonMover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonMover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMoverActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jRadioButtonMover);
         jToolBar1.add(jSeparator5);
 
@@ -92,6 +95,11 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         jRadioButtonEscala.setFocusable(false);
         jRadioButtonEscala.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonEscala.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEscalaActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jRadioButtonEscala);
         jToolBar1.add(jSeparator6);
 
@@ -100,6 +108,11 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         jRadioButtonRotacionar.setFocusable(false);
         jRadioButtonRotacionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jRadioButtonRotacionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonRotacionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonRotacionarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jRadioButtonRotacionar);
         jToolBar1.add(jSeparator7);
         jToolBar1.add(jSeparator1);
@@ -124,6 +137,17 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         jToolBar1.add(jButtonExtrusao);
         jToolBar1.add(jSeparator2);
         jToolBar1.add(jSeparator10);
+
+        jButtonLimpar.setText("Limpar");
+        jButtonLimpar.setFocusable(false);
+        jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonLimpar);
         jToolBar1.add(jSeparator8);
 
         jButtonCancelar.setText("Cancelar");
@@ -196,6 +220,7 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         }
 
 
+
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -211,29 +236,23 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         desenha();
         }*/
         Point p1 = evt.getPoint();
+        double dx = (double) p1.x - p.x;
+        double dy = (double) p1.y - p.y;
         if (jRadioButtonMover.isSelected()) {
-            controlador.Controle.getPerfil2d().translacao((double) p1.x - p.x, (double) p1.y - p.y);
-            p=p1;           
+            controlador.Controle.getPerfil2d().translacao(dx, dy);
+            p = p1;
             desenha();
-        }
-        if (jRadioButtonEscala.isSelected()) {
-            try {
-                controlador.Controle.getPerfil2d().escala((double) (p1.x - p.x) / p1.x, (double) (p1.y - p.y) / p1.y);
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(CriarPerfil2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            p=p1;           
+        } else if (jRadioButtonEscala.isSelected()) {
+            controlador.Controle.getPerfil2d().escala((dx/100)+1 , (dy/100)+1 );
+            p = p1;
             desenha();
-        }
-        if (jRadioButtonRotacionar.isSelected()) {
-            double angulo = (p1.x - controlador.Controle.getPerfil2d().getCentro().getX())
-                    / (p1.y - controlador.Controle.getPerfil2d().getCentro().getY());
-            try {
-                controlador.Controle.getPerfil2d().rotaciona(angulo);
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(CriarPerfil2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            p=p1;           
+        } else if (jRadioButtonRotacionar.isSelected()) {
+            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+
+            controlador.Controle.getPerfil2d().rotaciona(angulo);
+
+            p = p1;
             desenha();
         }
     }//GEN-LAST:event_jPanel1MouseDragged
@@ -242,39 +261,28 @@ public class CriarPerfil2d extends javax.swing.JFrame {
         // TODO add your handling code here:
         p.x = evt.getX();
         p.y = evt.getY();
-        if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p.x, p.y))) {
-            vai = true;
-        }
-
     }//GEN-LAST:event_jPanel1MousePressed
-    private boolean vai = false;
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
         // TODO add your handling code here:
-        Point p1 = evt.getPoint();
-        if (jRadioButtonMover.isSelected()) {
-            controlador.Controle.getPerfil2d().translacao((double) p1.x - p.x, (double) p1.y - p.y);
-            vai = false;
-        }
-        if (jRadioButtonEscala.isSelected()) {
-            try {
-                controlador.Controle.getPerfil2d().escala((double) (p1.x - p.x) / p1.x, (double) (p1.y - p.y) / p1.y);
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(CriarPerfil2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            vai = false;
-        }
-        if (jRadioButtonRotacionar.isSelected()) {
-            double angulo = (p1.x - controlador.Controle.getPerfil2d().getCentro().getX())
-                    / (p1.y - controlador.Controle.getPerfil2d().getCentro().getY());
-            try {
-                controlador.Controle.getPerfil2d().rotaciona(angulo);
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(CriarPerfil2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            vai = false;
-        }
-        desenha();
+//        Point p1 = evt.getPoint();
+//        if (jRadioButtonMover.isSelected()) {
+//            controlador.Controle.getPerfil2d().translacao((double) p1.x - p.x, (double) p1.y - p.y);
+//            vai = false;
+//        }
+//        if (jRadioButtonEscala.isSelected()) {
+//
+//            controlador.Controle.getPerfil2d().escala((double) (p1.x - p.x) / p1.x, (double) (p1.y - p.y) / p1.y);
+//
+//            vai = false;
+//        }
+//        if (jRadioButtonRotacionar.isSelected()) {
+//            double angulo = (p1.x - controlador.Controle.getPerfil2d().getCentro().getX())
+//                    / (p1.y - controlador.Controle.getPerfil2d().getCentro().getY());
+//            controlador.Controle.getPerfil2d().rotaciona(angulo);
+//            vai = false;
+//        }
+//        desenha();
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void jButtonRevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRevolucaoActionPerformed
@@ -301,11 +309,6 @@ public class CriarPerfil2d extends javax.swing.JFrame {
             controlador.Controle.revolucao(grid);
             dispose();
         }
-
-
-
-
-
     }//GEN-LAST:event_jButtonRevolucaoActionPerformed
 
     private void jButtonExtrusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExtrusaoActionPerformed
@@ -327,14 +330,40 @@ public class CriarPerfil2d extends javax.swing.JFrame {
             }
         }
         if (s != null) {
-            try {
-                controlador.Controle.extrusao(z);
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(CriarPerfil2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            controlador.Controle.extrusao(z);
+
             dispose();
         }
     }//GEN-LAST:event_jButtonExtrusaoActionPerformed
+
+    private void jRadioButtonMoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMoverActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonDesenhar.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonMoverActionPerformed
+
+    private void jRadioButtonEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEscalaActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonDesenhar.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonEscalaActionPerformed
+
+    private void jRadioButtonRotacionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonRotacionarActionPerformed
+        // TODO add your handling code here:
+        jRadioButtonDesenhar.setEnabled(false);
+    }//GEN-LAST:event_jRadioButtonRotacionarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        // TODO add your handling code here:
+        controlador.Controle.LimpaPerfil2d();
+        jButtonExtrusao.setEnabled(false);
+        jButtonRevolucao.setEnabled(false);
+        jRadioButtonEscala.setEnabled(false);
+        jRadioButtonMover.setEnabled(false);
+        jRadioButtonRotacionar.setEnabled(false);
+        jRadioButtonDesenhar.setEnabled(true);
+        jRadioButtonDesenhar.setSelected(true);
+        desenha();
+    }//GEN-LAST:event_jButtonLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,6 +380,7 @@ public class CriarPerfil2d extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonExtrusao;
+    private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonRevolucao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonDesenhar;

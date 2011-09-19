@@ -93,7 +93,7 @@ public class Face2d {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public Object clone(){
         return new Face2d((Ponto2d) p1.clone(), (Ponto2d) p2.clone(), (Ponto2d) p3.clone());
     }
     

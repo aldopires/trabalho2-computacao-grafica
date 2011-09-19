@@ -68,7 +68,7 @@ public class Ponto2d {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Object clone() {
         return new Ponto2d(getX(),getY());
     }
 

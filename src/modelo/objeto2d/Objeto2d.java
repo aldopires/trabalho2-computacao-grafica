@@ -5,8 +5,6 @@
 package modelo.objeto2d;
 
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -67,6 +65,7 @@ public class Objeto2d {
         } else {
             //ja existe uma face
             faceIncompleta = new Face2d();
+
             // procura os pontos mais perto do pontoNovo add na faceIncompleta
             Ponto2d pontoDisMin = pontoNovo;
             double distmin = Double.MAX_VALUE;
@@ -76,8 +75,10 @@ public class Objeto2d {
                     pontoDisMin = pontoLista;
                 }
             }
+
             Ponto2d p1 = pontoDisMin;
             faceIncompleta.addPonto(p1);
+
             distmin = Double.MAX_VALUE;
             for (Ponto2d pontoLista : pontos) {
                 if (distmin > pontoNovo.distancia(pontoLista) && !pontoLista.equals(p1)) {
@@ -94,19 +95,21 @@ public class Objeto2d {
         return false;
     }
 
-    public void escala(double x, double y) throws CloneNotSupportedException {
-        Ponto2d p=(Ponto2d) centro.clone();
-        translacao(-p.getX(), -p.getY()); 
+    public void escala(double x, double y) {
+        double centrox=centro.getX(),
+               centroy=centro.getY();
+        translacao(-centrox, -centroy);
         for (Ponto2d pontoLista : pontos) {
             pontoLista.escala(x, y);
         }
-        translacao(p.getX(), p.getY()); 
+        translacao(centrox, centroy);
     }
 
     public void translacao(double x, double y) {
         for (Ponto2d pontoLista : pontos) {
             pontoLista.translacao(x, y);
         }
+        calculaCentro();
     }
 
     public HashSet<Aresta2d> getArestas() {
@@ -132,11 +135,7 @@ public class Objeto2d {
         Objeto2d copy = new Objeto2d();
 
         for (Face2d f : faces) {
-            try {
-                copy.addFace((Face2d) f.clone());
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(Objeto2d.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            copy.addFace((Face2d) f.clone());
         }
 
         return copy;
@@ -146,6 +145,7 @@ public class Objeto2d {
         for (Face2d f : faces) {
             f.inverteFace();
         }
+        calculaCentro();
 
         return this;
     }
@@ -183,16 +183,18 @@ public class Objeto2d {
                 maxy = p.getY();
             }
         }
-        centro=new Ponto2d(maxx-minx, maxy-miny);
+        centro = new Ponto2d(maxx - minx, maxy - miny);
     }
 
-    public void rotaciona(double angulo) throws CloneNotSupportedException {
-        Ponto2d pc=  centro;
-        translacao(-pc.getX(), -pc.getY());         
+    public void rotaciona(double angulo) {
+        calculaCentro();
+        Ponto2d pc = centro;
+        translacao(-pc.getX(), -pc.getY());
         for (Ponto2d p : pontos) {
-             p.setX((double) ((p.getX() * Math.cos(Math.toRadians(angulo))) + (p.getY() * -Math.sin(Math.toRadians(angulo)))));
+            p.setX((double) ((p.getX() * Math.cos(Math.toRadians(angulo))) + (p.getY() * -Math.sin(Math.toRadians(angulo)))));
             p.setY((double) ((p.getX() * Math.sin(Math.toRadians(angulo))) + (p.getY() * Math.cos(Math.toRadians(angulo)))));
         }
-        translacao(pc.getX(), pc.getY());         
+        translacao(pc.getX(), pc.getY());
+        
     }
 }
