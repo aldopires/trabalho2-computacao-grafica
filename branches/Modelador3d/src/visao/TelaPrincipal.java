@@ -96,8 +96,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPaneCena;
     // End of variables declaration//GEN-END:variables
 
-    public void addPainel(JPanelXY jPanelXY) {
-        jTabbedPaneCena.add(jPanelXY);
+    public void addPainel(String s,JPanelXY jPanelXY) {
+        jTabbedPaneCena.add(s,jPanelXY);
         
     }
 }

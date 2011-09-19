@@ -84,11 +84,11 @@ public class Converte3dPara2d {
     }
     
     private Face2d converteSemZ(Face3d p3d){
-        return new Face2d(converteSemZ(p3d.getP1()),converteSemX(p3d.getP2()),converteSemX(p3d.getP3()));
+        return new Face2d(converteSemZ(p3d.getP1()),converteSemZ(p3d.getP2()),converteSemZ(p3d.getP3()));
     }
     
     private Face2d converteSemY(Face3d p3d){
-        return new Face2d(converteSemY(p3d.getP1()),converteSemX(p3d.getP2()),converteSemX(p3d.getP3()));
+        return new Face2d(converteSemY(p3d.getP1()),converteSemY(p3d.getP2()),converteSemY(p3d.getP3()));
     }
     
     private Face2d converteSemX(Face3d p3d){
