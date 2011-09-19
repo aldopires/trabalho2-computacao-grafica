@@ -11,6 +11,13 @@
 package visao;
 
 import controlador.Controle;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.HashSet;
+import modelo.objeto2d.Aresta2d;
+import modelo.objeto2d.Objeto2d;
+import modelo.objeto3d.Objeto3d;
 
 /**
  *
@@ -22,6 +29,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
     }
+    private Point p = new Point();
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -32,13 +40,317 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        jToolBar1 = new javax.swing.JToolBar();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jRadioButtonMover = new javax.swing.JRadioButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        jRadioButtonEscala = new javax.swing.JRadioButton();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
+        jRadioButtonRotacionar = new javax.swing.JRadioButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jSeparator9 = new javax.swing.JToolBar.Separator();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
+        jButtonLimpar = new javax.swing.JButton();
+        jSeparator8 = new javax.swing.JToolBar.Separator();
+        jButtonCancelar = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        jRadioButtonComOcultacao = new javax.swing.JRadioButton();
+        jRadioButtonSemOcultacao = new javax.swing.JRadioButton();
+        jComboBoxObjetos = new javax.swing.JComboBox();
         jTabbedPaneCena = new javax.swing.JTabbedPane();
+        jPanelTodos = new javax.swing.JPanel();
+        jPanelTodosXY = new javax.swing.JPanel();
+        jPanelTodosYZ = new javax.swing.JPanel();
+        jPanelTodosXZ = new javax.swing.JPanel();
+        jPanelPerpectiva = new javax.swing.JPanel();
+        jPanelXY = new javax.swing.JPanel();
+        jPanelXZ = new javax.swing.JPanel();
+        jPanelYZ = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemNovoObjeto = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
+        jToolBar1.add(jSeparator3);
+
+        buttonGroup1.add(jRadioButtonMover);
+        jRadioButtonMover.setSelected(true);
+        jRadioButtonMover.setText("Mover");
+        jRadioButtonMover.setFocusable(false);
+        jRadioButtonMover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonMover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonMover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMoverActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonMover);
+        jToolBar1.add(jSeparator5);
+
+        buttonGroup1.add(jRadioButtonEscala);
+        jRadioButtonEscala.setText("Escala");
+        jRadioButtonEscala.setFocusable(false);
+        jRadioButtonEscala.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonEscala.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonEscala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEscalaActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonEscala);
+        jToolBar1.add(jSeparator6);
+
+        buttonGroup1.add(jRadioButtonRotacionar);
+        jRadioButtonRotacionar.setText("Rotacionar");
+        jRadioButtonRotacionar.setFocusable(false);
+        jRadioButtonRotacionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonRotacionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonRotacionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonRotacionarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonRotacionar);
+        jToolBar1.add(jSeparator7);
+        jToolBar1.add(jSeparator1);
+        jToolBar1.add(jSeparator9);
+        jToolBar1.add(jSeparator2);
+        jToolBar1.add(jSeparator10);
+
+        jButtonLimpar.setText("Limpar");
+        jButtonLimpar.setFocusable(false);
+        jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonLimpar);
+        jToolBar1.add(jSeparator8);
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonCancelar);
+        jToolBar1.add(jSeparator4);
+
+        buttonGroup2.add(jRadioButtonComOcultacao);
+        jRadioButtonComOcultacao.setText("Com Ocultação");
+        jRadioButtonComOcultacao.setFocusable(false);
+        jRadioButtonComOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonComOcultacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonComOcultacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonComOcultacaoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonComOcultacao);
+
+        buttonGroup2.add(jRadioButtonSemOcultacao);
+        jRadioButtonSemOcultacao.setSelected(true);
+        jRadioButtonSemOcultacao.setText("Sem Ocultação");
+        jRadioButtonSemOcultacao.setFocusable(false);
+        jRadioButtonSemOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonSemOcultacao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonSemOcultacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSemOcultacaoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonSemOcultacao);
+
+        jComboBoxObjetos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxObjetos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxObjetosActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jComboBoxObjetos);
+
+        jPanelTodosXY.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelTodosXY.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanelTodosXY.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosXY.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelTodosXYMousePressed(evt);
+            }
+        });
+        jPanelTodosXY.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelTodosXYMouseDragged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTodosXYLayout = new javax.swing.GroupLayout(jPanelTodosXY);
+        jPanelTodosXY.setLayout(jPanelTodosXYLayout);
+        jPanelTodosXYLayout.setHorizontalGroup(
+            jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+        jPanelTodosXYLayout.setVerticalGroup(
+            jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
+        jPanelTodosYZ.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelTodosYZ.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanelTodosYZ.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosYZ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelTodosYZMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTodosYZLayout = new javax.swing.GroupLayout(jPanelTodosYZ);
+        jPanelTodosYZ.setLayout(jPanelTodosYZLayout);
+        jPanelTodosYZLayout.setHorizontalGroup(
+            jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+        jPanelTodosYZLayout.setVerticalGroup(
+            jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
+        jPanelTodosXZ.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelTodosXZ.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanelTodosXZ.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosXZ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelTodosXZMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelTodosXZLayout = new javax.swing.GroupLayout(jPanelTodosXZ);
+        jPanelTodosXZ.setLayout(jPanelTodosXZLayout);
+        jPanelTodosXZLayout.setHorizontalGroup(
+            jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+        jPanelTodosXZLayout.setVerticalGroup(
+            jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
+        jPanelPerpectiva.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelPerpectiva.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanelPerpectiva.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelPerpectiva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelPerpectivaMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelPerpectivaLayout = new javax.swing.GroupLayout(jPanelPerpectiva);
+        jPanelPerpectiva.setLayout(jPanelPerpectivaLayout);
+        jPanelPerpectivaLayout.setHorizontalGroup(
+            jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+        jPanelPerpectivaLayout.setVerticalGroup(
+            jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelTodosLayout = new javax.swing.GroupLayout(jPanelTodos);
+        jPanelTodos.setLayout(jPanelTodosLayout);
+        jPanelTodosLayout.setHorizontalGroup(
+            jPanelTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTodosLayout.createSequentialGroup()
+                .addComponent(jPanelTodosYZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPerpectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelTodosLayout.createSequentialGroup()
+                .addComponent(jPanelTodosXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelTodosXZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanelTodosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanelPerpectiva, jPanelTodosXY, jPanelTodosXZ, jPanelTodosYZ});
+
+        jPanelTodosLayout.setVerticalGroup(
+            jPanelTodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTodosLayout.createSequentialGroup()
+                .addComponent(jPanelTodosXY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelTodosYZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanelTodosLayout.createSequentialGroup()
+                .addComponent(jPanelTodosXZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPerpectiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanelTodosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanelPerpectiva, jPanelTodosXY, jPanelTodosXZ, jPanelTodosYZ});
+
+        jTabbedPaneCena.addTab("Todos", jPanelTodos);
+
+        jPanelXY.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelXYMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelXYLayout = new javax.swing.GroupLayout(jPanelXY);
+        jPanelXY.setLayout(jPanelXYLayout);
+        jPanelXYLayout.setHorizontalGroup(
+            jPanelXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 982, Short.MAX_VALUE)
+        );
+        jPanelXYLayout.setVerticalGroup(
+            jPanelXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 556, Short.MAX_VALUE)
+        );
+
+        jTabbedPaneCena.addTab("XY", jPanelXY);
+
+        jPanelXZ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelXZMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelXZLayout = new javax.swing.GroupLayout(jPanelXZ);
+        jPanelXZ.setLayout(jPanelXZLayout);
+        jPanelXZLayout.setHorizontalGroup(
+            jPanelXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 982, Short.MAX_VALUE)
+        );
+        jPanelXZLayout.setVerticalGroup(
+            jPanelXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 556, Short.MAX_VALUE)
+        );
+
+        jTabbedPaneCena.addTab("XZ", jPanelXZ);
+
+        jPanelYZ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelYZMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelYZLayout = new javax.swing.GroupLayout(jPanelYZ);
+        jPanelYZ.setLayout(jPanelYZLayout);
+        jPanelYZLayout.setHorizontalGroup(
+            jPanelYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 982, Short.MAX_VALUE)
+        );
+        jPanelYZLayout.setVerticalGroup(
+            jPanelYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 556, Short.MAX_VALUE)
+        );
+
+        jTabbedPaneCena.addTab("YZ", jPanelYZ);
 
         jMenu1.setText("Arquivo");
 
@@ -62,11 +374,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
         );
 
         pack();
@@ -76,6 +394,118 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Controle.CriarPerfil2d();
     }//GEN-LAST:event_jMenuItemNovoObjetoActionPerformed
+
+    private void jRadioButtonMoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMoverActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jRadioButtonMoverActionPerformed
+
+    private void jRadioButtonEscalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEscalaActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jRadioButtonEscalaActionPerformed
+
+    private void jRadioButtonRotacionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonRotacionarActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jRadioButtonRotacionarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        // TODO add your handling code here:
+        controlador.Controle.LimpaCena();
+        jRadioButtonEscala.setEnabled(false);
+        jRadioButtonMover.setEnabled(false);
+        jRadioButtonRotacionar.setEnabled(false);
+
+}//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+}//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jComboBoxObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxObjetosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxObjetosActionPerformed
+
+    private void jRadioButtonComOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonComOcultacaoActionPerformed
+        // TODO add your handling code here:
+        Controle.geraTela();
+    }//GEN-LAST:event_jRadioButtonComOcultacaoActionPerformed
+
+    private void jRadioButtonSemOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemOcultacaoActionPerformed
+        // TODO add your handling code here:
+        Controle.geraTela();
+    }//GEN-LAST:event_jRadioButtonSemOcultacaoActionPerformed
+
+    private void jPanelTodosXYMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXYMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelTodosXYMousePressed
+
+    private void jPanelTodosXZMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXZMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelTodosXZMousePressed
+
+    private void jPanelTodosYZMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosYZMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelTodosYZMousePressed
+
+    private void jPanelPerpectivaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPerpectivaMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelPerpectivaMousePressed
+
+    private void jPanelXYMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXYMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelXYMousePressed
+
+    private void jPanelXZMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXZMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelXZMousePressed
+
+    private void jPanelYZMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelYZMousePressed
+        // TODO add your handling code here:
+        p.x = evt.getX();
+        p.y = evt.getY();
+    }//GEN-LAST:event_jPanelYZMousePressed
+
+    private void jPanelTodosXYMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXYMouseDragged
+        // TODO add your handling code here:
+
+        Point p1 = evt.getPoint();
+        double dx = (double) p1.x - p.x;
+        double dy = (double) p1.y - p.y;
+        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+        if (jRadioButtonMover.isSelected()) {
+            obj3d.translacao(dx, dy, 0);
+
+
+        } else if (jRadioButtonEscala.isSelected()) {
+            obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 0);
+
+
+        } else if (jRadioButtonRotacionar.isSelected()) {
+            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+            obj3d.rotacaoEixoZ(angulo);
+
+
+        }
+        p = p1;
+        Controle.geraTela();
+        //}
+
+
+    }//GEN-LAST:event_jPanelTodosXYMouseDragged
 
     /**
      * @param args the command line arguments
@@ -89,15 +519,181 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonLimpar;
+    private javax.swing.JComboBox jComboBoxObjetos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemNovoObjeto;
+    private javax.swing.JPanel jPanelPerpectiva;
+    private javax.swing.JPanel jPanelTodos;
+    private javax.swing.JPanel jPanelTodosXY;
+    private javax.swing.JPanel jPanelTodosXZ;
+    private javax.swing.JPanel jPanelTodosYZ;
+    private javax.swing.JPanel jPanelXY;
+    private javax.swing.JPanel jPanelXZ;
+    private javax.swing.JPanel jPanelYZ;
+    private javax.swing.JRadioButton jRadioButtonComOcultacao;
+    private javax.swing.JRadioButton jRadioButtonEscala;
+    private javax.swing.JRadioButton jRadioButtonMover;
+    private javax.swing.JRadioButton jRadioButtonRotacionar;
+    private javax.swing.JRadioButton jRadioButtonSemOcultacao;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
+    private javax.swing.JToolBar.Separator jSeparator7;
+    private javax.swing.JToolBar.Separator jSeparator8;
+    private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPaneCena;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
+    private HashSet<Objeto2d> xy = new HashSet<Objeto2d>();
+    private HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
+    private HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
 
-    public void addPainel(String s,JPanelXY jPanelXY) {
-        jTabbedPaneCena.add(s,jPanelXY);
-        
+    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz) {
+        this.xy = xy;
+        this.xz = xz;
+        this.yz = yz;
+        desenha();
+    }
+
+    public void atualiza() {
+        jComboBoxObjetos.removeAllItems();
+        for (Objeto3d o : Controle.getCena()) {
+            jComboBoxObjetos.addItem(o);
+        }
+        desenha();
+    }
+
+    private void desenha() {
+        try {
+
+            desenhaXY();
+            desenhaXZ();
+            desenhaYZ();
+
+            desenhaTodosXY();
+            desenhaTodosXZ();
+            desenhaTodosYZ();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public boolean isOcultacao() {
+        if (!jRadioButtonComOcultacao.isSelected()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        desenha();
+    }
+
+    private void desenhaXY() {
+        Graphics g1 = jPanelXY.getGraphics();
+        g1.setColor(Color.white);
+        g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
+        g1.setColor(Color.BLACK);
+        for (Objeto2d d : xy) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g1.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+
+    private void desenhaXZ() {
+        Graphics g2 = jPanelXZ.getGraphics();
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, jPanelXZ.getWidth(), jPanelXZ.getHeight());
+        g2.setColor(Color.BLACK);
+        for (Objeto2d d : xz) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g2.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+
+    private void desenhaYZ() {
+        Graphics g3 = jPanelYZ.getGraphics();
+        g3.setColor(Color.white);
+        g3.fillRect(0, 0, jPanelYZ.getWidth(), jPanelYZ.getHeight());
+        g3.setColor(Color.BLACK);
+        for (Objeto2d d : yz) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g3.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+
+    private void desenhaTodosXY() {
+        Graphics g4 = jPanelTodosXY.getGraphics();
+        g4.setColor(Color.white);
+        g4.fillRect(0, 0, jPanelTodosXY.getWidth(), jPanelTodosXY.getHeight());
+        g4.setColor(Color.BLACK);
+        for (Objeto2d d : xy) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g4.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+
+    private void desenhaTodosXZ() {
+        Graphics g5 = jPanelTodosXZ.getGraphics();
+        g5.setColor(Color.white);
+        g5.fillRect(0, 0, jPanelTodosXZ.getWidth(), jPanelTodosXZ.getHeight());
+        g5.setColor(Color.BLACK);
+        for (Objeto2d d : xz) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g5.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+
+    private void desenhaTodosYZ() {
+        Graphics g6 = jPanelTodosYZ.getGraphics();
+        g6.setColor(Color.white);
+        g6.fillRect(0, 0, jPanelTodosYZ.getWidth(), jPanelTodosYZ.getHeight());
+        g6.setColor(Color.BLACK);
+        for (Objeto2d d : yz) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g6.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
     }
 }

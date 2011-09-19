@@ -18,6 +18,13 @@ public class Objeto3d {
     private HashSet<Ponto3d> pontos;
     private Ponto3d centro;
 
+    @Override
+    public String toString() {
+        return "Objeto3d{" + '}';
+    }
+    
+    
+
     public Ponto3d getCentro() {
         return centro;
     }
@@ -197,11 +204,14 @@ public class Objeto3d {
     }
     
     public void elminacaoFaceOculta(Ponto3d p){
+        //System.out.println(faces.size());
+        HashSet<Face3d> copy=(HashSet<Face3d>) faces.clone();
         for(Face3d f: faces){
             if(f.normal(p)<0){      //elmina a face se for menor q zero
-                faces.remove(f);
+                copy.remove(f);
             }
         }
+        faces=copy;
         
     }
 

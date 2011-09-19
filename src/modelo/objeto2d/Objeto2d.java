@@ -183,7 +183,7 @@ public class Objeto2d {
                 maxy = p.getY();
             }
         }
-        centro = new Ponto2d(maxx - minx, maxy - miny);
+        centro = new Ponto2d((maxx + minx)/2, (maxy + miny)/2);
     }
 
     public void rotaciona(double angulo) {
