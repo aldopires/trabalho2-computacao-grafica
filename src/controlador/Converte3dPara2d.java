@@ -95,8 +95,22 @@ public class Converte3dPara2d {
         return new Face2d(converteSemX(p3d.getP1()),converteSemX(p3d.getP2()),converteSemX(p3d.getP3()));
     }
     
-    public Objeto2d perspectiva(Objeto3d obj3d, AlvyRay a){
+    public Objeto2d perspectivaSemEliminacaoFaceOculta(Objeto3d obj3d, AlvyRay a){
         Objeto2d retorno= new Objeto2d();
+        for(Face3d f: obj3d.getFaces()){
+            retorno.addFace(converteFaceAlvyRay(f,a));
+        }        
+        return retorno;
+    }
+    
+    public Objeto2d perspectivaComEliminacaoFaceOculta(Objeto3d obj3d, AlvyRay a){
+        Objeto2d retorno= new Objeto2d();
+        obj3d=obj3d.clone();
+        Ponto3d p = (Ponto3d) a.getVrp().clone();
+        p.setX(p.getX()-a.getYx());
+        p.setY(p.getY()-a.getYy());
+        p.setZ(p.getZ()-a.getYz());
+        obj3d.elminacaoFaceOculta(p);
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteFaceAlvyRay(f,a));
         }        

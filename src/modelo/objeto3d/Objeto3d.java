@@ -34,8 +34,13 @@ public class Objeto3d {
         pontos = new HashSet<Ponto3d>();        
     }
 
-    public boolean addFace(Face3d face) {
-        if (faces.add(face)) {
+    public boolean addFace(Face3d face) {        
+        
+        if (faces.remove(face)) {
+            return false;
+        }
+        else{
+            faces.add(face);
             addPontoFace(face.getP1());
             addPontoFace(face.getP2());
             addPontoFace(face.getP3());
@@ -43,7 +48,7 @@ public class Objeto3d {
             arrumaReferenciaDosPontos();
             return true;
         }
-        return false;
+        
     }
 
     private void addPontoFace(Ponto3d pontoNovo) {
