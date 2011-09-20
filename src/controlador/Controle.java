@@ -21,6 +21,10 @@ public class Controle {
     private static visao.CriarPerfil2d CriarPerfil2d;
     private static Cena cena = new Cena();
     private static TelaPrincipal tela;
+    
+    public static TelaPrincipal getTela(){
+        return tela;
+    }
 
     public static void LimpaCena() {
         cena = new Cena();
