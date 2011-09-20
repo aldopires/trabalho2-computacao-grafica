@@ -26,11 +26,11 @@ public class Converte2dPara3d {
             
             Face3d faceInferior= converte(((Face2d) f.clone()).inverteFace(), z);
             
-            Face3d f1= new Face3d(converte(f.getP1(), 0), converte(f.getP1(), z), converte(f.getP2(), z));
+            Face3d f1= new Face3d(converte(f.getP2(), 0), converte(f.getP1(), 0), converte(f.getP1(), z));
             Face3d f2= new Face3d(converte(f.getP2(), z), converte(f.getP2(), 0), converte(f.getP1(), z));
-            Face3d f3= new Face3d(converte(f.getP2(), 0), converte(f.getP2(), z), converte(f.getP3(), z));
-            Face3d f4= new Face3d(converte(f.getP3(), z), converte(f.getP3(), 0), converte(f.getP1(), z));
-            Face3d f5= new Face3d(converte(f.getP3(), 0), converte(f.getP3(), z), converte(f.getP1(), z));
+            Face3d f3= new Face3d(converte(f.getP3(), 0), converte(f.getP2(), 0), converte(f.getP2(), z));
+            Face3d f4= new Face3d(converte(f.getP3(), z), converte(f.getP3(), 0), converte(f.getP2(), z));
+            Face3d f5= new Face3d(converte(f.getP1(), 0), converte(f.getP3(), 0), converte(f.getP3(), z));
             Face3d f6= new Face3d(converte(f.getP1(), z), converte(f.getP1(), 0), converte(f.getP3(), z));
             
             

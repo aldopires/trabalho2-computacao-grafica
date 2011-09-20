@@ -49,9 +49,9 @@ public class Controle {
             }
         }else{
             for (Objeto3d o : cena.getCena()) {
-                xy.add(Converte3dPara2d.XYcommEliminacao(o, new Ponto3d(10, 10, 500)));
-                xz.add(Converte3dPara2d.XZcomEliminacao(o,new Ponto3d(10, 500, 10)));
-                yz.add(Converte3dPara2d.YZcomEliminacao(o,new Ponto3d(500, 10, 10)));
+                xy.add(Converte3dPara2d.XYcommEliminacao(o, new Ponto3d(0, 0, 500)));
+                xz.add(Converte3dPara2d.XZcomEliminacao(o,new Ponto3d(0, 500, 0)));
+                yz.add(Converte3dPara2d.YZcomEliminacao(o,new Ponto3d(500, 0, 0)));
                 perpectiva.add(new Converte3dPara2d().perspectiva(o, tela.getAlvyRay()));
             }
         }

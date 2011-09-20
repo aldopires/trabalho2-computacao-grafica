@@ -157,4 +157,87 @@ public class AlvyRay {
         
         return vertex;
     }
+
+    public Ponto3d getPontoParaOndeCameraAponta() {
+        return PontoParaOndeCameraAponta;
+    }
+
+    public double getYx() {
+        return Yx;
+    }
+
+    public double getYy() {
+        return Yy;
+    }
+
+    public double getYz() {
+        return Yz;
+    }
+
+    public double getCu() {
+        return cu;
+    }
+
+    public double getCv() {
+        return cv;
+    }
+
+    public double getD() {
+        return d;
+    }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
+    public double getDz() {
+        return dz;
+    }
+
+    public double getF() {
+        return f;
+    }
+
+    public double getN() {
+        return n;
+    }
+
+    public double getSu() {
+        return su;
+    }
+
+    public double getSv() {
+        return sv;
+    }
+
+    public Ponto3d getVrp() {
+        return vrp;
+    }
+
+    public double getXmax() {
+        return xmax;
+    }
+
+    public double getXmin() {
+        return xmin;
+    }
+
+    public double getYmax() {
+        return ymax;
+    }
+
+    public double getYmin() {
+        return ymin;
+    }
+
+    public double getZmin() {
+        return zmin;
+    }
+    
+    
+    
 }

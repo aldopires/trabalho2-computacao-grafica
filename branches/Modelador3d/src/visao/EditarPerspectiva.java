@@ -10,6 +10,8 @@
  */
 package visao;
 
+import controlador.AlvyRay;
+
 /**
  *
  * @author Marcos
@@ -19,6 +21,30 @@ public class EditarPerspectiva extends javax.swing.JFrame {
     /** Creates new form EditarPerspectiva */
     public EditarPerspectiva() {
         initComponents();
+    }
+    AlvyRay alvy;
+
+    public EditarPerspectiva(AlvyRay alvy) {
+        this.alvy = alvy;
+        initComponents();
+        jTextFieldVRPX.setText(String.valueOf(alvy.getVrp().getX()));
+        jTextFieldVRPY.setText(String.valueOf(alvy.getVrp().getY()));
+        jTextFieldVRPZ.setText(String.valueOf(alvy.getVrp().getZ()));
+        jTextFieldD.setText(String.valueOf(alvy.getD()));
+        jTextFieldVPxmin.setText(String.valueOf(alvy.getXmin()));
+        jTextFieldVPymin.setText(String.valueOf(alvy.getYmin()));
+        jTextFieldVPxmax.setText(String.valueOf(alvy.getXmax()));
+        jTextFieldVPymax.setText(String.valueOf(alvy.getYmax()));
+        jTextFieldFar.setText(String.valueOf(alvy.getF()));
+        jTextFieldNear.setText(String.valueOf(alvy.getN()));
+        jTextFieldPX.setText(String.valueOf(alvy.getPontoParaOndeCameraAponta().getX()));
+        jTextFieldPY.setText(String.valueOf(alvy.getPontoParaOndeCameraAponta().getY()));
+        jTextFieldPZ.setText(String.valueOf(alvy.getPontoParaOndeCameraAponta().getZ()));
+        jTextFieldYX.setText(String.valueOf(alvy.getYx()));
+        jTextFieldYY.setText(String.valueOf(alvy.getYy()));
+        jTextFieldYZ.setText(String.valueOf(alvy.getYz()));
+        jTextFieldsu.setText(String.valueOf(alvy.getSu()));
+        jTextFieldsv.setText(String.valueOf(alvy.getSv()));
     }
 
     /** This method is called from within the constructor to
@@ -346,25 +372,26 @@ public class EditarPerspectiva extends javax.swing.JFrame {
 
 private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
 // TODO add your handling code here:
-controlador.Controle.getTela().setAlvy(
-        Double.parseDouble(jTextFieldVRPX.getText()), 
-        Double.parseDouble(jTextFieldVRPY.getText()), 
-        Double.parseDouble(jTextFieldVRPZ.getText()), 
-        Double.parseDouble(jTextFieldD.getText()), 
-        Double.parseDouble(jTextFieldPX.getText()), 
-        Double.parseDouble(jTextFieldPY.getText()), 
-        Double.parseDouble(jTextFieldPZ.getText()), 
-        Double.parseDouble(jTextFieldVPxmin.getText()), 
-        Double.parseDouble(jTextFieldVPymin.getText()), 
-        Double.parseDouble(jTextFieldVPxmax.getText()), 
-        Double.parseDouble(jTextFieldVPymax.getText()), 
-        Double.parseDouble(jTextFieldNear.getText()), 
-        Double.parseDouble(jTextFieldFar.getText()), 
-        Double.parseDouble(jTextFieldsu.getText()), 
-        Double.parseDouble(jTextFieldsv.getText()), 
-        Double.parseDouble(jTextFieldYX.getText()), 
-        Double.parseDouble(jTextFieldYY.getText()), 
-        Double.parseDouble(jTextFieldYZ.getText()));
+    controlador.Controle.getTela().setAlvy(
+            Double.parseDouble(jTextFieldVRPX.getText()),
+            Double.parseDouble(jTextFieldVRPY.getText()),
+            Double.parseDouble(jTextFieldVRPZ.getText()),
+            Double.parseDouble(jTextFieldD.getText()),
+            Double.parseDouble(jTextFieldPX.getText()),
+            Double.parseDouble(jTextFieldPY.getText()),
+            Double.parseDouble(jTextFieldPZ.getText()),
+            Double.parseDouble(jTextFieldVPxmin.getText()),
+            Double.parseDouble(jTextFieldVPymin.getText()),
+            Double.parseDouble(jTextFieldVPxmax.getText()),
+            Double.parseDouble(jTextFieldVPymax.getText()),
+            Double.parseDouble(jTextFieldNear.getText()),
+            Double.parseDouble(jTextFieldFar.getText()),
+            Double.parseDouble(jTextFieldsu.getText()),
+            Double.parseDouble(jTextFieldsv.getText()),
+            Double.parseDouble(jTextFieldYX.getText()),
+            Double.parseDouble(jTextFieldYY.getText()),
+            Double.parseDouble(jTextFieldYZ.getText()));
+    dispose();
 }//GEN-LAST:event_jButtonOKActionPerformed
 
 private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

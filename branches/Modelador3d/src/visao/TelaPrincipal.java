@@ -199,7 +199,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanelTodosXY.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosXY.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanelTodosXY.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosXY.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanelTodosXY.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelTodosXYMousePressed(evt);
@@ -226,7 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanelTodosYZ.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosYZ.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanelTodosYZ.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosYZ.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanelTodosYZ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelTodosYZMousePressed(evt);
@@ -253,7 +253,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanelTodosXZ.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTodosXZ.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanelTodosXZ.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelTodosXZ.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanelTodosXZ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelTodosXZMousePressed(evt);
@@ -280,7 +280,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanelPerpectiva.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPerpectiva.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanelPerpectiva.setPreferredSize(new java.awt.Dimension(488, 275));
+        jPanelPerpectiva.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanelPerpectiva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelPerpectivaMousePressed(evt);
@@ -693,7 +693,7 @@ private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 // TODO add your handling code here:
-    new EditarPerspectiva().setVisible(true);
+    new EditarPerspectiva(alvy).setVisible(true);
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -926,16 +926,16 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private AlvyRay alvy= 
             new AlvyRay(
                 new Ponto3d(500, 500, 500), 
-                5, 
-                new Ponto3d(0, 0, 0), 
+                8, 
+                new Ponto3d(100, 100, 0), 
                 0, 
                 0, 
                 400, 
                 300, 
-                50, 
-                200, 
-                1, 
-                1, 
+                70, 
+                130, 
+                4, 
+                3, 
                 0, 
                 1, 
                 0);
@@ -954,6 +954,8 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             double Yx, 
             double Yy, 
             double Yz){
+        
+        
         alvy=new AlvyRay(new Ponto3d(VRPx, VRPy, VRPz),
                 d,
                 new Ponto3d(Px, Py, Pz),
@@ -968,6 +970,8 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 Yx,
                 Yy,
                 Yz);
+        
+        desenha();
     }
 
     public AlvyRay getAlvyRay() {
