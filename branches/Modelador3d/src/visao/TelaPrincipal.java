@@ -77,6 +77,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemNovoObjeto = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -387,6 +388,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Perspectiva");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -670,6 +686,16 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     Controle.geraTela();
 }//GEN-LAST:event_jPanelYZMouseDragged
 
+private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+// TODO add your handling code here:
+    
+}//GEN-LAST:event_jMenu2ActionPerformed
+
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+// TODO add your handling code here:
+    new EditarPerspectiva().setVisible(true);
+}//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -690,6 +716,7 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemNovoObjeto;
     private javax.swing.JPanel jPanelPerpectiva;
     private javax.swing.JPanel jPanelTodos;
@@ -895,9 +922,9 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
             }
         }
     }
-
-    public AlvyRay getAlvyRay() {
-        return new AlvyRay(
+    
+    private AlvyRay alvy= 
+            new AlvyRay(
                 new Ponto3d(500, 500, 500), 
                 5, 
                 new Ponto3d(0, 0, 0), 
@@ -912,5 +939,38 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                 0, 
                 1, 
                 0);
+    
+    public void setAlvy(double VRPx,double VRPy,double VRPz, 
+            double d, 
+            double Px, double Py, double Pz, //pontofocal
+            double xmin, 
+            double ymin, 
+            double xmax, 
+            double ymax, 
+            double n, 
+            double f, 
+            double su, 
+            double sv, 
+            double Yx, 
+            double Yy, 
+            double Yz){
+        alvy=new AlvyRay(new Ponto3d(VRPx, VRPy, VRPz),
+                d,
+                new Ponto3d(Px, Py, Pz),
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                n,
+                f,
+                su,
+                sv,
+                Yx,
+                Yy,
+                Yz);
+    }
+
+    public AlvyRay getAlvyRay() {
+        return alvy;
     }
 }
