@@ -49,9 +49,9 @@ public class Converte2dPara3d {
     
     public Objeto3d revolucao(Objeto2d obj2d, int grid){
         Objeto3d obj= converte(obj2d,0);
-        Objeto3d aux2=obj;
+        Objeto3d aux2=obj.clone();
         double angulo= 360/grid;
-        for(int i=0;i<grid;i++){            
+        for(int i=0;i<grid;i++){     
             for(Face3d f:aux2.getFaces()){
                 Face3d f1=new Face3d(
                         f.getP2(), 
