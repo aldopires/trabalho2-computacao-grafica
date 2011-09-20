@@ -830,15 +830,15 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private void desenhaPerpectiva() {
         Graphics g1 = jPanelPerpectiva.getGraphics();
         g1.setColor(Color.white);
-        g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
+        g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
         g1.setColor(Color.BLACK);
         for (Objeto2d d : perspectiva) {
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+                        jPanelPerpectiva.getWidth() -(int) aresta.getP1().getX(),
+                       (int) aresta.getP1().getY(),
+                        jPanelPerpectiva.getWidth() -(int) aresta.getP2().getX(),
+                       (int) aresta.getP2().getY());
             }
         }
     }
