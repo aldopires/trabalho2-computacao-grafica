@@ -835,9 +835,9 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         for (Objeto2d d : perspectiva) {
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
-                        jPanelPerpectiva.getWidth() -(int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getX(),
                        (int) aresta.getP1().getY(),
-                        jPanelPerpectiva.getWidth() -(int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getX(),
                        (int) aresta.getP2().getY());
             }
         }

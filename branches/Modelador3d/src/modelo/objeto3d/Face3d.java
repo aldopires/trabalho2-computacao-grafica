@@ -13,21 +13,19 @@ public class Face3d {
     private Ponto3d p1;
     private Ponto3d p2;
     private Ponto3d p3;
-    
-    
     private double a, b, c, d;
 
     private void calculaEquacao() {
-        
-            a = ((p3.getY() - p2.getY()) * (p1.getZ() - p2.getZ())) - ((p1.getY() - p2.getY()) * (p3.getZ() - p2.getZ()));
-            b = ((p3.getZ() - p2.getZ()) * (p1.getX() - p2.getX())) - ((p1.getZ() - p2.getZ()) * (p3.getX() - p2.getX()));
-            c = ((p3.getX() - p2.getX()) * (p1.getY() - p2.getY())) - ((p1.getX() - p2.getX()) * (p3.getY() - p2.getY()));
-            d = -(a * p2.getX()) - (b * p2.getY()) - (c * p2.getZ());
-        
+
+        a = ((p3.getY() - p2.getY()) * (p1.getZ() - p2.getZ())) - ((p1.getY() - p2.getY()) * (p3.getZ() - p2.getZ()));
+        b = ((p3.getZ() - p2.getZ()) * (p1.getX() - p2.getX())) - ((p1.getZ() - p2.getZ()) * (p3.getX() - p2.getX()));
+        c = ((p3.getX() - p2.getX()) * (p1.getY() - p2.getY())) - ((p1.getX() - p2.getX()) * (p3.getY() - p2.getY()));
+        d = -(a * p2.getX()) - (b * p2.getY()) - (c * p2.getZ());
+
     }
-    
-    public double normal(Ponto3d p){
-        return (p.getX()*a)+(p.getY()*b)+(p.getZ()*c)+d;
+
+    public double normal(Ponto3d p) {
+        return (p.getX() * a) + (p.getY() * b) + (p.getZ() * c) + d;
     }
 
     @Override
@@ -39,16 +37,49 @@ public class Face3d {
             return false;
         }
         final Face3d other = (Face3d) obj;
-        if (this.p1 != other.p1 && (this.p1 == null || !this.p1.equals(other.p1))) {
-            return false;
+        if (this.p1 == other.p1 || (this.p1.equals(other.p1))) {
+            if (this.p2 == other.p2 || (this.p2.equals(other.p2))) {
+                if (this.p3 == other.p3 || (this.p3.equals(other.p3))) {
+                    return true;
+                }
+            }
+            if (this.p2 == other.p3 || (this.p2.equals(other.p3))) {
+                if (this.p3 == other.p2 || (this.p3.equals(other.p2))) {
+                    return true;
+                }
+            }
+
         }
-        if (this.p2 != other.p2 && (this.p2 == null || !this.p2.equals(other.p2))) {
-            return false;
+
+        if (this.p1 == other.p2 || (this.p1.equals(other.p2))) {
+            if (this.p2 == other.p3 || (this.p2.equals(other.p3))) {
+                if (this.p3 == other.p1 || (this.p3.equals(other.p1))) {
+                    return true;
+                }
+            }
+            if (this.p2 == other.p1 || (this.p2.equals(other.p1))) {
+                if (this.p3 == other.p3 || (this.p3.equals(other.p3))) {
+                    return true;
+                }
+            }
+
         }
-        if (this.p3 != other.p3 && (this.p3 == null || !this.p3.equals(other.p3))) {
-            return false;
+
+        if (this.p1 == other.p3 || (this.p1.equals(other.p3))) {
+            if (this.p2 == other.p1 || (this.p2.equals(other.p1))) {
+                if (this.p3 == other.p2 || (this.p3.equals(other.p2))) {
+                    return true;
+                }
+            }
+            if (this.p2 == other.p2 || (this.p2.equals(other.p2))) {
+                if (this.p3 == other.p1 || (this.p3.equals(other.p1))) {
+                    return true;
+                }
+            }
+
         }
-        return true;
+
+        return false;
     }
 
     @Override
@@ -77,15 +108,15 @@ public class Face3d {
             p1 = p;
             return true;
         } else {
-            if (p2 == null&&!p1.equals(p)) {
+            if (p2 == null && !p1.equals(p)) {
                 p2 = p;
                 return true;
             } else {
-                if (p3 == null&&!p1.equals(p)&&!p2.equals(p)) {
+                if (p3 == null && !p1.equals(p) && !p2.equals(p)) {
                     p3 = p;
                     calculaEquacao();
                     return true;
-                } 
+                }
             }
         }
         return false;
@@ -93,8 +124,8 @@ public class Face3d {
 
     public Ponto3d getP1() {
         return p1;
-    }  
-    
+    }
+
     public Ponto3d getP2() {
         return p2;
     }
@@ -105,20 +136,18 @@ public class Face3d {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return new Face3d( (Ponto3d) p1.clone(), (Ponto3d) p2.clone(), (Ponto3d) p3.clone());
+        return new Face3d((Ponto3d) p1.clone(), (Ponto3d) p2.clone(), (Ponto3d) p3.clone());
     }
 
     void setP1(Ponto3d p) {
-        p1=p;
+        p1 = p;
     }
 
     void setP2(Ponto3d p) {
-        p2=p;
+        p2 = p;
     }
 
     void setP3(Ponto3d p) {
-        p3=p;
+        p3 = p;
     }
-    
-    
 }
