@@ -35,21 +35,24 @@ public class Controle {
         HashSet<Objeto2d> xy = new HashSet<Objeto2d>();
         HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
         HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
+        HashSet<Objeto2d> perpectiva = new HashSet<Objeto2d>();
         if (tela.isOcultacao()) {
             for (Objeto3d o : cena.getCena()) {
                 xy.add(Converte3dPara2d.XYsemEliminacao(o));
                 xz.add(Converte3dPara2d.XZsemEliminacao(o));
                 yz.add(Converte3dPara2d.YZsemEliminacao(o));
+                perpectiva.add(new Converte3dPara2d().perspectiva(o, tela.getAlvyRay()));
             }
         }else{
             for (Objeto3d o : cena.getCena()) {
                 xy.add(Converte3dPara2d.XYcommEliminacao(o, new Ponto3d(10, 10, 500)));
                 xz.add(Converte3dPara2d.XZcomEliminacao(o,new Ponto3d(10, 500, 10)));
                 yz.add(Converte3dPara2d.YZcomEliminacao(o,new Ponto3d(500, 10, 10)));
+                perpectiva.add(new Converte3dPara2d().perspectiva(o, tela.getAlvyRay()));
             }
         }
 
-        tela.setObj(xy, xz, yz);
+        tela.setObj(xy, xz, yz, perpectiva);
     }
 
     public Controle() {

@@ -10,6 +10,7 @@
  */
 package visao;
 
+import controlador.AlvyRay;
 import controlador.Controle;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,6 +19,7 @@ import java.util.HashSet;
 import modelo.objeto2d.Aresta2d;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto3d.Objeto3d;
+import modelo.objeto3d.Ponto3d;
 
 /**
  *
@@ -719,11 +721,13 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private HashSet<Objeto2d> xy = new HashSet<Objeto2d>();
     private HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
     private HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
+    private HashSet<Objeto2d> perspectiva = new HashSet<Objeto2d>();
 
-    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz) {
+    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz,HashSet<Objeto2d> perspectiva ) {
         this.xy = xy;
         this.xz = xz;
         this.yz = yz;
+        this.perspectiva= perspectiva;
         desenha();
     }
 
@@ -759,6 +763,7 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                 desenhaTodosXY();
                 desenhaTodosXZ();
                 desenhaTodosYZ();
+                desenhaPerpectiva();
             }
 
 
@@ -785,6 +790,22 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
         g1.setColor(Color.BLACK);
         for (Objeto2d d : xy) {
+            for (Aresta2d aresta : d.getArestas()) {
+                g1.drawLine(
+                        (int) aresta.getP1().getX(),
+                        (int) aresta.getP1().getY(),
+                        (int) aresta.getP2().getX(),
+                        (int) aresta.getP2().getY());
+            }
+        }
+    }
+    
+    private void desenhaPerpectiva() {
+        Graphics g1 = jPanelPerpectiva.getGraphics();
+        g1.setColor(Color.white);
+        g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
+        g1.setColor(Color.BLACK);
+        for (Objeto2d d : perspectiva) {
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
                         (int) aresta.getP1().getX(),
@@ -873,5 +894,23 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
                         (int) aresta.getP2().getY());
             }
         }
+    }
+
+    public AlvyRay getAlvyRay() {
+        return new AlvyRay(
+                new Ponto3d(500, 500, 500), 
+                5, 
+                new Ponto3d(0, 0, 0), 
+                0, 
+                0, 
+                400, 
+                300, 
+                50, 
+                200, 
+                1, 
+                1, 
+                0, 
+                1, 
+                0);
     }
 }

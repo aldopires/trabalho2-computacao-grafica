@@ -95,4 +95,25 @@ public class Converte3dPara2d {
         return new Face2d(converteSemX(p3d.getP1()),converteSemX(p3d.getP2()),converteSemX(p3d.getP3()));
     }
     
+    public Objeto2d perspectiva(Objeto3d obj3d, AlvyRay a){
+        Objeto2d retorno= new Objeto2d();
+        for(Face3d f: obj3d.getFaces()){
+            retorno.addFace(converteFaceAlvyRay(f,a));
+        }        
+        return retorno;
+    }
+
+    private Face2d converteFaceAlvyRay(Face3d p3d, AlvyRay a) {
+        return new Face2d( 
+                convertePontoAlvyRay(p3d.getP1(), a),
+                convertePontoAlvyRay(p3d.getP2(), a),
+                convertePontoAlvyRay(p3d.getP3(), a)
+                        );
+    }
+    
+    private Ponto2d convertePontoAlvyRay(Ponto3d p3d, AlvyRay a){
+        Ponto3d p=a.alvyRay(p3d);
+        return converteSemZ(p);
+        
+    }
 }
