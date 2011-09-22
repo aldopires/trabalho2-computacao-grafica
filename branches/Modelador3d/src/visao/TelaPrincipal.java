@@ -47,23 +47,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jRadioButtonMover = new javax.swing.JRadioButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
         jRadioButtonEscala = new javax.swing.JRadioButton();
-        jSeparator6 = new javax.swing.JToolBar.Separator();
         jRadioButtonRotacionar = new javax.swing.JRadioButton();
-        jSeparator7 = new javax.swing.JToolBar.Separator();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jSeparator9 = new javax.swing.JToolBar.Separator();
-        jSeparator2 = new javax.swing.JToolBar.Separator();
-        jSeparator10 = new javax.swing.JToolBar.Separator();
-        jButtonLimpar = new javax.swing.JButton();
-        jSeparator8 = new javax.swing.JToolBar.Separator();
-        jButtonCancelar = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
         jRadioButtonComOcultacao = new javax.swing.JRadioButton();
         jRadioButtonSemOcultacao = new javax.swing.JRadioButton();
         jSeparator11 = new javax.swing.JToolBar.Separator();
         jComboBoxObjetos = new javax.swing.JComboBox();
+        jButtonDelete = new javax.swing.JButton();
+        jSeparator8 = new javax.swing.JToolBar.Separator();
+        jButtonLimpar = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
         jTabbedPaneCena = new javax.swing.JTabbedPane();
         jPanelTodos = new javax.swing.JPanel();
         jPanelTodosXY = new javax.swing.JPanel();
@@ -97,7 +91,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jRadioButtonMover);
-        jToolBar1.add(jSeparator5);
 
         buttonGroup1.add(jRadioButtonEscala);
         jRadioButtonEscala.setText("Escala");
@@ -111,7 +104,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jRadioButtonEscala);
-        jToolBar1.add(jSeparator6);
 
         buttonGroup1.add(jRadioButtonRotacionar);
         jRadioButtonRotacionar.setText("Rotacionar");
@@ -125,32 +117,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jRadioButtonRotacionar);
-        jToolBar1.add(jSeparator7);
         jToolBar1.add(jSeparator1);
-        jToolBar1.add(jSeparator9);
-        jToolBar1.add(jSeparator2);
-        jToolBar1.add(jSeparator10);
-
-        jButtonLimpar.setText("Limpar");
-        jButtonLimpar.setFocusable(false);
-        jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimparActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButtonLimpar);
-        jToolBar1.add(jSeparator8);
-
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButtonCancelar);
-        jToolBar1.add(jSeparator4);
 
         buttonGroup2.add(jRadioButtonComOcultacao);
         jRadioButtonComOcultacao.setText("Com Ocultação");
@@ -188,6 +155,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jComboBoxObjetos);
         jComboBoxObjetos.removeAllItems();
+
+        jButtonDelete.setText("Deletar");
+        jButtonDelete.setFocusable(false);
+        jButtonDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonDelete);
+        jToolBar1.add(jSeparator8);
+
+        jButtonLimpar.setText("Limpar Cena");
+        jButtonLimpar.setFocusable(false);
+        jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonLimpar);
+        jToolBar1.add(jSeparator7);
 
         jTabbedPaneCena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -453,13 +444,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jRadioButtonRotacionar.setEnabled(false);
         jRadioButtonSemOcultacao.setEnabled(false);
         desenha();
+        atualiza();
 
 }//GEN-LAST:event_jButtonLimparActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
-        dispose();
-}//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jComboBoxObjetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxObjetosActionPerformed
         // TODO add your handling code here:
@@ -696,6 +683,14 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     new EditarPerspectiva(alvy).setVisible(true);
 }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+    // TODO add your handling code here:
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    Controle.getCena().remove(obj3d);
+    desenha();
+    atualiza();
+}//GEN-LAST:event_jButtonDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -710,7 +705,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JComboBox jComboBoxObjetos;
     private javax.swing.JMenu jMenu1;
@@ -732,16 +727,10 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JRadioButton jRadioButtonRotacionar;
     private javax.swing.JRadioButton jRadioButtonSemOcultacao;
     private javax.swing.JToolBar.Separator jSeparator1;
-    private javax.swing.JToolBar.Separator jSeparator10;
     private javax.swing.JToolBar.Separator jSeparator11;
-    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JToolBar.Separator jSeparator5;
-    private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
-    private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPaneCena;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables

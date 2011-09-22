@@ -17,11 +17,23 @@ public class Objeto3d {
     private HashSet<Face3d> faces;
     private HashSet<Ponto3d> pontos;
     private Ponto3d centro;
+    private String nome;
 
     @Override
     public String toString() {
-        return "Objeto3d{" + '}';
+        return "Objeto3d{" + nome+ '}';
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    
+    
     
     
 
@@ -36,17 +48,18 @@ public class Objeto3d {
 
     public boolean addFace(Face3d face) {        
         
-        if (faces.remove(face)) {
-            return false;
-        }
-        else{
-            faces.add(face);
+        if (faces.add(face)) {
             addPontoFace(face.getP1());
             addPontoFace(face.getP2());
             addPontoFace(face.getP3());
             calculaCentro();
             arrumaReferenciaDosPontos();
             return true;
+            
+        }
+        else{
+            return false;
+            
         }
         
     }
