@@ -40,8 +40,8 @@ public class Controle {
         HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
         HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
         HashSet<Objeto2d> perpectiva = new HashSet<Objeto2d>();
-        if (tela.isOcultacao()) {
-            for (Objeto3d o : cena.getCena()) {
+        if (tela.isOcultacao()) {            
+            for (Objeto3d o : cena.getCena()) {                
                 xy.add(Converte3dPara2d.XYsemEliminacao(o));
                 xz.add(Converte3dPara2d.XZsemEliminacao(o));
                 yz.add(Converte3dPara2d.YZsemEliminacao(o));
@@ -87,6 +87,7 @@ public class Controle {
 
 
         Objeto3d obj = new Converte2dPara3d().extrusao(perfil2d, z);
+        obj.setNome(cena.getCena().size()+"");
         cena.addObjeto(obj);
         
         tela.atualiza();
@@ -98,6 +99,7 @@ public class Controle {
     public static void revolucao(int grid) {
 
         Objeto3d obj = new Converte2dPara3d().revolucao(perfil2d, grid);
+        obj.setNome(cena.getCena().size()+"");
         cena.addObjeto(obj);
         
         tela.atualiza();
