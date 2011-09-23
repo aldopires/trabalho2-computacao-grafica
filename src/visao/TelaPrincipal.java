@@ -122,7 +122,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         buttonGroup2.add(jRadioButtonComOcultacao);
-        jRadioButtonComOcultacao.setText("Com Ocultação");
+        jRadioButtonComOcultacao.setText("Com Eliminação de Faces");
         jRadioButtonComOcultacao.setEnabled(false);
         jRadioButtonComOcultacao.setFocusable(false);
         jRadioButtonComOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -136,7 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup2.add(jRadioButtonSemOcultacao);
         jRadioButtonSemOcultacao.setSelected(true);
-        jRadioButtonSemOcultacao.setText("Sem Ocultação");
+        jRadioButtonSemOcultacao.setText("Sem Eliminação de Faces");
         jRadioButtonSemOcultacao.setEnabled(false);
         jRadioButtonSemOcultacao.setFocusable(false);
         jRadioButtonSemOcultacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

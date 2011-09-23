@@ -174,7 +174,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup2"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Com Oculta&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="Com Elimina&#xe7;&#xe3;o de Faces"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -190,7 +190,7 @@
               <ComponentRef name="buttonGroup2"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Sem Oculta&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="Sem Elimina&#xe7;&#xe3;o de Faces"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
