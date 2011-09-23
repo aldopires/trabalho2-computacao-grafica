@@ -5,6 +5,7 @@
 package controlador;
 
 
+import java.awt.Color;
 import java.util.HashSet;
 import modelo.objeto3d.Objeto3d;
 
@@ -14,10 +15,21 @@ import modelo.objeto3d.Objeto3d;
  */
 public class Cena {
     private HashSet<Objeto3d> cena= new HashSet<Objeto3d> ();
+    private Color cor=  Color.white;
     
     public HashSet<Objeto3d> getCena(){
         return cena;        
     }
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+    
+    
     
     public boolean addObjeto(Objeto3d o){
         return cena.add(o);

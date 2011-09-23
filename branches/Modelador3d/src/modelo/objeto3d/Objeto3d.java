@@ -4,6 +4,7 @@
  */
 package modelo.objeto3d;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,17 @@ public class Objeto3d {
     private HashSet<Ponto3d> pontos;
     private Ponto3d centro;
     private String nome;
+    private Color cor= Color.BLACK;
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }    
+    
+    
 
     @Override
     public String toString() {
@@ -214,7 +226,7 @@ public class Objeto3d {
                 Logger.getLogger(Objeto3d.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        copy.setCor(cor);
         return copy;
     }
 
@@ -267,4 +279,6 @@ public class Objeto3d {
             }            
         }
     }
+
+    
 }

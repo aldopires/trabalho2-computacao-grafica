@@ -4,6 +4,7 @@
  */
 package controlador;
 
+import java.awt.Color;
 import java.util.HashSet;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto2d.Ponto2d;
@@ -57,6 +58,14 @@ public class Controle {
         }
 
         tela.setObj(xy, xz, yz, perpectiva);
+    }
+
+    public static Color getCor() {
+        return cena.getCor();
+    }
+
+    public static void setCor(Color cor) {
+        cena.setCor(cor);
     }
 
     public Controle() {

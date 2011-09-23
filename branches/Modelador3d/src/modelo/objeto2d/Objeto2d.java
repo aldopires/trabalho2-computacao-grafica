@@ -4,6 +4,7 @@
  */
 package modelo.objeto2d;
 
+import java.awt.Color;
 import java.util.HashSet;
 
 /**
@@ -16,6 +17,16 @@ public class Objeto2d {
     private HashSet<Ponto2d> pontos;
     private Face2d faceIncompleta = new Face2d();
     private Ponto2d centro;
+    private Color cor= Color.BLACK;
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }    
+    
 
     public Ponto2d getCentro() {
         return centro;
