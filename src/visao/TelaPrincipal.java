@@ -72,6 +72,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItemNovoObjeto = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemEditarCena = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -378,7 +380,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Editar");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu2ActionPerformed(evt);
@@ -393,6 +395,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem1);
+
+        jMenuItemEditarCena.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemEditarCena.setText("Cena");
+        jMenuItemEditarCena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEditarCenaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemEditarCena);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Objeto ");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
 
@@ -443,8 +463,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jRadioButtonMover.setEnabled(false);
         jRadioButtonRotacionar.setEnabled(false);
         jRadioButtonSemOcultacao.setEnabled(false);
-        desenha();
+        xy = new HashSet<Objeto2d>();
+        yz = new HashSet<Objeto2d>();
+        xz = new HashSet<Objeto2d>();
+        perspectiva = new HashSet<Objeto2d>();
         atualiza();
+        desenha();
+
 
 }//GEN-LAST:event_jButtonLimparActionPerformed
 
@@ -597,28 +622,28 @@ private void jTabbedPaneCenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-F
 private void jPanelXYMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXYMouseDragged
 // TODO add your handling code here:
     Point p1 = evt.getPoint();
-        double dx = (double) p1.x - p.x;
-        double dy = (double) p1.y - p.y;
-        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
-        //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
-        if (jRadioButtonMover.isSelected()) {
-            obj3d.translacao(dx, dy, 0);
+    double dx = (double) p1.x - p.x;
+    double dy = (double) p1.y - p.y;
+    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+    //if (controlador.Controle.getPerfil2d().isOnFaces(new Ponto2d(p1.x, p1.y))) {
+    if (jRadioButtonMover.isSelected()) {
+        obj3d.translacao(dx, dy, 0);
 
 
-        } else if (jRadioButtonEscala.isSelected()) {
-            obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 1);
+    } else if (jRadioButtonEscala.isSelected()) {
+        obj3d.escala((dx / 100) + 1, (dy / 100) + 1, 1);
 
 
-        } else if (jRadioButtonRotacionar.isSelected()) {
-            double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
-                    / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
-            obj3d.rotacaoEixoZ(angulo);
+    } else if (jRadioButtonRotacionar.isSelected()) {
+        double angulo = (dx - controlador.Controle.getPerfil2d().getCentro().getX())
+                / (dy - controlador.Controle.getPerfil2d().getCentro().getY());
+        obj3d.rotacaoEixoZ(angulo);
 
 
-        }
-        p = p1;
-        Controle.geraTela();
-        //}
+    }
+    p = p1;
+    Controle.geraTela();
+    //}
 }//GEN-LAST:event_jPanelXYMouseDragged
 
 private void jPanelXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelXZMouseDragged
@@ -675,7 +700,6 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
 private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
 // TODO add your handling code here:
-    
 }//GEN-LAST:event_jMenu2ActionPerformed
 
 private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -685,11 +709,26 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
     // TODO add your handling code here:
-    Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
-    Controle.getCena().remove(obj3d);
-    desenha();
-    atualiza();
+    if (jComboBoxObjetos.getItemCount() == 1) {
+        jButtonLimparActionPerformed(evt);
+    } else {
+        Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
+        Controle.getCena().remove(obj3d);
+        atualiza();
+        desenha();
+    }
+
 }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+private void jMenuItemEditarCenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditarCenaActionPerformed
+    // TODO add your handling code here:
+    new EditarCena().setVisible(true);
+}//GEN-LAST:event_jMenuItemEditarCenaActionPerformed
+
+private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    // TODO add your handling code here:
+    new EditarObjeto((Objeto3d) jComboBoxObjetos.getSelectedItem()).setVisible(true);
+}//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -712,6 +751,8 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemEditarCena;
     private javax.swing.JMenuItem jMenuItemNovoObjeto;
     private javax.swing.JPanel jPanelPerpectiva;
     private javax.swing.JPanel jPanelTodos;
@@ -739,11 +780,11 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
     private HashSet<Objeto2d> perspectiva = new HashSet<Objeto2d>();
 
-    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz,HashSet<Objeto2d> perspectiva ) {
+    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz, HashSet<Objeto2d> perspectiva) {
         this.xy = xy;
         this.xz = xz;
         this.yz = yz;
-        this.perspectiva= perspectiva;
+        this.perspectiva = perspectiva;
         desenha();
     }
 
@@ -802,10 +843,10 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     private void desenhaXY() {
         Graphics g1 = jPanelXY.getGraphics();
-        g1.setColor(Color.white);
+        g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
-        g1.setColor(Color.BLACK);
         for (Objeto2d d : xy) {
+            g1.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
                         (int) aresta.getP1().getX(),
@@ -815,29 +856,29 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             }
         }
     }
-    
+
     private void desenhaPerpectiva() {
         Graphics g1 = jPanelPerpectiva.getGraphics();
-        g1.setColor(Color.white);
+        g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
-        g1.setColor(Color.BLACK);
         for (Objeto2d d : perspectiva) {
+            g1.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
-                        (int) aresta.getP1().getX(),
-                       (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                       (int) aresta.getP2().getY());
+                        jPanelPerpectiva.getWidth()-(int) aresta.getP1().getX(),
+                        jPanelPerpectiva.getHeight()-(int) aresta.getP1().getY(),
+                        jPanelPerpectiva.getWidth()-(int) aresta.getP2().getX(),
+                        jPanelPerpectiva.getHeight()-(int) aresta.getP2().getY());
             }
         }
     }
 
     private void desenhaXZ() {
         Graphics g2 = jPanelXZ.getGraphics();
-        g2.setColor(Color.white);
+        g2.setColor(Controle.getCor());
         g2.fillRect(0, 0, jPanelXZ.getWidth(), jPanelXZ.getHeight());
-        g2.setColor(Color.BLACK);
         for (Objeto2d d : xz) {
+            g2.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g2.drawLine(
                         (int) aresta.getP1().getX(),
@@ -850,10 +891,10 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     private void desenhaYZ() {
         Graphics g3 = jPanelYZ.getGraphics();
-        g3.setColor(Color.white);
+        g3.setColor(Controle.getCor());
         g3.fillRect(0, 0, jPanelYZ.getWidth(), jPanelYZ.getHeight());
-        g3.setColor(Color.BLACK);
         for (Objeto2d d : yz) {
+            g3.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g3.drawLine(
                         (int) aresta.getP1().getX(),
@@ -866,10 +907,10 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     private void desenhaTodosXY() {
         Graphics g4 = jPanelTodosXY.getGraphics();
-        g4.setColor(Color.white);
+        g4.setColor(Controle.getCor());
         g4.fillRect(0, 0, jPanelTodosXY.getWidth(), jPanelTodosXY.getHeight());
-        g4.setColor(Color.BLACK);
         for (Objeto2d d : xy) {
+            g4.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g4.drawLine(
                         (int) aresta.getP1().getX(),
@@ -882,10 +923,10 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     private void desenhaTodosXZ() {
         Graphics g5 = jPanelTodosXZ.getGraphics();
-        g5.setColor(Color.white);
+        g5.setColor(Controle.getCor());
         g5.fillRect(0, 0, jPanelTodosXZ.getWidth(), jPanelTodosXZ.getHeight());
-        g5.setColor(Color.BLACK);
         for (Objeto2d d : xz) {
+            g5.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g5.drawLine(
                         (int) aresta.getP1().getX(),
@@ -898,10 +939,10 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     private void desenhaTodosYZ() {
         Graphics g6 = jPanelTodosYZ.getGraphics();
-        g6.setColor(Color.white);
+        g6.setColor(Controle.getCor());
         g6.fillRect(0, 0, jPanelTodosYZ.getWidth(), jPanelTodosYZ.getHeight());
-        g6.setColor(Color.BLACK);
         for (Objeto2d d : yz) {
+            g6.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g6.drawLine(
                         (int) aresta.getP1().getX(),
@@ -911,41 +952,40 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
             }
         }
     }
-    
-    private AlvyRay alvy= 
+    private AlvyRay alvy =
             new AlvyRay(
-                new Ponto3d(500, 500, 500), 
-                8, 
-                new Ponto3d(100, 100, 0), 
-                0, 
-                0, 
-                400, 
-                300, 
-                70, 
-                130, 
-                4, 
-                3, 
-                0, 
-                1, 
-                0);
-    
-    public void setAlvy(double VRPx,double VRPy,double VRPz, 
-            double d, 
+            new Ponto3d(500, 500, 500),
+            8,
+            new Ponto3d(100, 100, 0),
+            0,
+            0,
+            400,
+            300,
+            70,
+            130,
+            4,
+            3,
+            0,
+            1,
+            0);
+
+    public void setAlvy(double VRPx, double VRPy, double VRPz,
+            double d,
             double Px, double Py, double Pz, //pontofocal
-            double xmin, 
-            double ymin, 
-            double xmax, 
-            double ymax, 
-            double n, 
-            double f, 
-            double su, 
-            double sv, 
-            double Yx, 
-            double Yy, 
-            double Yz){
-        
-        
-        alvy=new AlvyRay(new Ponto3d(VRPx, VRPy, VRPz),
+            double xmin,
+            double ymin,
+            double xmax,
+            double ymax,
+            double n,
+            double f,
+            double su,
+            double sv,
+            double Yx,
+            double Yy,
+            double Yz) {
+
+
+        alvy = new AlvyRay(new Ponto3d(VRPx, VRPy, VRPz),
                 d,
                 new Ponto3d(Px, Py, Pz),
                 xmin,
@@ -959,7 +999,7 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
                 Yx,
                 Yy,
                 Yz);
-        
+
         desenha();
     }
 

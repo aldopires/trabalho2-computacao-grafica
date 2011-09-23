@@ -4,6 +4,7 @@
  */
 package controlador;
 
+
 import modelo.objeto2d.Face2d;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto2d.Ponto2d;
@@ -22,6 +23,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemZ(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -30,6 +32,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemY(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -38,6 +41,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemX(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -48,6 +52,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemZ(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -58,6 +63,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemY(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -68,6 +74,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteSemX(f));
         }
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -100,6 +107,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteFaceAlvyRay(f,a));
         }        
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
     
@@ -114,6 +122,7 @@ public class Converte3dPara2d {
         for(Face3d f: obj3d.getFaces()){
             retorno.addFace(converteFaceAlvyRay(f,a));
         }        
+        retorno.setCor(obj3d.getCor());
         return retorno;
     }
 
