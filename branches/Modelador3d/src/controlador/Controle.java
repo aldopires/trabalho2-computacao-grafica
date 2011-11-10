@@ -9,7 +9,6 @@ import java.util.HashSet;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto2d.Ponto2d;
 import modelo.objeto3d.Objeto3d;
-import modelo.objeto3d.Ponto3d;
 import visao.TelaPrincipal;
 
 /**
@@ -35,29 +34,19 @@ public class Controle {
         return cena.getCena();
     }
 
-    public static void geraTela() {
-
-        HashSet<Objeto2d> xy = new HashSet<Objeto2d>();
-        HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
-        HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
+    public static HashSet<Objeto2d> geraPerspectiva() {
         HashSet<Objeto2d> perpectiva = new HashSet<Objeto2d>();
         if (tela.isOcultacao()) {            
             for (Objeto3d o : cena.getCena()) {                
-                xy.add(Converte3dPara2d.XYsemEliminacao(o));
-                xz.add(Converte3dPara2d.XZsemEliminacao(o));
-                yz.add(Converte3dPara2d.YZsemEliminacao(o));
                 perpectiva.add(new Converte3dPara2d().perspectivaSemEliminacaoFaceOculta(o, tela.getAlvyRay()));
             }
         }else{
             for (Objeto3d o : cena.getCena()) {
-                xy.add(Converte3dPara2d.XYcommEliminacao(o, new Ponto3d(0, 0, 5000)));
-                xz.add(Converte3dPara2d.XZcomEliminacao(o,new Ponto3d(0, 5000, 0)));
-                yz.add(Converte3dPara2d.YZcomEliminacao(o,new Ponto3d(5000, 0, 0)));
                 perpectiva.add(new Converte3dPara2d().perspectivaComEliminacaoFaceOculta(o, tela.getAlvyRay()));
             }
         }
 
-        tela.setObj(xy, xz, yz, perpectiva);
+        return perpectiva;
     }
 
     public static Color getCor() {
@@ -101,8 +90,6 @@ public class Controle {
         
         tela.atualiza();
 
-        geraTela();
-
     }
 
     public static void revolucao(int grid) {
@@ -112,7 +99,5 @@ public class Controle {
         cena.addObjeto(obj);
         
         tela.atualiza();
-
-        geraTela();
     }
 }
