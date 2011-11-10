@@ -295,6 +295,8 @@ public class CriarPerfil2d extends javax.swing.JFrame {
                     if (grid > 0) {
                         break;
                     }
+                }else{
+                    break;
                 }
 
             } catch (Exception e) {
@@ -318,6 +320,8 @@ public class CriarPerfil2d extends javax.swing.JFrame {
                 s = JOptionPane.showInputDialog(rootPane, "Variação em z: ");
                 if (s != null) {
                     z = Integer.parseInt(s);
+                    break;
+                }else{
                     break;
                 }
 

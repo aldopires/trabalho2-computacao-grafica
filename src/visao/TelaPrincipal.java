@@ -12,12 +12,11 @@ package visao;
 
 import controlador.AlvyRay;
 import controlador.Controle;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.HashSet;
 import modelo.objeto2d.Aresta2d;
 import modelo.objeto2d.Objeto2d;
+import modelo.objeto3d.Face3d;
 import modelo.objeto3d.Objeto3d;
 import modelo.objeto3d.Ponto3d;
 
@@ -463,10 +462,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jRadioButtonMover.setEnabled(false);
         jRadioButtonRotacionar.setEnabled(false);
         jRadioButtonSemOcultacao.setEnabled(false);
-        xy = new HashSet<Objeto2d>();
-        yz = new HashSet<Objeto2d>();
-        xz = new HashSet<Objeto2d>();
-        perspectiva = new HashSet<Objeto2d>();
         atualiza();
         desenha();
 
@@ -479,12 +474,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jRadioButtonComOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonComOcultacaoActionPerformed
         // TODO add your handling code here:
-        Controle.geraTela();
+        atualiza();
     }//GEN-LAST:event_jRadioButtonComOcultacaoActionPerformed
 
     private void jRadioButtonSemOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemOcultacaoActionPerformed
         // TODO add your handling code here:
-        Controle.geraTela();
+        atualiza();
     }//GEN-LAST:event_jRadioButtonSemOcultacaoActionPerformed
 
     private void jPanelTodosXYMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelTodosXYMousePressed
@@ -553,7 +548,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         }
         p = p1;
-        Controle.geraTela();
+        atualiza();
         //}
 
 
@@ -583,7 +578,7 @@ private void jPanelTodosXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
 
     }
     p = p1;
-    Controle.geraTela();
+    atualiza();
 
 
 }//GEN-LAST:event_jPanelTodosXZMouseDragged
@@ -611,7 +606,7 @@ private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
 
     }
     p = p1;
-    Controle.geraTela();
+    atualiza();
 }//GEN-LAST:event_jPanelTodosYZMouseDragged
 
 private void jTabbedPaneCenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneCenaMouseClicked
@@ -642,7 +637,7 @@ private void jPanelXYMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    Controle.geraTela();
+    atualiza();
     //}
 }//GEN-LAST:event_jPanelXYMouseDragged
 
@@ -669,7 +664,7 @@ private void jPanelXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    Controle.geraTela();
+    atualiza();
 }//GEN-LAST:event_jPanelXZMouseDragged
 
 private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelYZMouseDragged
@@ -695,7 +690,7 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    Controle.geraTela();
+    atualiza();
 }//GEN-LAST:event_jPanelYZMouseDragged
 
 private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -775,18 +770,6 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JTabbedPane jTabbedPaneCena;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
-    private HashSet<Objeto2d> xy = new HashSet<Objeto2d>();
-    private HashSet<Objeto2d> yz = new HashSet<Objeto2d>();
-    private HashSet<Objeto2d> xz = new HashSet<Objeto2d>();
-    private HashSet<Objeto2d> perspectiva = new HashSet<Objeto2d>();
-
-    public void setObj(HashSet<Objeto2d> xy, HashSet<Objeto2d> xz, HashSet<Objeto2d> yz, HashSet<Objeto2d> perspectiva) {
-        this.xy = xy;
-        this.xz = xz;
-        this.yz = yz;
-        this.perspectiva = perspectiva;
-        desenha();
-    }
 
     public void atualiza() {
         jComboBoxObjetos.removeAllItems();
@@ -845,14 +828,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g1 = jPanelXY.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
-        for (Objeto2d d : xy) {
+       Ponto3d observador = new Ponto3d(0, 0, 3000);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g1.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g1.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g1.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getY(),
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getY());
+                    g1.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getY(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getY());
+                    g1.drawLine(
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getY(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getY());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g1.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getY(),
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getY());
+                        g1.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getY(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getY());
+                        g1.drawLine(
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getY(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getY());
+                    }
+                }
             }
         }
     }
@@ -861,14 +875,14 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g1 = jPanelPerpectiva.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
-        for (Objeto2d d : perspectiva) {
+        for (Objeto2d d : Controle.geraPerspectiva()) {
             g1.setColor(d.getCor());
             for (Aresta2d aresta : d.getArestas()) {
                 g1.drawLine(
-                        jPanelPerpectiva.getWidth()-(int) aresta.getP1().getX(),
-                        jPanelPerpectiva.getHeight()-(int) aresta.getP1().getY(),
-                        jPanelPerpectiva.getWidth()-(int) aresta.getP2().getX(),
-                        jPanelPerpectiva.getHeight()-(int) aresta.getP2().getY());
+                        jPanelPerpectiva.getWidth() - (int) aresta.getP1().getX(),
+                        jPanelPerpectiva.getHeight() - (int) aresta.getP1().getY(),
+                        jPanelPerpectiva.getWidth() - (int) aresta.getP2().getX(),
+                        jPanelPerpectiva.getHeight() - (int) aresta.getP2().getY());
             }
         }
     }
@@ -877,14 +891,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g2 = jPanelXZ.getGraphics();
         g2.setColor(Controle.getCor());
         g2.fillRect(0, 0, jPanelXZ.getWidth(), jPanelXZ.getHeight());
-        for (Objeto2d d : xz) {
+        Ponto3d observador = new Ponto3d(0, 3000, 0);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g2.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g2.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g2.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getZ());
+                    g2.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getZ());
+                    g2.drawLine(
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getZ(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getZ());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g2.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getZ());
+                        g2.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getZ());
+                        g2.drawLine(
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getZ(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getZ());
+                    }
+                }
             }
         }
     }
@@ -893,14 +938,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g3 = jPanelYZ.getGraphics();
         g3.setColor(Controle.getCor());
         g3.fillRect(0, 0, jPanelYZ.getWidth(), jPanelYZ.getHeight());
-        for (Objeto2d d : yz) {
+        Ponto3d observador = new Ponto3d(3000, 0, 0);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g3.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g3.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g3.drawLine(
+                            (int) face.getP1().getY(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP2().getY(),
+                            (int) face.getP2().getZ());
+                    g3.drawLine(
+                            (int) face.getP1().getY(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP3().getY(),
+                            (int) face.getP3().getZ());
+                    g3.drawLine(
+                            (int) face.getP2().getY(),
+                            (int) face.getP2().getZ(),
+                            (int) face.getP3().getY(),
+                            (int) face.getP3().getZ());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g3.drawLine(
+                                (int) face.getP1().getY(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP2().getY(),
+                                (int) face.getP2().getZ());
+                        g3.drawLine(
+                                (int) face.getP1().getY(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP3().getY(),
+                                (int) face.getP3().getZ());
+                        g3.drawLine(
+                                (int) face.getP2().getY(),
+                                (int) face.getP2().getZ(),
+                                (int) face.getP3().getY(),
+                                (int) face.getP3().getZ());
+                    }
+                }
             }
         }
     }
@@ -909,14 +985,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g4 = jPanelTodosXY.getGraphics();
         g4.setColor(Controle.getCor());
         g4.fillRect(0, 0, jPanelTodosXY.getWidth(), jPanelTodosXY.getHeight());
-        for (Objeto2d d : xy) {
+        Ponto3d observador = new Ponto3d(0, 0, 3000);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g4.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g4.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g4.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getY(),
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getY());
+                    g4.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getY(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getY());
+                    g4.drawLine(
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getY(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getY());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g4.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getY(),
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getY());
+                        g4.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getY(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getY());
+                        g4.drawLine(
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getY(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getY());
+                    }
+                }
             }
         }
     }
@@ -925,14 +1032,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g5 = jPanelTodosXZ.getGraphics();
         g5.setColor(Controle.getCor());
         g5.fillRect(0, 0, jPanelTodosXZ.getWidth(), jPanelTodosXZ.getHeight());
-        for (Objeto2d d : xz) {
+        Ponto3d observador = new Ponto3d(0, 3000, 0);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g5.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g5.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g5.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getZ());
+                    g5.drawLine(
+                            (int) face.getP1().getX(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getZ());
+                    g5.drawLine(
+                            (int) face.getP2().getX(),
+                            (int) face.getP2().getZ(),
+                            (int) face.getP3().getX(),
+                            (int) face.getP3().getZ());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g5.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getZ());
+                        g5.drawLine(
+                                (int) face.getP1().getX(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getZ());
+                        g5.drawLine(
+                                (int) face.getP2().getX(),
+                                (int) face.getP2().getZ(),
+                                (int) face.getP3().getX(),
+                                (int) face.getP3().getZ());
+                    }
+                }
             }
         }
     }
@@ -941,14 +1079,45 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g6 = jPanelTodosYZ.getGraphics();
         g6.setColor(Controle.getCor());
         g6.fillRect(0, 0, jPanelTodosYZ.getWidth(), jPanelTodosYZ.getHeight());
-        for (Objeto2d d : yz) {
+        Ponto3d observador = new Ponto3d(3000, 0, 0);
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g6.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g6.drawLine(
-                        (int) aresta.getP1().getX(),
-                        (int) aresta.getP1().getY(),
-                        (int) aresta.getP2().getX(),
-                        (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    g6.drawLine(
+                            (int) face.getP1().getY(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP2().getY(),
+                            (int) face.getP2().getZ());
+                    g6.drawLine(
+                            (int) face.getP1().getY(),
+                            (int) face.getP1().getZ(),
+                            (int) face.getP3().getY(),
+                            (int) face.getP3().getZ());
+                    g6.drawLine(
+                            (int) face.getP2().getY(),
+                            (int) face.getP2().getZ(),
+                            (int) face.getP3().getY(),
+                            (int) face.getP3().getZ());
+                } else {
+                    if (face.normal(observador) < 0) {
+                        g6.drawLine(
+                                (int) face.getP1().getY(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP2().getY(),
+                                (int) face.getP2().getZ());
+                        g6.drawLine(
+                                (int) face.getP1().getY(),
+                                (int) face.getP1().getZ(),
+                                (int) face.getP3().getY(),
+                                (int) face.getP3().getZ());
+                        g6.drawLine(
+                                (int) face.getP2().getY(),
+                                (int) face.getP2().getZ(),
+                                (int) face.getP3().getY(),
+                                (int) face.getP3().getZ());
+                    }
+                }
             }
         }
     }

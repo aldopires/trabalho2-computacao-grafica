@@ -17,7 +17,7 @@ public class Objeto2d {
     private HashSet<Ponto2d> pontos;
     private Face2d faceIncompleta = new Face2d();
     private Ponto2d centro;
-    private Color cor= Color.BLACK;
+    private Color cor = Color.BLACK;
 
     public Color getCor() {
         return cor;
@@ -25,8 +25,7 @@ public class Objeto2d {
 
     public void setCor(Color cor) {
         this.cor = cor;
-    }    
-    
+    }
 
     public Ponto2d getCentro() {
         return centro;
@@ -71,13 +70,14 @@ public class Objeto2d {
             faceIncompleta.addPonto(pontoNovo);
             if (faceIncompleta.getP3() != null) {
                 addFace(faceIncompleta);
+                faceIncompleta = new Face2d();
             }
             return true;
         } else {
             //ja existe uma face
-            faceIncompleta = new Face2d();
 
-            // procura os pontos mais perto do pontoNovo add na faceIncompleta
+
+            // procura o pontos mais perto do pontoNovo add na faceIncompleta
             Ponto2d pontoDisMin = pontoNovo;
             double distmin = Double.MAX_VALUE;
             for (Ponto2d pontoLista : pontos) {
@@ -86,29 +86,36 @@ public class Objeto2d {
                     pontoDisMin = pontoLista;
                 }
             }
-
-            Ponto2d p1 = pontoDisMin;
-            faceIncompleta.addPonto(p1);
-
-            distmin = Double.MAX_VALUE;
-            for (Ponto2d pontoLista : pontos) {
-                if (distmin > pontoNovo.distancia(pontoLista) && !pontoLista.equals(p1)) {
-                    distmin = pontoNovo.distancia(pontoLista);
-                    pontoDisMin = pontoLista;
+            Ponto2d p = pontoDisMin;
+            if (faceIncompleta.getP1() == null) {
+                faceIncompleta.addPonto(p);
+            } else {
+                if (faceIncompleta.getP2() == null) {
+                    distmin = Double.MAX_VALUE;
+                    for (Ponto2d pontoLista : pontos) {
+                        if (distmin > pontoNovo.distancia(pontoLista) && !pontoLista.equals(faceIncompleta.getP1())) {
+                            distmin = pontoNovo.distancia(pontoLista);
+                            pontoDisMin = pontoLista;
+                        }
+                    }
+                    faceIncompleta.addPonto(pontoDisMin);
+                    
+                }else{
+                    faceIncompleta.addPonto(pontoNovo);
+                    // add a face
+                    addFace(faceIncompleta);
+                    faceIncompleta = new Face2d();
                 }
-            }
-            faceIncompleta.addPonto(pontoDisMin);
-            faceIncompleta.addPonto(pontoNovo);
 
-            // add a face
-            addFace(faceIncompleta);
+                
+            }
         }
         return false;
     }
 
     public void escala(double x, double y) {
-        double centrox=centro.getX(),
-               centroy=centro.getY();
+        double centrox = centro.getX(),
+                centroy = centro.getY();
         translacao(-centrox, -centroy);
         for (Ponto2d pontoLista : pontos) {
             pontoLista.escala(x, y);
@@ -194,7 +201,7 @@ public class Objeto2d {
                 maxy = p.getY();
             }
         }
-        centro = new Ponto2d((maxx + minx)/2, (maxy + miny)/2);
+        centro = new Ponto2d((maxx + minx) / 2, (maxy + miny) / 2);
     }
 
     public void rotaciona(double angulo) {
@@ -206,6 +213,6 @@ public class Objeto2d {
             p.setY((double) ((p.getX() * Math.sin(Math.toRadians(angulo))) + (p.getY() * Math.cos(Math.toRadians(angulo)))));
         }
         translacao(pc.getX(), pc.getY());
-        
+
     }
 }

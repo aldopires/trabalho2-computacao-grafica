@@ -25,6 +25,7 @@ public class Face3d {
     }
 
     public double normal(Ponto3d p) {
+        calculaEquacao();
         return (p.getX() * a) + (p.getY() * b) + (p.getZ() * c) + d;
     }
 
