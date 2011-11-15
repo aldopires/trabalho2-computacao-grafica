@@ -463,7 +463,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jRadioButtonRotacionar.setEnabled(false);
         jRadioButtonSemOcultacao.setEnabled(false);
         atualiza();
-        desenha();
 
 
 }//GEN-LAST:event_jButtonLimparActionPerformed
@@ -474,7 +473,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jRadioButtonComOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonComOcultacaoActionPerformed
         // TODO add your handling code here:
-        atualiza();
+        desenha();
     }//GEN-LAST:event_jRadioButtonComOcultacaoActionPerformed
 
     private void jRadioButtonSemOcultacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemOcultacaoActionPerformed
@@ -548,7 +547,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         }
         p = p1;
-        atualiza();
+        desenha();
         //}
 
 
@@ -578,7 +577,7 @@ private void jPanelTodosXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
 
     }
     p = p1;
-    atualiza();
+    desenha();
 
 
 }//GEN-LAST:event_jPanelTodosXZMouseDragged
@@ -606,7 +605,7 @@ private void jPanelTodosYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
 
     }
     p = p1;
-    atualiza();
+    desenha();
 }//GEN-LAST:event_jPanelTodosYZMouseDragged
 
 private void jTabbedPaneCenaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneCenaMouseClicked
@@ -637,7 +636,7 @@ private void jPanelXYMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    atualiza();
+    desenha();
     //}
 }//GEN-LAST:event_jPanelXYMouseDragged
 
@@ -664,7 +663,7 @@ private void jPanelXZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    atualiza();
+    desenha();
 }//GEN-LAST:event_jPanelXZMouseDragged
 
 private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelYZMouseDragged
@@ -690,7 +689,7 @@ private void jPanelYZMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     }
     p = p1;
-    atualiza();
+    desenha();
 }//GEN-LAST:event_jPanelYZMouseDragged
 
 private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -710,7 +709,6 @@ private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         Objeto3d obj3d = (Objeto3d) jComboBoxObjetos.getSelectedItem();
         Controle.getCena().remove(obj3d);
         atualiza();
-        desenha();
     }
 
 }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -875,14 +873,50 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g1 = jPanelPerpectiva.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
-        for (Objeto2d d : Controle.geraPerspectiva()) {
+        for (Objeto3d d : controlador.Controle.getCena()) {
             g1.setColor(d.getCor());
-            for (Aresta2d aresta : d.getArestas()) {
-                g1.drawLine(
-                        jPanelPerpectiva.getWidth() - (int) aresta.getP1().getX(),
-                        jPanelPerpectiva.getHeight() - (int) aresta.getP1().getY(),
-                        jPanelPerpectiva.getWidth() - (int) aresta.getP2().getX(),
-                        jPanelPerpectiva.getHeight() - (int) aresta.getP2().getY());
+            for (Face3d face : d.getFaces()) {
+                if (isOcultacao()) {
+                    Ponto3d p1 =alvy.alvyRay(face.getP1());
+                        Ponto3d p2 =alvy.alvyRay(face.getP2());
+                        Ponto3d p3 =alvy.alvyRay(face.getP3());
+                        g1.drawLine(
+                                (int) p1.getX(),
+                                (int) p1.getY(),
+                                (int) p2.getX(),
+                                (int) p2.getY());
+                        g1.drawLine(
+                                (int) p1.getX(),
+                                (int) p1.getY(),
+                                (int) p3.getX(),
+                                (int) p3.getY());
+                        g1.drawLine(
+                                (int) p3.getX(),
+                                (int) p3.getY(),
+                                (int) p2.getX(),
+                                (int) p2.getY());
+                } else {
+                    if (face.normal(alvy.getVrp()) < 0) {
+                        Ponto3d p1 =alvy.alvyRay(face.getP1());
+                        Ponto3d p2 =alvy.alvyRay(face.getP2());
+                        Ponto3d p3 =alvy.alvyRay(face.getP3());
+                        g1.drawLine(
+                                (int) p1.getX(),
+                                (int) p1.getY(),
+                                (int) p2.getX(),
+                                (int) p2.getY());
+                        g1.drawLine(
+                                (int) p1.getX(),
+                                (int) p1.getY(),
+                                (int) p3.getX(),
+                                (int) p3.getY());
+                        g1.drawLine(
+                                (int) p3.getX(),
+                                (int) p3.getY(),
+                                (int) p2.getX(),
+                                (int) p2.getY());
+                    }
+                }
             }
         }
     }
@@ -1121,6 +1155,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
         }
     }
+  
     private AlvyRay alvy =
             new AlvyRay(
             new Ponto3d(500, 500, 500),
