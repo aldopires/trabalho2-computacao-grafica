@@ -4,6 +4,9 @@
  */
 package controlador;
 
+import modelo.objeto2d.Objeto2d;
+import modelo.objeto3d.Face3d;
+import modelo.objeto3d.Objeto3d;
 import modelo.objeto3d.Ponto3d;
 
 /**
@@ -239,8 +242,19 @@ public class AlvyRay {
         return ponto3d;
     }
 
-
+    public Objeto3d converteAlvyRay(Objeto3d obj3d){
+        Objeto3d retorno= obj3d.clone();
+        for(Ponto3d p: obj3d.getPontos()){
+            convertePontoAlvyRay(p);
+        }        
+        return retorno;
+    }
     
+   
     
+    private void convertePontoAlvyRay(Ponto3d p3d){
+        Ponto3d p=alvyRay(p3d);
+        
+    }
     
 }

@@ -45,9 +45,6 @@ public class Objeto3d {
     }
 
     
-    
-    
-    
 
     public Ponto3d getCentro() {
         return centro;
@@ -278,6 +275,10 @@ public class Objeto3d {
                     f.setP3(p);
             }            
         }
+    }
+
+    public HashSet<Ponto3d> getPontos() {
+        return pontos;
     }
 
     

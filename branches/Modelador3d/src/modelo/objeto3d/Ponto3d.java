@@ -86,7 +86,7 @@ public class Ponto3d {
     }
 
     @Override
-    public Object clone()  {
+    public Ponto3d clone()  {
         return new Ponto3d(getX(),getY(),getZ());
     }
 
