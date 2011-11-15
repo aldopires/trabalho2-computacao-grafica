@@ -12,8 +12,11 @@ package visao;
 
 import controlador.AlvyRay;
 import controlador.Controle;
+import controlador.ZBuffer;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.HashSet;
 import modelo.objeto2d.Aresta2d;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto3d.Face3d;
@@ -31,6 +34,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
     private Point p = new Point();
+    private ZBuffer zBuffer;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -43,6 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jToolBar1 = new javax.swing.JToolBar();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jRadioButtonMover = new javax.swing.JRadioButton();
@@ -52,11 +57,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jRadioButtonComOcultacao = new javax.swing.JRadioButton();
         jRadioButtonSemOcultacao = new javax.swing.JRadioButton();
         jSeparator11 = new javax.swing.JToolBar.Separator();
+        jRadioButtonComPreenchimento = new javax.swing.JRadioButton();
+        jRadioButtonSemPreenchimento = new javax.swing.JRadioButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         jComboBoxObjetos = new javax.swing.JComboBox();
         jButtonDelete = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JToolBar.Separator();
         jButtonLimpar = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
+        jButtonRenderizar = new javax.swing.JButton();
         jTabbedPaneCena = new javax.swing.JTabbedPane();
         jPanelTodos = new javax.swing.JPanel();
         jPanelTodosXY = new javax.swing.JPanel();
@@ -134,7 +143,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(jRadioButtonComOcultacao);
 
         buttonGroup2.add(jRadioButtonSemOcultacao);
-        jRadioButtonSemOcultacao.setSelected(true);
         jRadioButtonSemOcultacao.setText("Sem Eliminação de Faces");
         jRadioButtonSemOcultacao.setEnabled(false);
         jRadioButtonSemOcultacao.setFocusable(false);
@@ -147,6 +155,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jRadioButtonSemOcultacao);
         jToolBar1.add(jSeparator11);
+
+        buttonGroup3.add(jRadioButtonComPreenchimento);
+        jRadioButtonComPreenchimento.setText("Com Preenchimento");
+        jRadioButtonComPreenchimento.setFocusable(false);
+        jRadioButtonComPreenchimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonComPreenchimento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonComPreenchimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonComPreenchimentoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonComPreenchimento);
+
+        buttonGroup3.add(jRadioButtonSemPreenchimento);
+        jRadioButtonSemPreenchimento.setSelected(true);
+        jRadioButtonSemPreenchimento.setText("Sem Preenchimento");
+        jRadioButtonSemPreenchimento.setFocusable(false);
+        jRadioButtonSemPreenchimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jRadioButtonSemPreenchimento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButtonSemPreenchimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonSemPreenchimentoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jRadioButtonSemPreenchimento);
+        jToolBar1.add(jSeparator2);
 
         jComboBoxObjetos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxObjetos.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +214,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonLimpar);
         jToolBar1.add(jSeparator7);
+
+        jButtonRenderizar.setText("Renderizar");
+        jButtonRenderizar.setFocusable(false);
+        jButtonRenderizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonRenderizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonRenderizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRenderizarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonRenderizar);
 
         jTabbedPaneCena.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -723,6 +768,30 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     new EditarObjeto((Objeto3d) jComboBoxObjetos.getSelectedItem()).setVisible(true);
 }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+private void jRadioButtonComPreenchimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonComPreenchimentoActionPerformed
+// TODO add your handling code here:
+    atualiza();
+}//GEN-LAST:event_jRadioButtonComPreenchimentoActionPerformed
+
+private void jRadioButtonSemPreenchimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSemPreenchimentoActionPerformed
+// TODO add your handling code here:
+    atualiza();
+}//GEN-LAST:event_jRadioButtonSemPreenchimentoActionPerformed
+
+private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRenderizarActionPerformed
+// TODO add your handling code here:
+    HashSet<Objeto3d> cena = new HashSet<Objeto3d>();
+    for(Objeto3d obj: Controle.getCena()){
+        Objeto3d i= new Objeto3d();
+        for(Face3d f: obj.getFaces()){
+            i.addFace(new Face3d(alvy.alvyRay(f.getP1()), alvy.alvyRay(f.getP2()), alvy.alvyRay(f.getP3()), f.getCor()));
+        }
+        i.setCor(obj.getCor());
+        cena.add(i);
+    }
+    new AspectoRealista(cena,alvy.getXmin(),alvy.getXmax(),alvy.getYmin(),alvy.getYmax()).setVisible(true);
+}//GEN-LAST:event_jButtonRenderizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -737,8 +806,10 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonLimpar;
+    private javax.swing.JButton jButtonRenderizar;
     private javax.swing.JComboBox jComboBoxObjetos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -756,12 +827,15 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JPanel jPanelXZ;
     private javax.swing.JPanel jPanelYZ;
     private javax.swing.JRadioButton jRadioButtonComOcultacao;
+    private javax.swing.JRadioButton jRadioButtonComPreenchimento;
     private javax.swing.JRadioButton jRadioButtonEscala;
     private javax.swing.JRadioButton jRadioButtonMover;
     private javax.swing.JRadioButton jRadioButtonRotacionar;
     private javax.swing.JRadioButton jRadioButtonSemOcultacao;
+    private javax.swing.JRadioButton jRadioButtonSemPreenchimento;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator11;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JToolBar.Separator jSeparator8;
@@ -826,46 +900,42 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g1 = jPanelXY.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelXY.getWidth(), jPanelXY.getHeight());
-       Ponto3d observador = new Ponto3d(0, 0, 3000);
+        Ponto3d observador = new Ponto3d(0, 0, 3000);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g1.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g1.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getY(),
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getY());
-                    g1.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getY(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getY());
-                    g1.drawLine(
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getY(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getY());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g1.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getY(),
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getY());
-                        g1.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getY(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getY());
-                        g1.drawLine(
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getY(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getY());
+                        zBuffer.add(face);
                     }
                 }
             }
+        }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g1.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
+                g1.fillPolygon(x, y, 3);
+                g1.setColor(Color.BLACK);
+            }
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY());
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
         }
     }
 
@@ -873,51 +943,48 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         Graphics g1 = jPanelPerpectiva.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
+        zBuffer=new ZBuffer(alvy.getVrp());
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g1.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    Ponto3d p1 =alvy.alvyRay(face.getP1());
-                        Ponto3d p2 =alvy.alvyRay(face.getP2());
-                        Ponto3d p3 =alvy.alvyRay(face.getP3());
-                        g1.drawLine(
-                                (int) p1.getX(),
-                                (int) p1.getY(),
-                                (int) p2.getX(),
-                                (int) p2.getY());
-                        g1.drawLine(
-                                (int) p1.getX(),
-                                (int) p1.getY(),
-                                (int) p3.getX(),
-                                (int) p3.getY());
-                        g1.drawLine(
-                                (int) p3.getX(),
-                                (int) p3.getY(),
-                                (int) p2.getX(),
-                                (int) p2.getY());
+                    Ponto3d p1 = alvy.alvyRay(face.getP1());
+                    Ponto3d p2 = alvy.alvyRay(face.getP2());
+                    Ponto3d p3 = alvy.alvyRay(face.getP3());
+                    zBuffer.add(new Face3d(p1, p2, p3, d.getCor()));
+                   
                 } else {
                     if (face.normal(alvy.getVrp()) < 0) {
-                        Ponto3d p1 =alvy.alvyRay(face.getP1());
-                        Ponto3d p2 =alvy.alvyRay(face.getP2());
-                        Ponto3d p3 =alvy.alvyRay(face.getP3());
-                        g1.drawLine(
-                                (int) p1.getX(),
-                                (int) p1.getY(),
-                                (int) p2.getX(),
-                                (int) p2.getY());
-                        g1.drawLine(
-                                (int) p1.getX(),
-                                (int) p1.getY(),
-                                (int) p3.getX(),
-                                (int) p3.getY());
-                        g1.drawLine(
-                                (int) p3.getX(),
-                                (int) p3.getY(),
-                                (int) p2.getX(),
-                                (int) p2.getY());
+                        Ponto3d p1 = alvy.alvyRay(face.getP1());
+                        Ponto3d p2 = alvy.alvyRay(face.getP2());
+                        Ponto3d p3 = alvy.alvyRay(face.getP3());
+                         zBuffer.add(new Face3d(p1, p2, p3, d.getCor()));
                     }
                 }
             }
+        }
+         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g1.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
+                g1.fillPolygon(x, y, 3);
+                g1.setColor(Color.BLACK);
+            }
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY());
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
+            g1.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
         }
     }
 
@@ -926,45 +993,41 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         g2.setColor(Controle.getCor());
         g2.fillRect(0, 0, jPanelXZ.getWidth(), jPanelXZ.getHeight());
         Ponto3d observador = new Ponto3d(0, 3000, 0);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g2.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g2.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getZ());
-                    g2.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getZ());
-                    g2.drawLine(
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getZ(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getZ());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g2.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getZ());
-                        g2.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getZ());
-                        g2.drawLine(
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getZ(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getZ());
+                        zBuffer.add(face);
                     }
                 }
             }
+        }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g2.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
+                g2.fillPolygon(x, y, 3);
+                g2.setColor(Color.BLACK);
+            }
+            g2.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ());
+            g2.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
+            g2.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
         }
     }
 
@@ -973,45 +1036,41 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         g3.setColor(Controle.getCor());
         g3.fillRect(0, 0, jPanelYZ.getWidth(), jPanelYZ.getHeight());
         Ponto3d observador = new Ponto3d(3000, 0, 0);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g3.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g3.drawLine(
-                            (int) face.getP1().getY(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP2().getY(),
-                            (int) face.getP2().getZ());
-                    g3.drawLine(
-                            (int) face.getP1().getY(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP3().getY(),
-                            (int) face.getP3().getZ());
-                    g3.drawLine(
-                            (int) face.getP2().getY(),
-                            (int) face.getP2().getZ(),
-                            (int) face.getP3().getY(),
-                            (int) face.getP3().getZ());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g3.drawLine(
-                                (int) face.getP1().getY(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP2().getY(),
-                                (int) face.getP2().getZ());
-                        g3.drawLine(
-                                (int) face.getP1().getY(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP3().getY(),
-                                (int) face.getP3().getZ());
-                        g3.drawLine(
-                                (int) face.getP2().getY(),
-                                (int) face.getP2().getZ(),
-                                (int) face.getP3().getY(),
-                                (int) face.getP3().getZ());
+                        zBuffer.add(face);
                     }
                 }
             }
+        }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g3.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
+                g3.fillPolygon(x, y, 3);
+                g3.setColor(Color.BLACK);
+            }
+            g3.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ());
+            g3.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
+            g3.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
         }
     }
 
@@ -1020,45 +1079,41 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         g4.setColor(Controle.getCor());
         g4.fillRect(0, 0, jPanelTodosXY.getWidth(), jPanelTodosXY.getHeight());
         Ponto3d observador = new Ponto3d(0, 0, 3000);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g4.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g4.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getY(),
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getY());
-                    g4.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getY(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getY());
-                    g4.drawLine(
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getY(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getY());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g4.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getY(),
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getY());
-                        g4.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getY(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getY());
-                        g4.drawLine(
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getY(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getY());
+                        zBuffer.add(face);
                     }
                 }
             }
+        }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g4.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
+                g4.fillPolygon(x, y, 3);
+                g4.setColor(Color.BLACK);
+            }
+            g4.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY());
+            g4.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
+            g4.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY());
         }
     }
 
@@ -1067,45 +1122,41 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         g5.setColor(Controle.getCor());
         g5.fillRect(0, 0, jPanelTodosXZ.getWidth(), jPanelTodosXZ.getHeight());
         Ponto3d observador = new Ponto3d(0, 3000, 0);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g5.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g5.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getZ());
-                    g5.drawLine(
-                            (int) face.getP1().getX(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getZ());
-                    g5.drawLine(
-                            (int) face.getP2().getX(),
-                            (int) face.getP2().getZ(),
-                            (int) face.getP3().getX(),
-                            (int) face.getP3().getZ());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g5.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getZ());
-                        g5.drawLine(
-                                (int) face.getP1().getX(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getZ());
-                        g5.drawLine(
-                                (int) face.getP2().getX(),
-                                (int) face.getP2().getZ(),
-                                (int) face.getP3().getX(),
-                                (int) face.getP3().getZ());
+                        zBuffer.add(face);
                     }
                 }
             }
+        }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g5.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
+                g5.fillPolygon(x, y, 3);
+                g5.setColor(Color.BLACK);
+            }
+            g5.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ());
+            g5.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
+            g5.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getX(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
         }
     }
 
@@ -1114,48 +1165,43 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         g6.setColor(Controle.getCor());
         g6.fillRect(0, 0, jPanelTodosYZ.getWidth(), jPanelTodosYZ.getHeight());
         Ponto3d observador = new Ponto3d(3000, 0, 0);
+        zBuffer = new ZBuffer(observador);
         for (Objeto3d d : controlador.Controle.getCena()) {
-            g6.setColor(d.getCor());
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
-                    g6.drawLine(
-                            (int) face.getP1().getY(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP2().getY(),
-                            (int) face.getP2().getZ());
-                    g6.drawLine(
-                            (int) face.getP1().getY(),
-                            (int) face.getP1().getZ(),
-                            (int) face.getP3().getY(),
-                            (int) face.getP3().getZ());
-                    g6.drawLine(
-                            (int) face.getP2().getY(),
-                            (int) face.getP2().getZ(),
-                            (int) face.getP3().getY(),
-                            (int) face.getP3().getZ());
+                    zBuffer.add(face);
                 } else {
                     if (face.normal(observador) < 0) {
-                        g6.drawLine(
-                                (int) face.getP1().getY(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP2().getY(),
-                                (int) face.getP2().getZ());
-                        g6.drawLine(
-                                (int) face.getP1().getY(),
-                                (int) face.getP1().getZ(),
-                                (int) face.getP3().getY(),
-                                (int) face.getP3().getZ());
-                        g6.drawLine(
-                                (int) face.getP2().getY(),
-                                (int) face.getP2().getZ(),
-                                (int) face.getP3().getY(),
-                                (int) face.getP3().getZ());
+                        zBuffer.add(face);
                     }
                 }
             }
         }
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            g6.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            if (jRadioButtonComPreenchimento.isSelected()) {
+                int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
+                int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
+                g6.fillPolygon(x, y, 3);
+                g6.setColor(Color.BLACK);
+            }
+            g6.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ());
+            g6.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP1().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
+            g6.drawLine(
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP2().getZ(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getY(),
+                    (int) zBuffer.getLista().get(i).getFace().getP3().getZ());
+        }
     }
-  
     private AlvyRay alvy =
             new AlvyRay(
             new Ponto3d(500, 500, 500),

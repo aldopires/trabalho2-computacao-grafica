@@ -26,6 +26,9 @@ public class Objeto3d {
     }
 
     public void setCor(Color cor) {
+        for(Face3d f:faces){
+            f.setCor(cor);
+        }
         this.cor = cor;
     }    
     

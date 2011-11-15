@@ -47,6 +47,12 @@ public class ZBuffer {
         double distZ = f.getCentro().getZ() - observador.getZ();
 	return(Math.sqrt(distX*distX + distY*distY + distZ*distZ)) ;
     }
+
+    public ArrayList<DistanciaFace> getLista() {
+        return lista;
+    }
+    
+    
     
     
 }

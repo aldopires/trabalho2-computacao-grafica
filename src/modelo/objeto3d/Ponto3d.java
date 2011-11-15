@@ -4,6 +4,8 @@
  */
 package modelo.objeto3d;
 
+import controlador.Vetor;
+
 /**
  *
  * @author TyTu
@@ -111,6 +113,19 @@ public class Ponto3d {
         return aux;
     }
     
+    public Ponto3d sub(Ponto3d ponto) {
+        return new Ponto3d(
+        this.getX() - ponto.getX(),
+        this.getY() - ponto.getY(),
+        this.getZ() - ponto.getZ()
+                );
+  }
     
+     public Ponto3d soma(Vetor ponto) {
+         return new Ponto3d(
+            this.getX() + ponto.getX(),
+            this.getY() + ponto.getY(),
+            this.getZ() + ponto.getZ());
+  }
     
 }
