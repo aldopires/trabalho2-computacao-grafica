@@ -4,8 +4,6 @@
  */
 package controlador;
 
-import modelo.objeto2d.Objeto2d;
-import modelo.objeto3d.Face3d;
 import modelo.objeto3d.Objeto3d;
 import modelo.objeto3d.Ponto3d;
 
