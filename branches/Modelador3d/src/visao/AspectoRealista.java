@@ -31,21 +31,18 @@ public class AspectoRealista extends javax.swing.JFrame {
     public AspectoRealista() {
         initComponents();
     }
-    
     double zMin = Double.MAX_VALUE, zMax = Double.MIN_VALUE;
+    int tamX, tamY;
+    Ponto3d[][] tela;
 
     AspectoRealista(HashSet<Objeto3d> cena, double xMin, double xMax, double yMin, double yMax) {
         initComponents();
         this.cena = cena;
+        tamX = (int) (xMax - xMin);
+        tamY = (int) (yMax - yMin);
+        tela = new Ponto3d[tamX][tamY];
+        Painel.setBounds(1, 1, tamX, tamY);
         
-       
-
-
-
-
-
-
-
         /*************************************************************/
 //        int x=0,y=0;
 //        for(int i=(int) xMin;i<(int)xMax;i++){
@@ -72,21 +69,20 @@ public class AspectoRealista extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
         Painel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        Painel.setMinimumSize(new java.awt.Dimension(50, 50));
-        Painel.setPreferredSize(new java.awt.Dimension(400, 300));
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
         Painel.setLayout(PainelLayout);
         PainelLayout.setHorizontalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 549, Short.MAX_VALUE)
         );
         PainelLayout.setVerticalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         jButton1.setText("jButton1");
@@ -102,15 +98,15 @@ public class AspectoRealista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(161, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(Painel, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(Painel, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -120,76 +116,83 @@ public class AspectoRealista extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
-     Graphics g = Painel.getGraphics();
-        g.setColor(Color.red);
-        //varrer em x
-        //varrer em y
-        //montar o vetor de zmax-zmin
-        //verificar se tem intersecção com o objeto
-        //se tiver procura a face q tem intersecção
-        //encontra o ponto q tem intersecção
-        //calcula a cor dele
-        //não tem colocar a cor de fundo
+    
+    
+    //varrer em x
+    //varrer em y
+    //montar o vetor de zmax-zmin
+    //verificar se tem intersecção com o objeto
+    //se tiver procura a face q tem intersecção
+    //encontra o ponto q tem intersecção
+    //calcula a cor dele
+    //não tem colocar a cor de fundo
 
-        /************************************************************/
-        for (Objeto3d obj : cena) {
-            for (Face3d face : obj.getFaces()) {
-                if (zMin > face.getP1().getZ()) {
-                    zMin = face.getP1().getZ();
-                }
-                if (zMin > face.getP2().getZ()) {
-                    zMin = face.getP2().getZ();
-                }
-                if (zMin > face.getP3().getZ()) {
-                    zMin = face.getP3().getZ();
-                }
-                if (zMax < face.getP1().getZ()) {
-                    zMax = face.getP1().getZ();
-                }
-                if (zMax < face.getP2().getZ()) {
-                    zMax = face.getP2().getZ();
-                }
-                if (zMax < face.getP3().getZ()) {
-                    zMax = face.getP3().getZ();
-                }
+    /************************************************************/
+    for (Objeto3d obj : cena) {
+        for (Face3d face : obj.getFaces()) {
+            if (zMin > face.getP1().getZ()) {
+                zMin = face.getP1().getZ();
+            }
+            if (zMin > face.getP2().getZ()) {
+                zMin = face.getP2().getZ();
+            }
+            if (zMin > face.getP3().getZ()) {
+                zMin = face.getP3().getZ();
+            }
+            if (zMax < face.getP1().getZ()) {
+                zMax = face.getP1().getZ();
+            }
+            if (zMax < face.getP2().getZ()) {
+                zMax = face.getP2().getZ();
+            }
+            if (zMax < face.getP3().getZ()) {
+                zMax = face.getP3().getZ();
             }
         }
-HashSet<Ponto3d> listaPonto3d = new HashSet<Ponto3d>();
-        for (int i = 0; i < 400; i++) { //varre o tamanho em x
-            for (int j = 0; j < 300; j++) { //varre o tamanho em y
-                
-                Vetor vetor = new Vetor(new Ponto3d(i, j, zMin), new Ponto3d(i, j, zMax)); //define o vetor
-                Raio raio = new Raio(new Ponto3d(i, j, zMin), vetor);
-                
-                for (Objeto3d obj : cena) {
-                    for (Face3d face : obj.getFaces()) { //procura uma face que tem intersecção
-                        Ponto3d intersecao = face.getIntersecao(raio);
-                        if(intersecao!=null){
-                            System.out.println("x="+i+" y="+j);
-                            System.out.println("interseccao=" + intersecao);
-                            g.setColor(Color.red);
-                            g.drawLine((int)intersecao.getX(), (int)intersecao.getY(), (int)intersecao.getX(), (int)intersecao.getY());
-                            listaPonto3d.add(intersecao);
+    }
+
+    for (int i = 0; i < tamX; i++) { //varre o tamanho em x
+        for (int j = 0; j < tamY; j++) { //varre o tamanho em y
+
+            Vetor vetor = new Vetor(new Ponto3d(i, j, zMin), new Ponto3d(i, j, zMax)); //define o vetor
+            Raio raio = new Raio(new Ponto3d(i, j, zMin), vetor);
+
+            for (Objeto3d obj : cena) {
+                for (Face3d face : obj.getFaces()) { //procura uma face que tem intersecção
+                    Ponto3d intersecao = face.getIntersecao(raio);
+                    if (intersecao != null) {
+                        intersecao.setCor(face.getCor());
+                        if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < 400) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < 300)) {
+                            if (tela[(int) intersecao.getX()][(int) intersecao.getY()] != null) {
+                                if (intersecao.getZ() < tela[(int) intersecao.getX()][(int) intersecao.getY()].getZ()) {
+                                    tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
+                                }
+                            } else {
+                                tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
+                            }
                         }
-                        intersecao = face.getIntersecao2(raio);
-                        if(intersecao!=null){
-                            System.out.println("x="+i+" y="+j);
-                            System.out.println("interseccao2=" + intersecao);                   
-                            g.setColor(Color.blue);
-                            g.drawLine((int)intersecao.getX(), (int)intersecao.getY(), (int)intersecao.getX(), (int)intersecao.getY());
-                            listaPonto3d.add(intersecao);
+                    }
+                    intersecao = face.getIntersecao2(raio);
+                    if (intersecao != null) {
+                        intersecao.setCor(face.getCor());
+                        if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < 400) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < 300)) {
+                            if (tela[(int) intersecao.getX()][(int) intersecao.getY()] != null) {
+                                if (intersecao.getZ() < tela[(int) intersecao.getX()][(int) intersecao.getY()].getZ()) {
+                                    tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
+                                }
+                            } else {
+                                tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
+                            }
                         }
                     }
                 }
-
             }
+
         }
-//        g.setColor(Color.GREEN);
-//        for(Ponto3d l1:listaPonto3d){
-//            for(Ponto3d l2:listaPonto3d){
-//                g.drawLine((int)l1.getX(), (int) l1.getY(), (int) l2.getX(), (int) l2.getY());
-//            }
-//        }
+    }
+
+
+    pintaJanela();
 }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -231,4 +234,16 @@ HashSet<Ponto3d> listaPonto3d = new HashSet<Ponto3d>();
     private javax.swing.JPanel Painel;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
+
+    private void pintaJanela() {
+       Graphics g = Painel.getGraphics();
+        for (int i = 0; i < 400; i++) { //varre o tamanho em x
+            for (int j = 0; j < 300; j++) { //varre o tamanho em y
+                if (tela[i][j] != null) {
+                    g.setColor(tela[i][j].getCor());
+                    g.drawLine(i, j, i, j);
+                }
+            }
+        }
+    }
 }
