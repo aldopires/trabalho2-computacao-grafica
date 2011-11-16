@@ -6,12 +6,13 @@ package modelo.objeto3d;
 
 import controlador.Vetor;
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  *
  * @author TyTu
  */
-public class Ponto3d {
+public class Ponto3d implements Serializable{
     private double x;
     private double y;
     private double z;

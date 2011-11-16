@@ -1,8 +1,9 @@
 package controlador;
 
+import java.io.Serializable;
 import modelo.objeto3d.Ponto3d;
 
-public class Vetor {
+public class Vetor implements Serializable{
   private double x, y, z;
 
   public Vetor(double x, double y, double z) {

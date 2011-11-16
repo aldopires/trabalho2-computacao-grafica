@@ -5,6 +5,7 @@
 package modelo.objeto3d;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author TyTu
  */
-public class Objeto3d {
+public class Objeto3d implements Serializable{
 
     private HashSet<Face3d> faces;
     private HashSet<Ponto3d> pontos;

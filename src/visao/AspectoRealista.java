@@ -10,6 +10,7 @@
  */
 package visao;
 
+import controlador.Luz;
 import controlador.Raio;
 import controlador.Vetor;
 import java.awt.Color;
@@ -34,15 +35,18 @@ public class AspectoRealista extends javax.swing.JFrame {
     double zMin = Double.MAX_VALUE, zMax = Double.MIN_VALUE;
     int tamX, tamY;
     Ponto3d[][] tela;
+    Luz luz;
+    Color fundo;
 
-    AspectoRealista(HashSet<Objeto3d> cena, double xMin, double xMax, double yMin, double yMax) {
+    AspectoRealista(HashSet<Objeto3d> cena, double xMin, double xMax, double yMin, double yMax, Luz l, Color f) {
         initComponents();
         this.cena = cena;
         tamX = (int) (xMax - xMin);
         tamY = (int) (yMax - yMin);
         tela = new Ponto3d[tamX][tamY];
+        luz = l;
         Painel.setBounds(1, 1, tamX, tamY);
-        
+        fundo=f;
         /*************************************************************/
 //        int x=0,y=0;
 //        for(int i=(int) xMin;i<(int)xMax;i++){
@@ -67,28 +71,37 @@ public class AspectoRealista extends javax.swing.JFrame {
 
         Painel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
         Painel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Painel.setPreferredSize(new java.awt.Dimension(400, 300));
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
         Painel.setLayout(PainelLayout);
         PainelLayout.setHorizontalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
         PainelLayout.setVerticalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGap(0, 298, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Renderizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Fechar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -97,17 +110,25 @@ public class AspectoRealista extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(Painel, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Painel, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -116,8 +137,8 @@ public class AspectoRealista extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
-    
-    
+
+
     //varrer em x
     //varrer em y
     //montar o vetor de zmax-zmin
@@ -150,50 +171,215 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         }
     }
-
-    for (int i = 0; i < tamX; i++) { //varre o tamanho em x
+    
+    System.out.print("Renderizando");
+    System.out.println("...");
+    int porcentagem = tamX/10;
+    for (int i = 0; i < tamX; i++) { //varre o tamanho em x 
+        if(i%porcentagem==0)
+            System.out.println(i/porcentagem+"0%");
         for (int j = 0; j < tamY; j++) { //varre o tamanho em y
 
-            Vetor vetor = new Vetor(new Ponto3d(i, j, zMin), new Ponto3d(i, j, zMax)); //define o vetor
-            Raio raio = new Raio(new Ponto3d(i, j, zMin), vetor);
+            Vetor vetor = new Vetor(new Ponto3d(i, j, zMax), new Ponto3d(i, j, zMin)); //define o vetor
+            Raio raio = new Raio(new Ponto3d(i, j, zMax), vetor);
 
             for (Objeto3d obj : cena) {
                 for (Face3d face : obj.getFaces()) { //procura uma face que tem intersecção
                     Ponto3d intersecao = face.getIntersecao(raio);
                     if (intersecao != null) {
                         intersecao.setCor(face.getCor());
-                        if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < 400) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < 300)) {
+                        if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < tamX) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < tamY)) {
                             if (tela[(int) intersecao.getX()][(int) intersecao.getY()] != null) {
                                 if (intersecao.getZ() < tela[(int) intersecao.getX()][(int) intersecao.getY()].getZ()) {
+                                    Raio objLuz = new Raio(intersecao, new Vetor(intersecao, luz.getPosicaoLuz()));
+                                    int cont = 0;
+
+                                    for (Objeto3d obj2 : cena) {
+                                        for (Face3d face2 : obj2.getFaces()) {
+                                            Ponto3d intersecao2 = face2.getIntersecao(objLuz);
+                                            if (intersecao2 != null) {
+                                                cont++;
+                                            }
+                                            intersecao2 = face2.getIntersecao2(objLuz);
+                                            if (intersecao2 != null) {
+                                                cont++;
+                                            }
+                                        }
+                                    }
+                                    if (cont == 0) {
+                                        double intensidade = Vetor.produtoInterno(face.getVetor(), objLuz.getDirecao());
+                                        int r = intersecao.getCor().getRed();
+                                        int g = intersecao.getCor().getGreen();
+                                        int b = intersecao.getCor().getBlue();
+                                        r = (int) (r + 255 * intensidade);
+                                        g = (int) (g + 255 * intensidade);
+                                        b = (int) (b + 255 * intensidade);
+                                        if(r<0)
+                                            r= intersecao.getCor().getRed();
+                                        if(r>255)
+                                            r=255;
+                                        if(b<0)
+                                            b= intersecao.getCor().getBlue();
+                                        if(b>255)
+                                            b=255;
+                                        if(g<0)
+                                            g= intersecao.getCor().getGreen();
+                                        if(g>255)
+                                            g=255;
+                                                    intersecao.setCor(new Color(r, g, b));
+                                                
+                                    }
+
+
                                     tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
                                 }
                             } else {
+                                Raio objLuz = new Raio(intersecao, new Vetor(intersecao, luz.getPosicaoLuz()));
+                                int cont = 0;
+
+                                for (Objeto3d obj2 : cena) {
+                                    for (Face3d face2 : obj2.getFaces()) {
+                                        Ponto3d intersecao2 = face2.getIntersecao(objLuz);
+                                        if (intersecao2 != null) {
+                                            cont++;
+                                        }
+                                        intersecao2 = face2.getIntersecao2(objLuz);
+                                        if (intersecao2 != null) {
+                                            cont++;
+                                        }
+                                    }
+                                }
+                                if (cont == 0) {
+                                    double intensidade = Vetor.produtoInterno(face.getVetor(), objLuz.getDirecao());
+                                    int r = intersecao.getCor().getRed();
+                                    int g = intersecao.getCor().getGreen();
+                                    int b = intersecao.getCor().getBlue();
+                                    r = (int) (r + 255 * intensidade);
+                                    g = (int) (g + 255 * intensidade);
+                                    b = (int) (b + 255 * intensidade);
+                                    if(r<0)
+                                            r= intersecao.getCor().getRed();
+                                        if(r>255)
+                                            r=255;
+                                        if(b<0)
+                                            b= intersecao.getCor().getBlue();
+                                        if(b>255)
+                                            b=255;
+                                        if(g<0)
+                                            g= intersecao.getCor().getGreen();
+                                        if(g>255)
+                                            g=255;
+                                                    intersecao.setCor(new Color(r, g, b));
+
+                                }
                                 tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
                             }
                         }
                     }
-                    intersecao = face.getIntersecao2(raio);
-                    if (intersecao != null) {
-                        intersecao.setCor(face.getCor());
-                        if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < 400) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < 300)) {
-                            if (tela[(int) intersecao.getX()][(int) intersecao.getY()] != null) {
-                                if (intersecao.getZ() < tela[(int) intersecao.getX()][(int) intersecao.getY()].getZ()) {
+                        intersecao = face.getIntersecao2(raio);
+                        if (intersecao != null) {
+                            intersecao.setCor(face.getCor());
+                            if (((int) intersecao.getX() >= 0 && (int) intersecao.getX() < 400) && ((int) intersecao.getY() >= 0 && (int) intersecao.getY() < 300)) {
+                                if (tela[(int) intersecao.getX()][(int) intersecao.getY()] != null) {
+                                    if (intersecao.getZ() < tela[(int) intersecao.getX()][(int) intersecao.getY()].getZ()) {
+
+                                        Raio objLuz = new Raio(intersecao, new Vetor(intersecao, luz.getPosicaoLuz()));
+                                        int cont = 0;
+
+                                        for (Objeto3d obj2 : cena) {
+                                            for (Face3d face2 : obj2.getFaces()) {
+                                                Ponto3d intersecao2 = face2.getIntersecao(objLuz);
+                                                if (intersecao2 != null) {
+                                                    cont++;
+                                                }
+                                                intersecao2 = face2.getIntersecao2(objLuz);
+                                                if (intersecao2 != null) {
+                                                    cont++;
+                                                }
+                                            }
+                                        }
+                                        if (cont == 0) {
+                                            double intensidade = Vetor.produtoInterno(face.getVetor(), objLuz.getDirecao());
+                                            int r = intersecao.getCor().getRed();
+                                            int g = intersecao.getCor().getGreen();
+                                            int b = intersecao.getCor().getBlue();
+                                            r = (int) (r + 255 * intensidade);
+                                            g = (int) (g + 255 * intensidade);
+                                            b = (int) (b + 255 * intensidade);
+                                           if(r<0)
+                                            r= intersecao.getCor().getRed();
+                                        if(r>255)
+                                            r=255;
+                                        if(b<0)
+                                            b= intersecao.getCor().getBlue();
+                                        if(b>255)
+                                            b=255;
+                                        if(g<0)
+                                            g= intersecao.getCor().getGreen();
+                                        if(g>255)
+                                            g=255;
+                                                    intersecao.setCor(new Color(r, g, b));
+
+                                        }
+                                        tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
+                                    }
+                                } else {
+                                    Raio objLuz = new Raio(intersecao, new Vetor(intersecao, luz.getPosicaoLuz()));
+                                    int cont = 0;
+
+                                    for (Objeto3d obj2 : cena) {
+                                        for (Face3d face2 : obj2.getFaces()) {
+                                            Ponto3d intersecao2 = face2.getIntersecao(objLuz);
+                                            if (intersecao2 != null) {
+                                                cont++;
+                                            }
+                                            intersecao2 = face2.getIntersecao2(objLuz);
+                                            if (intersecao2 != null) {
+                                                cont++;
+                                            }
+                                        }
+                                    }
+                                    if (cont == 0) {
+                                        double intensidade = Vetor.produtoInterno(face.getVetor(), objLuz.getDirecao());
+                                        int r = intersecao.getCor().getRed();
+                                        int g = intersecao.getCor().getGreen();
+                                        int b = intersecao.getCor().getBlue();
+                                        r = (int) (r + 255 * intensidade);
+                                        g = (int) (g + 255 * intensidade);
+                                        b = (int) (b + 255 * intensidade);
+                                        if(r<0)
+                                            r= intersecao.getCor().getRed();
+                                        if(r>255)
+                                            r=255;
+                                        if(b<0)
+                                            b= intersecao.getCor().getBlue();
+                                        if(b>255)
+                                            b=255;
+                                        if(g<0)
+                                            g= intersecao.getCor().getGreen();
+                                        if(g>255)
+                                            g=255;
+                                                    intersecao.setCor(new Color(r, g, b));
+                                    }
                                     tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
                                 }
-                            } else {
-                                tela[(int) intersecao.getX()][(int) intersecao.getY()] = intersecao;
                             }
                         }
-                    }
+                    
+
                 }
             }
-
         }
+
+
     }
-
-
     pintaJanela();
 }//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    // TODO add your handling code here:
+    dispose();
+}//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,17 +419,28 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 
     private void pintaJanela() {
-       Graphics g = Painel.getGraphics();
-        for (int i = 0; i < 400; i++) { //varre o tamanho em x
-            for (int j = 0; j < 300; j++) { //varre o tamanho em y
+        Graphics g = Painel.getGraphics();
+        System.out.println("Pintando");
+        for (int i = 0; i < tamX; i++) { //varre o tamanho em x
+            for (int j = 0; j < tamY; j++) { //varre o tamanho em y
                 if (tela[i][j] != null) {
                     g.setColor(tela[i][j].getCor());
+                    g.drawLine(i, j, i, j);
+                }else{
+                    g.setColor(fundo);
                     g.drawLine(i, j, i, j);
                 }
             }
         }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        pintaJanela();
     }
 }

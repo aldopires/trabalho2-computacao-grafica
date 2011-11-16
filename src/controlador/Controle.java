@@ -5,7 +5,16 @@
 package controlador;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashSet;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.objeto2d.Objeto2d;
 import modelo.objeto2d.Ponto2d;
 import modelo.objeto3d.Objeto3d;
@@ -28,6 +37,14 @@ public class Controle {
 
     public static void LimpaCena() {
         cena = new Cena();
+    }
+    
+    public static Luz getLuz(){
+        return cena.getLuz();
+    }
+    
+    public static void setLuz(Luz l){
+        cena.setLuz(l);
     }
 
     public static HashSet<Objeto3d> getCena() {
@@ -100,4 +117,79 @@ public class Controle {
         
         tela.atualiza();
     }
+    
+    
+       public static void gravar() {
+        FileOutputStream fo = null;
+        ObjectOutputStream oos = null;
+        try {
+            String path = new java.io.File(".").getCanonicalPath();
+            String nome = JOptionPane.showInputDialog("Nome do arquivo");
+            File arquivo =new File(path + "/" + nome + ".cena");
+            fo = new FileOutputStream(arquivo);
+            oos = new ObjectOutputStream(fo);
+            try {
+                
+                    oos.writeObject(cena);
+                
+            } catch (Exception ex) {
+                System.out.println("erro:"+ex);
+            }
+            
+            
+            
+        } catch (Exception ex) {
+        } finally {
+            try {
+                oos.close();
+                fo.close();
+            } catch (IOException ex) {
+                
+            }
+        }
+
+    }
+
+    public static void ler() {
+        
+        FileInputStream fo = null;
+        ObjectInputStream oos = null;
+        
+        try {
+            JFileChooser chooser = new JFileChooser(
+                    new java.io.File(".").getCanonicalPath());
+
+            chooser.setMultiSelectionEnabled(false);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+
+            String[] rjq = new String[]{"cena"};
+            chooser.addChoosableFileFilter(
+                    new FileNameExtensionFilter("cena file (*.cena)", rjq));
+            
+            int  option = chooser.showOpenDialog(null);
+
+            if (option == JFileChooser.APPROVE_OPTION) {
+                File arquivo = chooser.getSelectedFile();
+                fo = new FileInputStream(arquivo);
+                oos = new ObjectInputStream(fo);
+            }
+            try {
+                    cena= (Cena) oos.readObject();
+                    
+            } catch (Exception ex) {
+            }
+        } catch (IOException ex) {
+            System.out.println("Erro ao abrir arquivo.");;
+        } finally {
+            try {
+                oos.close();
+                fo.close();
+            } catch (IOException ex) {
+            }
+        }
+    }
+    
+    
+    
 }
