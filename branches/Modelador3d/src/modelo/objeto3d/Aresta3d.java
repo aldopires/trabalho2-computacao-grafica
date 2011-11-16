@@ -4,12 +4,14 @@
  */
 package modelo.objeto3d;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author TyTu
  */
-public class Aresta3d {
+public class Aresta3d implements Serializable{
     private Ponto3d p1;
     private Ponto3d p2;
 

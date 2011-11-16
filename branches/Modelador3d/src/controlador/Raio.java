@@ -1,8 +1,9 @@
 package controlador;
 
+import java.io.Serializable;
 import modelo.objeto3d.Ponto3d;
 
-public class Raio {
+public class Raio implements Serializable{
   private Ponto3d origem;
   private Vetor direcao;
 

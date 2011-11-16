@@ -4,13 +4,14 @@
  */
 package controlador;
 
+import java.io.Serializable;
 import modelo.objeto3d.Face3d;
 
 /**
  *
  * @author Marcos
  */
-public class DistanciaFace {
+public class DistanciaFace implements Serializable{
     private Face3d face;
     private double distancia;
 

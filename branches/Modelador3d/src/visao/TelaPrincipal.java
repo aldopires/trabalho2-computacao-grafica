@@ -12,6 +12,8 @@ package visao;
 
 import controlador.AlvyRay;
 import controlador.Controle;
+import controlador.Luz;
+import controlador.Vetor;
 import controlador.ZBuffer;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -76,10 +78,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemNovoObjeto = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItemEditarCena = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -420,6 +425,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemNovoObjeto);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("GravarCena");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setText("BuscarCena");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Editar");
@@ -455,6 +478,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("Luz");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -779,16 +811,32 @@ private void jRadioButtonSemPreenchimentoActionPerformed(java.awt.event.ActionEv
 private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRenderizarActionPerformed
 // TODO add your handling code here:
     HashSet<Objeto3d> cena = new HashSet<Objeto3d>();
-    for(Objeto3d obj: Controle.getCena()){
-        Objeto3d i= new Objeto3d();
-        for(Face3d f: obj.getFaces()){
+    for (Objeto3d obj : Controle.getCena()) {
+        Objeto3d i = new Objeto3d();
+        for (Face3d f : obj.getFaces()) {
             i.addFace(new Face3d(alvy.alvyRay(f.getP1()), alvy.alvyRay(f.getP2()), alvy.alvyRay(f.getP3()), f.getCor()));
         }
         i.setCor(obj.getCor());
         cena.add(i);
     }
-    new AspectoRealista(cena,alvy.getXmin(),alvy.getXmax(),alvy.getYmin(),alvy.getYmax()).setVisible(true);
+    new AspectoRealista(cena, alvy.getXmin(), alvy.getXmax(), alvy.getYmin(), alvy.getYmax(), new Luz(alvy.alvyRay(Controle.getLuz().getPosicaoLuz()), Controle.getLuz().getIe()), Controle.getCor()).setVisible(true);
 }//GEN-LAST:event_jButtonRenderizarActionPerformed
+
+private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    // TODO add your handling code here:
+    new EditarLuz(Controle.getLuz().getPosicaoLuz()).setVisible(true);
+}//GEN-LAST:event_jMenuItem3ActionPerformed
+
+private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    // TODO add your handling code here:
+    Controle.gravar();
+}//GEN-LAST:event_jMenuItem4ActionPerformed
+
+private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    // TODO add your handling code here:
+    Controle.ler();
+    atualiza();
+}//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -814,6 +862,9 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemEditarCena;
     private javax.swing.JMenuItem jMenuItemNovoObjeto;
     private javax.swing.JPanel jPanelPerpectiva;
@@ -912,7 +963,35 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g1.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g1.setColor(new Color(r, g, b));
+
+            //g1.setColor(zBuffer.getLista().get(i).getFace().getCor());
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
@@ -941,7 +1020,7 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
         Graphics g1 = jPanelPerpectiva.getGraphics();
         g1.setColor(Controle.getCor());
         g1.fillRect(0, 0, jPanelPerpectiva.getWidth(), jPanelPerpectiva.getHeight());
-        zBuffer=new ZBuffer(alvy.getVrp());
+        zBuffer = new ZBuffer(alvy.getVrp());
         for (Objeto3d d : controlador.Controle.getCena()) {
             for (Face3d face : d.getFaces()) {
                 if (isOcultacao()) {
@@ -949,19 +1028,45 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
                     Ponto3d p2 = alvy.alvyRay(face.getP2());
                     Ponto3d p3 = alvy.alvyRay(face.getP3());
                     zBuffer.add(new Face3d(p1, p2, p3, d.getCor()));
-                   
+
                 } else {
                     if (face.normal(alvy.getVrp()) < 0) {
                         Ponto3d p1 = alvy.alvyRay(face.getP1());
                         Ponto3d p2 = alvy.alvyRay(face.getP2());
                         Ponto3d p3 = alvy.alvyRay(face.getP3());
-                         zBuffer.add(new Face3d(p1, p2, p3, d.getCor()));
+                        zBuffer.add(new Face3d(p1, p2, p3, d.getCor()));
                     }
                 }
             }
         }
-         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g1.setColor(zBuffer.getLista().get(i).getFace().getCor());
+        for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
+            Vetor luz = new Vetor(alvy.alvyRay(zBuffer.getLista().get(i).getFace().getCentro() ),alvy.alvyRay(Controle.getLuz().getPosicaoLuz()));
+            double intensidade = Vetor.produtoInterno(luz,zBuffer.getLista().get(i).getFace().getVetor() );
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g1.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
@@ -1004,7 +1109,33 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g2.setColor(zBuffer.getLista().get(i).getFace().getCor());
+             Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g2.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
@@ -1047,7 +1178,33 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g3.setColor(zBuffer.getLista().get(i).getFace().getCor());
+            Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g3.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
@@ -1090,7 +1247,33 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g4.setColor(zBuffer.getLista().get(i).getFace().getCor());
+             Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g4.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
@@ -1133,7 +1316,33 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g5.setColor(zBuffer.getLista().get(i).getFace().getCor());
+             Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g5.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getX(), (int) zBuffer.getLista().get(i).getFace().getP2().getX(), (int) zBuffer.getLista().get(i).getFace().getP3().getX()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
@@ -1176,7 +1385,33 @@ private void jButtonRenderizarActionPerformed(java.awt.event.ActionEvent evt) {/
             }
         }
         for (int i = zBuffer.getLista().size() - 1; i >= 0; i--) {
-            g6.setColor(zBuffer.getLista().get(i).getFace().getCor());
+             Vetor luz = new Vetor(Controle.getLuz().getPosicaoLuz(),zBuffer.getLista().get(i).getFace().getCentro() );
+            double intensidade = Vetor.produtoInterno(zBuffer.getLista().get(i).getFace().getVetor(), luz);
+            int r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            int g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            int b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            r = (int) (r + 255 * intensidade);
+            g = (int) (g + 255 * intensidade);
+            b = (int) (b + 255 * intensidade);
+            if (r < 0) {
+                r = zBuffer.getLista().get(i).getFace().getCor().getRed();
+            }
+            if (r > 255) {
+                r = 255;
+            }
+            if (b < 0) {
+                b = zBuffer.getLista().get(i).getFace().getCor().getBlue();
+            }
+            if (b > 255) {
+                b = 255;
+            }
+            if (g < 0) {
+                g = zBuffer.getLista().get(i).getFace().getCor().getGreen();
+            }
+            if (g > 255) {
+                g = 255;
+            }
+            g6.setColor(new Color(r, g, b));
             if (jRadioButtonComPreenchimento.isSelected()) {
                 int[] x = {(int) zBuffer.getLista().get(i).getFace().getP1().getY(), (int) zBuffer.getLista().get(i).getFace().getP2().getY(), (int) zBuffer.getLista().get(i).getFace().getP3().getY()};
                 int[] y = {(int) zBuffer.getLista().get(i).getFace().getP1().getZ(), (int) zBuffer.getLista().get(i).getFace().getP2().getZ(), (int) zBuffer.getLista().get(i).getFace().getP3().getZ()};
