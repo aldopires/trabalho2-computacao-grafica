@@ -5,6 +5,7 @@
 package modelo.objeto3d;
 
 import controlador.Vetor;
+import java.awt.Color;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Ponto3d {
     private double x;
     private double y;
     private double z;
+    private Color cor;
 
     public Ponto3d(double x, double y, double z) {
         this.x = x;
@@ -26,6 +28,16 @@ public class Ponto3d {
         this.y = 0;
         this.z = 0;
     }
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+    
+    
     
  
     @Override

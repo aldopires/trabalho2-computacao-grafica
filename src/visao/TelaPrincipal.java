@@ -17,8 +17,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
-import modelo.objeto2d.Aresta2d;
-import modelo.objeto2d.Objeto2d;
 import modelo.objeto3d.Face3d;
 import modelo.objeto3d.Objeto3d;
 import modelo.objeto3d.Ponto3d;
@@ -252,7 +250,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosXY.setLayout(jPanelTodosXYLayout);
         jPanelTodosXYLayout.setHorizontalGroup(
             jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
         jPanelTodosXYLayout.setVerticalGroup(
             jPanelTodosXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +277,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosYZ.setLayout(jPanelTodosYZLayout);
         jPanelTodosYZLayout.setHorizontalGroup(
             jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
         jPanelTodosYZLayout.setVerticalGroup(
             jPanelTodosYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +304,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelTodosXZ.setLayout(jPanelTodosXZLayout);
         jPanelTodosXZLayout.setHorizontalGroup(
             jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
         jPanelTodosXZLayout.setVerticalGroup(
             jPanelTodosXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +326,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelPerpectiva.setLayout(jPanelPerpectivaLayout);
         jPanelPerpectivaLayout.setHorizontalGroup(
             jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
         jPanelPerpectivaLayout.setVerticalGroup(
             jPanelPerpectivaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +352,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelXY.setLayout(jPanelXYLayout);
         jPanelXYLayout.setHorizontalGroup(
             jPanelXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
         jPanelXYLayout.setVerticalGroup(
             jPanelXYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +376,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelXZ.setLayout(jPanelXZLayout);
         jPanelXZLayout.setHorizontalGroup(
             jPanelXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
         jPanelXZLayout.setVerticalGroup(
             jPanelXZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +400,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelYZ.setLayout(jPanelYZLayout);
         jPanelYZLayout.setHorizontalGroup(
             jPanelYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
         jPanelYZLayout.setVerticalGroup(
             jPanelYZLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,9 +465,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneCena, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
