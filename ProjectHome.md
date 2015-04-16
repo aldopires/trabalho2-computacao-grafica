@@ -1,0 +1,1 @@
+O objetivo deste trabalho é a construção de um sistema para Modelagem 3D e renderização por Ray Tracing.
